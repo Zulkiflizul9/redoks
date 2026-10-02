@@ -1,0 +1,3260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Redoks SMA Kelas 12: Media Interaktif Penyetaraan & Reaksi Redoks</title>
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-light: #4895ef;
+      --primary-dark: #3f37c9;
+      --ox-color: #f72585;
+      --ox-bg: #ffe5ec;
+      --red-color: #06b6d4;
+      --red-bg: #e0fbfc;
+      --dark: #0f172a;
+      --gray: #64748b;
+      --light: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --purple: #8b5cf6;
+      --radius: 16px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.07), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background: linear-gradient(135deg, #f8fafc 0%, #e2eafc 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER & NAVIGATION */
+    header {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+
+    .header-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, var(--ox-color), var(--primary));
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(247, 37, 133, 0.3);
+    }
+
+    .logo-title h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+    }
+
+    .logo-title p {
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-weight: 600;
+    }
+
+    nav {
+      display: flex;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 5px;
+      border-radius: 30px;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    .nav-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn:hover {
+      color: var(--primary);
+    }
+
+    .nav-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sound-toggle-btn {
+      background: #edf2f7;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+
+    .sound-toggle-btn:hover {
+      background: #e2e8f0;
+      transform: scale(1.05);
+    }
+
+    /* MAIN CONTAINER */
+    main {
+      flex: 1;
+      max-width: 1240px;
+      margin: 20px auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HERO BANNER */
+    .hero-banner {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #3f37c9 70%, #0284c7 100%);
+      color: white;
+      padding: 28px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .hero-text {
+      max-width: 720px;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .hero-text h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .hero-text p {
+      font-size: 0.95rem;
+      opacity: 0.92;
+      margin-bottom: 16px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat-item {
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 10px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* CARD STYLES */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .card-subtitle {
+      font-size: 0.92rem;
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+
+    /* GRID */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    /* 4 ELEMEN REAKSI REDOKS (SMA 12) */
+    .elem-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      position: relative;
+    }
+
+    .elem-card-header {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .elem-reduktor { border-top: 4px solid #d97706; }
+    .elem-reduktor .elem-card-header { color: #d97706; }
+
+    .elem-oksidator { border-top: 4px solid #7c3aed; }
+    .elem-oksidator .elem-card-header { color: #7c3aed; }
+
+    .elem-h-oksidasi { border-top: 4px solid var(--ox-color); }
+    .elem-h-oksidasi .elem-card-header { color: var(--ox-color); }
+
+    .elem-h-reduksi { border-top: 4px solid var(--red-color); }
+    .elem-h-reduksi .elem-card-header { color: var(--red-color); }
+
+    /* AUTOREDOKS BOX */
+    .autoredox-box {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #cbd5e1;
+      margin-top: 20px;
+    }
+
+    .autoredox-tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    /* SIMULATION CANVAS */
+    .sim-panel {
+      background: #0f172a;
+      border-radius: var(--radius);
+      padding: 20px;
+      color: white;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .sim-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .sim-selector {
+      display: flex;
+      gap: 8px;
+      background: #1e293b;
+      padding: 4px;
+      border-radius: 10px;
+    }
+
+    .sim-choice-btn {
+      background: transparent;
+      color: #94a3b8;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .sim-choice-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .sim-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+    .btn-success:hover {
+      background: #059669;
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-outline-dark {
+      background: white;
+      color: var(--dark);
+      border: 1px solid var(--border);
+    }
+    .btn-outline-dark:hover {
+      background: #f1f5f9;
+    }
+
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      height: 330px;
+      background: radial-gradient(circle at center, #1e293b 0%, #090d16 100%);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .sim-status-box {
+      margin-top: 15px;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      border-left: 4px solid var(--red-color);
+      font-size: 0.92rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .badge-val {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .badge-donor {
+      background: rgba(247, 37, 133, 0.3);
+      color: #ff70a6;
+      border: 1px solid #f72585;
+    }
+
+    .badge-acceptor {
+      background: rgba(6, 182, 212, 0.3);
+      color: #67e8f9;
+      border: 1px solid #06b6d4;
+    }
+
+    /* BILOKS EXPLORER / INTERACTIVE CALCULATOR (SMA 12) */
+    .biloks-calc-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      margin-top: 20px;
+    }
+
+    .species-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+    }
+
+    .species-pill-btn {
+      border: 1px solid var(--border);
+      background: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--dark);
+      transition: all 0.2s;
+    }
+
+    .species-pill-btn:hover {
+      border-color: var(--primary);
+    }
+
+    .species-pill-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .calc-breakdown-card {
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* DIFFICULTY LEVEL SELECTOR BAR */
+    .difficulty-level-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .difficulty-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .difficulty-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .diff-btn {
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      padding: 7px 15px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--gray);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .diff-btn:hover {
+      background: #f1f5f9;
+      color: var(--dark);
+      transform: translateY(-1px);
+    }
+
+    .diff-btn.active {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
+    }
+
+    /* ANIMASI JEMBATAN PERUBAHAN BILOKS */
+    .pbo-anim-card {
+      background: #0b132b;
+      border-radius: 14px;
+      border: 1px solid #1e293b;
+      padding: 18px;
+      margin-bottom: 20px;
+      color: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    }
+
+    .pbo-anim-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .pbo-anim-title {
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pbo-canvas-wrapper {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background: radial-gradient(circle at center, #1c2541 0%, #0b132b 100%);
+      border-radius: 12px;
+      border: 1px solid #3a506b;
+      overflow: hidden;
+    }
+
+    .pbo-status-banner {
+      margin-top: 12px;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-light);
+      font-size: 0.88rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ATOM CLICKABLE IN FORMULA & INSPECTOR (FITUR BARU) */
+    .atom-clickable-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #0f172a;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 14px 0;
+      font-family: 'Consolas', monospace;
+      font-size: 1.15rem;
+      color: white;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+    }
+
+    .atom-chip {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px dashed rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+      user-select: none;
+    }
+
+    .atom-chip:hover {
+      background: rgba(67, 97, 238, 0.3);
+      border-color: #38bdf8;
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .atom-chip.active {
+      background: rgba(247, 37, 133, 0.25);
+      border-color: var(--ox-color);
+      box-shadow: 0 0 12px rgba(247, 37, 133, 0.5);
+    }
+
+    .atom-floating-biloks {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--primary);
+      color: white;
+      margin-bottom: 2px;
+      opacity: 0;
+      transform: translateY(3px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+
+    .atom-chip.revealed .atom-floating-biloks,
+    .atom-chip:hover .atom-floating-biloks {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .atom-chip-label {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    /* INSPECTOR CARD */
+    .atom-inspector-card {
+      background: #ffffff;
+      border: 2px solid #38bdf8;
+      border-radius: 14px;
+      padding: 20px;
+      margin: 16px 0;
+      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.15);
+      animation: fadeIn 0.25s ease;
+      position: relative;
+    }
+
+    .atom-inspector-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .atom-inspector-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .atom-inspector-biloks-badge {
+      font-size: 1.1rem;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 20px;
+      color: white;
+    }
+
+    .atom-inspector-calc {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 14px;
+      border-left: 4px solid var(--primary);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    /* STEPPERS FOR PENYETARAAN (SMA 12) */
+    .subtabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .subtab-btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--gray);
+      transition: all 0.2s;
+    }
+
+    .subtab-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.25);
+    }
+
+    .stepper-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .stepper-nav::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      right: 30px;
+      height: 3px;
+      background: #e2e8f0;
+      z-index: 1;
+      transform: translateY(-50%);
+    }
+
+    .step-pill {
+      background: white;
+      border: 3px solid #cbd5e1;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--gray);
+      z-index: 2;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .step-pill.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: white;
+      transform: scale(1.12);
+      box-shadow: 0 0 0 5px rgba(67, 97, 238, 0.2);
+    }
+
+    .step-pill.completed {
+      border-color: var(--success);
+      background: var(--success);
+      color: white;
+    }
+
+    .step-card {
+      background: #f8fafc;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 22px;
+      min-height: 220px;
+    }
+
+    .step-explanation {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--dark);
+      background: white;
+      padding: 16px 20px;
+      border-radius: 10px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .step-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    /* QUIZ (HOTS SMA 12) */
+    .quiz-container {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .quiz-progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--ox-color), var(--primary));
+      width: 12.5%;
+      transition: width 0.3s ease;
+    }
+
+    .question-box {
+      font-size: 1.12rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      color: var(--dark);
+      line-height: 1.5;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .option-btn {
+      background: white;
+      border: 2px solid var(--border);
+      padding: 13px 18px;
+      border-radius: 12px;
+      text-align: left;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .option-btn:hover {
+      border-color: var(--primary-light);
+      background: #f8faff;
+      transform: translateX(4px);
+    }
+
+    .option-btn.correct {
+      border-color: var(--success);
+      background: #ecfdf5;
+      color: #065f46;
+      font-weight: 700;
+    }
+
+    .option-btn.incorrect {
+      border-color: var(--ox-color);
+      background: #fff1f2;
+      color: #9f1239;
+    }
+
+    .quiz-feedback {
+      padding: 14px 18px;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 0.92rem;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .quiz-feedback.show {
+      display: block;
+    }
+
+    .quiz-feedback.correct-feedback {
+      background: #d1fae5;
+      border-left: 4px solid var(--success);
+      color: #065f46;
+    }
+
+    .quiz-feedback.incorrect-feedback {
+      background: #ffe4e6;
+      border-left: 4px solid var(--ox-color);
+      color: #9f1239;
+    }
+
+    .score-modal {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .score-trophy {
+      font-size: 4rem;
+      margin-bottom: 12px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+
+    /* FOOTER */
+    footer {
+      background: white;
+      border-top: 1px solid var(--border);
+      padding: 18px;
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.82rem;
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        width: 100%;
+      }
+      .difficulty-level-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-container">
+      <div class="logo-area">
+        <div class="logo-badge">⚡</div>
+        <div class="logo-title">
+          <h1>Master Redoks SMA Kelas 12</h1>
+          <p>Kimia SMA / Fase F &bull; Konsep Mendalam, Lab Simulasi & Penyetaraan Reaksi (PBO & Ion-Elektron)</p>
+        </div>
+      </div>
+
+      <nav>
+        <button class="nav-btn active" onclick="switchTab('konsep')">
+          <span>💡</span> Konsep Redoks SMA
+        </button>
+        <button class="nav-btn" onclick="switchTab('simulasi')">
+          <span>🔬</span> Lab Transfer Elektron
+        </button>
+        <button class="nav-btn" onclick="switchTab('biloks-calc')">
+          <span>⚖️</span> Penentuan Biloks Spesies
+        </button>
+        <button class="nav-btn" onclick="switchTab('penyetaraan')">
+          <span>🛠️</span> Penyetaraan Reaksi
+        </button>
+        <button class="nav-btn" onclick="switchTab('kuis')">
+          <span>📝</span> Bank Soal UTBK/HOTS
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <button class="sound-toggle-btn" id="soundBtn" onclick="toggleSound()" title="Aktifkan/Matikan Suara">
+          🔔
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- ============================================== -->
+    <!-- TAB 1: KONSEP REDOKS SMA KELAS 12              -->
+    <!-- ============================================== -->
+    <div id="tab-konsep" class="tab-content active">
+      <div class="hero-banner">
+        <div class="hero-text">
+          <span class="hero-badge">Kimia Fisik &bull; Kelas 12 SMA</span>
+          <h2>Reaksi Redoks & Penyetaraan Persamaan Reaksi</h2>
+          <p>
+            Di Kelas 12 SMA, Reaksi Redoks dipelajari secara mendalam sebagai fondasi dari <strong>Elektrokimia (Sel Volta & Sel Elektrolisis)</strong>. Reaksi redoks melibatkan 4 komponen utama (Reduktor, Oksidator, Hasil Oksidasi, dan Hasil Reduksi) serta peristiwa khusus seperti <strong>Autoredoks (Disproporsionasi)</strong> dan <strong>Konproporsionasi</strong>.
+          </p>
+          <div class="hero-stats">
+            <div class="hero-stat-item">🎯 4 Komponen Reaksi Redoks</div>
+            <div class="hero-stat-item">🔄 Disproporsionasi & Konproporsionasi</div>
+            <div class="hero-stat-item">⚖️ Aturan Biloks Poliatomik & Pengecualian</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 KOMPONEN REAKSI REDOKS -->
+      <div class="card">
+        <div class="card-title">
+          <span>📌</span> 4 Komponen Analisis Reaksi Redoks Kelas 12
+        </div>
+        <p class="card-subtitle">
+          Pada soal-soal Ujian Sekolah dan UTBK/SNBT, siswa dituntut mampu mengidentifikasi keempat unsur ini dari suatu persamaan reaksi:
+        </p>
+
+        <div class="grid-4">
+          <div class="elem-card elem-reduktor">
+            <div class="elem-card-header">1. REDUKTOR (Pereduksi)</div>
+            <p style="font-size: 0.88rem;">
+              Zat di <strong>ruas kiri (reaktan)</strong> yang melepaskan elektron dan mengalami <strong>OKSIDASI</strong> (Biloks Naik).
+            </p>
+          </div>
+
+          <div class="elem-card elem-oksidator">
+            <div class="elem-card-header">2. OKSIDATOR (Pengoksidasi)</div>
+            <p style="font-size: 0.88rem;">
+              Zat di <strong>ruas kiri (reaktan)</strong> yang menarik elektron dan mengalami <strong>REDUKSI</strong> (Biloks Turun).
+            </p>
+          </div>
+
+          <div class="elem-card elem-h-oksidasi">
+            <div class="elem-card-header">3. HASIL OKSIDASI</div>
+            <p style="font-size: 0.88rem;">
+              Zat di <strong>ruas kanan (produk)</strong> yang dihasilkan dari peristiwa oksidasi zat reduktor.
+            </p>
+          </div>
+
+          <div class="elem-card elem-h-reduksi">
+            <div class="elem-card-header">4. HASIL REDUKSI</div>
+            <p style="font-size: 0.88rem;">
+              Zat di <strong>ruas kanan (produk)</strong> yang dihasilkan dari peristiwa reduksi zat oksidator.
+            </p>
+          </div>
+        </div>
+
+        <!-- CONTOH BEDAH SOAL -->
+        <div style="margin-top: 20px; background: #0f172a; color: white; padding: 18px 22px; border-radius: 12px; font-family: monospace; font-size: 1.05rem;">
+          <div style="color: #94a3b8; font-size: 0.82rem; margin-bottom: 6px;">CONTOH ANALISIS REAKSI:</div>
+          <div>Zn<sub>(s)</sub> + 2HCl<sub>(aq)</sub> &rarr; ZnCl<sub>2(aq)</sub> + H<sub>2(g)</sub></div>
+          <div style="font-size: 0.85rem; color: #cbd5e1; margin-top: 10px; line-height: 1.7; font-family: system-ui;">
+            &bull; <strong>Reduktor:</strong> Zn (Biloks naik dari 0 ke +2)<br>
+            &bull; <strong>Oksidator:</strong> HCl atau ion H⁺ (Biloks H turun dari +1 ke 0)<br>
+            &bull; <strong>Hasil Oksidasi:</strong> ZnCl₂<br>
+            &bull; <strong>Hasil Reduksi:</strong> H₂
+          </div>
+        </div>
+      </div>
+
+      <!-- DISPROPORSIONASI VS KONPROPORSIONASI -->
+      <div class="card">
+        <div class="card-title">
+          <span>🔄</span> Reaksi Khusus: Autoredoks (Disproporsionasi) vs Konproporsionasi
+        </div>
+        <p class="card-subtitle">
+          Salah satu materi khas kelas 12 yang sangat sering muncul di seleksi masuk perguruan tinggi:
+        </p>
+
+        <div class="grid-2">
+          <!-- Disproporsionasi -->
+          <div class="autoredox-box" style="border-left: 5px solid #ec4899;">
+            <span class="autoredox-tag" style="background: #fdf2f8; color: #be185d;">AUTOREDOKS / DISPROPORSIONASI</span>
+            <h4 style="color: #9d174d; margin-bottom: 8px;">Satu Zat Mengalami Oksidasi Sekaligus Reduksi</h4>
+            <p style="font-size: 0.9rem; color: #475569; margin-bottom: 12px;">
+              Reaktan yang sama bertindak sebagai <strong>reduktor sekaligus oksidator</strong>.
+            </p>
+            <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; font-family: monospace; font-size: 0.92rem;">
+              <strong>Cl₂</strong> + 2NaOH &rarr; Na<strong>Cl</strong> + Na<strong>Cl</strong>O + H₂O<br>
+              <small style="color: var(--gray); font-family: system-ui;">
+                &bull; Cl₂ (0) &rarr; Cl⁻ (-1) [Reduksi]<br>
+                &bull; Cl₂ (0) &rarr; ClO⁻ (+1) [Oksidasi]
+              </small>
+            </div>
+          </div>
+
+          <!-- Konproporsionasi -->
+          <div class="autoredox-box" style="border-left: 5px solid #3b82f6;">
+            <span class="autoredox-tag" style="background: #eff6ff; color: #1d4ed8;">KONPROPORSIONASI</span>
+            <h4 style="color: #1e40af; margin-bottom: 8px;">Dua Zat Berbeda Menghasilkan Satu Produk Sama</h4>
+            <p style="font-size: 0.9rem; color: #475569; margin-bottom: 12px;">
+              Unsur dari dua senyawa pereaksi yang berbeda biloksnya bereaksi menghasilkan produk dengan biloks yang sama.
+            </p>
+            <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; font-family: monospace; font-size: 0.92rem;">
+              2H₂<strong>S</strong> + <strong>S</strong>O₂ &rarr; 3<strong>S</strong> + 2H₂O<br>
+              <small style="color: var(--gray); font-family: system-ui;">
+                &bull; H₂S (-2) &rarr; S (0) [Oksidasi]<br>
+                &bull; SO₂ (+4) &rarr; S (0) [Reduksi]
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATURAN & PENGECUALIAN BILOKS KELAS 12 -->
+      <div class="card">
+        <div class="card-title">
+          <span>⚠️</span> Pengecualian Aturan Biloks yang Sering Mengelabui Siswa Kelas 12
+        </div>
+        <div class="grid-3">
+          <div style="background: #fffbeb; padding: 16px; border-radius: 10px; border-left: 4px solid var(--warning); font-size: 0.88rem;">
+            <strong style="color: #b45309; display:block; margin-bottom: 4px;">Pengecualian Oksigen:</strong>
+            &bull; Umumnya = <strong>-2</strong><br>
+            &bull; Pada <strong>Peroksida</strong> (H₂O₂, Na₂O₂) = <strong>-1</strong><br>
+            &bull; Pada <strong>Superoksida</strong> (KO₂) = <strong>-½</strong><br>
+            &bull; Pada senyawa dengan F (OF₂) = <strong>+2</strong>
+          </div>
+
+          <div style="background: #eff6ff; padding: 16px; border-radius: 10px; border-left: 4px solid var(--primary); font-size: 0.88rem;">
+            <strong style="color: #1d4ed8; display:block; margin-bottom: 4px;">Pengecualian Hidrogen:</strong>
+            &bull; Umumnya = <strong>+1</strong><br>
+            &bull; Pada <strong>Hidrida Logam</strong> (NaH, CaH₂, LiH) = <strong>-1</strong> karena H berikatan dengan logam yang lebih elektropositif.
+          </div>
+
+          <div style="background: #fdf2f8; padding: 16px; border-radius: 10px; border-left: 4px solid var(--ox-color); font-size: 0.88rem;">
+            <strong style="color: #be185d; display:block; margin-bottom: 4px;">Halogen (Golongan VIIA):</strong>
+            &bull; Biloks Fluorin (F) selalu <strong>-1</strong>.<br>
+            &bull; Cl, Br, I bernilai -1 jika berikatan biner dengan logam, tetapi dapat bernilai positif (+1, +3, +5, +7) jika berikatan dengan oksigen (misal: ClO₃⁻ = +5, ClO₄⁻ = +7).
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- TAB 2: LAB TRANSFER ELEKTRON (CANVAS 2D)        -->
+    <!-- ============================================== -->
+    <div id="tab-simulasi" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <span>🔬</span> Laboratorium Virtual: Visualisasi Transfer Elektron & Penentuan Mol e⁻ (n)
+        </div>
+        <p class="card-subtitle">
+          Dalam stoikiometri redoks dan elektrokimia SMA kelas 12, jumlah mol elektron yang terlibat ($n$) sangat penting untuk perhitungan Hukum Faraday dan Potensial Sel ($E^\circ_{\text{sel}}$).
+        </p>
+
+        <div class="sim-panel">
+          <div class="sim-header">
+            <div class="sim-selector">
+              <button class="sim-choice-btn active" id="simMode1" onclick="changeSimMode('zncu')">
+                Zn + Cu²⁺ &rarr; Zn²⁺ + Cu (n = 2e⁻)
+              </button>
+              <button class="sim-choice-btn" id="simMode2" onclick="changeSimMode('mno4fe')">
+                MnO₄⁻ + 5Fe²⁺ &rarr; Mn²⁺ + 5Fe³⁺ (n = 5e⁻)
+              </button>
+            </div>
+
+            <div class="sim-controls">
+              <button class="btn btn-success" id="playBtn" onclick="toggleSim()">
+                <span>▶️</span> Mainkan Animasi
+              </button>
+              <button class="btn btn-outline" onclick="resetSim()">
+                <span>🔄</span> Reset
+              </button>
+              <button class="btn btn-outline" onclick="stepSim()">
+                <span>⏭️</span> Langkah
+              </button>
+            </div>
+          </div>
+
+          <div class="canvas-container">
+            <canvas id="redoxCanvas"></canvas>
+          </div>
+
+          <div class="sim-status-box">
+            <div id="simStatusDesc">
+              Status: Tekan tombol <strong>"Mainkan Animasi"</strong> untuk memulai perpindahan elektron!
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <span class="badge-val badge-donor" id="donorStatus">Donor (Zn)</span>
+              <span class="badge-val badge-acceptor" id="acceptorStatus">Akseptor (Cu²⁺)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div style="background: #fff5f8; padding: 18px; border-radius: 12px; border-left: 4px solid var(--ox-color);">
+            <h4 style="color: var(--ox-color); margin-bottom: 6px;" id="simDonorTitle">Reaksi Oksidasi (Anoda):</h4>
+            <p style="font-size: 0.9rem;" id="simDonorDesc">
+              Logam Seng melepaskan 2 mol elektron: <strong>Zn &rarr; Zn²⁺ + 2e⁻</strong>.<br>
+              <strong>Peran:</strong> Reduktor &bull; Biloks naik dari 0 ke +2 &bull; Melepaskan elektron.
+            </p>
+          </div>
+
+          <div style="background: #f0f9ff; padding: 18px; border-radius: 12px; border-left: 4px solid var(--red-color);">
+            <h4 style="color: var(--red-color); margin-bottom: 6px;" id="simAcceptorTitle">Reaksi Reduksi (Katoda):</h4>
+            <p style="font-size: 0.9rem;" id="simAcceptorDesc">
+              Kation Tembaga(II) menangkap 2 mol elektron: <strong>Cu²⁺ + 2e⁻ &rarr; Cu</strong>.<br>
+              <strong>Peran:</strong> Oksidator &bull; Biloks turun dari +2 ke 0 &bull; Menerima elektron.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- TAB 3: KALKULATOR & PENENTUAN BILOKS SPESIES   -->
+    <!-- ============================================== -->
+    <div id="tab-biloks-calc" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <span>⚖️</span> Penentuan Biloks Atom Pusat pada Senyawa & Ion Poliatomik
+        </div>
+        <p class="card-subtitle">
+          Klik pada salah satu ion/senyawa populer di bawah untuk melihat rincian aljabar perhitungan bilangan oksidasinya:
+        </p>
+
+        <div class="species-pills">
+          <button class="species-pill-btn active" onclick="loadBiloksSpecies('Cr2O7')">Dikromat (Cr₂O₇²⁻)</button>
+          <button class="species-pill-btn" onclick="loadBiloksSpecies('MnO4')">Permanganat (MnO₄⁻)</button>
+          <button class="species-pill-btn" onclick="loadBiloksSpecies('C2O4')">Oksalat (C₂O₄²⁻)</button>
+          <button class="species-pill-btn" onclick="loadBiloksSpecies('H2O2')">Hidrogen Peroksida (H₂O₂)</button>
+          <button class="species-pill-btn" onclick="loadBiloksSpecies('NaH')">Natrium Hidrida (NaH)</button>
+          <button class="species-pill-btn" onclick="loadBiloksSpecies('S2O3')">Tiosulfat (S₂O₃²⁻)</button>
+        </div>
+
+        <div class="calc-breakdown-card" id="biloksBreakdownArea">
+          <!-- Diisi otomatis oleh JavaScript -->
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- TAB 4: PENYETARAAN PERSAMAAN REDOKS BERJENJANG -->
+    <!-- ============================================== -->
+    <div id="tab-penyetaraan" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <span>🛠️</span> Laboratorium Penyetaraan Reaksi Redoks Berjenjang (Mudah &rarr; Sulit)
+        </div>
+        <p class="card-subtitle">
+          Dilengkapi <strong>Fitur Klik Setiap Unsur</strong> untuk membuka nilai biloks & cara hitung aljabarnya secara interaktif!
+        </p>
+
+        <!-- Subtabs Metode -->
+        <div class="subtabs">
+          <button class="subtab-btn active" id="btn-pbo" onclick="switchMethod('pbo')">
+            1. Metode Perubahan Biloks (PBO)
+          </button>
+          <button class="subtab-btn" id="btn-ion" onclick="switchMethod('ion')">
+            2. Metode Setengah Reaksi (Ion-Elektron)
+          </button>
+        </div>
+
+        <!-- ================= METHOD 1: PBO ================= -->
+        <div id="method-pbo">
+          <!-- DIFFICULTY BAR FOR PBO -->
+          <div class="difficulty-level-bar">
+            <div class="difficulty-title">
+              <span>🎯</span> Tingkat Kesulitan Reaksi:
+            </div>
+            <div class="difficulty-pills">
+              <button class="diff-btn active" id="diffPbo1" onclick="setPboReactionLevel(1)">
+                🟢 Level 1: Mudah (Dasar)
+              </button>
+              <button class="diff-btn" id="diffPbo2" onclick="setPboReactionLevel(2)">
+                🟡 Level 2: Sedang (Indeks Ganda)
+              </button>
+              <button class="diff-btn" id="diffPbo3" onclick="setPboReactionLevel(3)">
+                🔴 Level 3: Sulit (Suasana Basa)
+              </button>
+              <button class="diff-btn" id="diffPbo4" onclick="setPboReactionLevel(4)">
+                🟣 Level 4: HOTS (Reaksi Molekul)
+              </button>
+            </div>
+          </div>
+
+          <!-- ANIMASI JEMBATAN BILOKS CANVAS -->
+          <div class="pbo-anim-card">
+            <div class="pbo-anim-header">
+              <div class="pbo-anim-title" id="pboCurrentReactionTitle">
+                <span>✨</span> Jembatan Biloks: MnO₄⁻ + Fe²⁺ &rarr; Mn²⁺ + Fe³⁺
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-success" style="padding: 5px 12px; font-size: 0.82rem;" id="pboAutoPlayBtn" onclick="togglePboAutoPlay()">
+                  <span id="pboPlayIcon">▶️</span> Putar Animasi Jembatan
+                </button>
+                <button class="btn btn-outline" style="padding: 5px 12px; font-size: 0.82rem;" onclick="resetPboStepOnly()">
+                  <span>🔄</span> Reset
+                </button>
+              </div>
+            </div>
+
+            <div class="pbo-canvas-wrapper">
+              <canvas id="pboBridgeCanvas"></canvas>
+            </div>
+
+            <div class="pbo-status-banner">
+              <div id="pboAnimStatusText">
+                Langkah 1: Menentukan nilai biloks atom yang berubah.
+              </div>
+              <div style="font-size: 0.78rem; color: #94a3b8;" id="pboStepHint">
+                💡 Klik langsung atom pada kanvas atau rumus di bawah untuk bedah biloks!
+              </div>
+            </div>
+          </div>
+
+          <!-- Stepper nav -->
+          <div class="stepper-nav">
+            <div class="step-pill active" id="pbo-nav-1" onclick="jumpPboStep(1)">1</div>
+            <div class="step-pill" id="pbo-nav-2" onclick="jumpPboStep(2)">2</div>
+            <div class="step-pill" id="pbo-nav-3" onclick="jumpPboStep(3)">3</div>
+            <div class="step-pill" id="pbo-nav-4" onclick="jumpPboStep(4)">4</div>
+            <div class="step-pill" id="pbo-nav-5" onclick="jumpPboStep(5)">5</div>
+          </div>
+
+          <!-- Step Display -->
+          <div class="step-card">
+            <h4 id="pboStepTitle" style="color: var(--dark); font-size: 1.1rem; margin-bottom: 10px;">
+              Langkah 1: Menentukan Biloks Seluruh Atom
+            </h4>
+
+            <!-- INTERACTIVE CLICKABLE FORMULA -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 8px;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: #475569;">
+                👇 <strong>KLIK SETIAP UNSUR DI BAWAH</strong> untuk melihat nilai & cara hitung biloksnya:
+              </span>
+              <button class="btn btn-outline-dark" style="padding: 4px 10px; font-size: 0.78rem;" id="togglePboBiloksBtn" onclick="toggleAllPboAtomBiloks()">
+                👁️ Tampilkan Semua Biloks
+              </button>
+            </div>
+
+            <div class="atom-clickable-container" id="pboClickableFormula">
+              <!-- Diisi otomatis oleh JavaScript -->
+            </div>
+
+            <!-- PANEL INSPEKTUR BILOKS UNSUR -->
+            <div class="atom-inspector-card" id="pboAtomInspectorPanel" style="display: none;">
+              <!-- Diisi otomatis saat atom diklik -->
+            </div>
+
+            <div class="step-explanation" id="pboExplanation">
+              Memuat penjelasan langkah...
+            </div>
+
+            <div class="step-actions">
+              <button class="btn btn-outline-dark" id="pboPrevBtn" onclick="prevPboStep()" disabled>
+                &larr; Langkah Sebelumnya
+              </button>
+              <button class="btn btn-primary" id="pboNextBtn" onclick="nextPboStep()">
+                Langkah Berikutnya &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= METHOD 2: SETENGAH REAKSI ================= -->
+        <div id="method-ion" style="display: none;">
+          <!-- DIFFICULTY BAR FOR ION-ELECTRON -->
+          <div class="difficulty-level-bar">
+            <div class="difficulty-title">
+              <span>🎯</span> Tingkat Kesulitan Reaksi:
+            </div>
+            <div class="difficulty-pills">
+              <button class="diff-btn active" id="diffIon1" onclick="setIonReactionLevel(1)">
+                🟢 Level 1: Mudah (Asam Tunggal)
+              </button>
+              <button class="diff-btn" id="diffIon2" onclick="setIonReactionLevel(2)">
+                🟡 Level 2: Sedang (Asam Dikromat)
+              </button>
+              <button class="diff-btn" id="diffIon3" onclick="setIonReactionLevel(3)">
+                🔴 Level 3: Sulit (Suasana Basa)
+              </button>
+              <button class="diff-btn" id="diffIon4" onclick="setIonReactionLevel(4)">
+                🟣 Level 4: HOTS (Autoredoks Cl₂)
+              </button>
+            </div>
+          </div>
+
+          <!-- ANIMASI HALF-REACTION CANVAS -->
+          <div class="pbo-anim-card">
+            <div class="pbo-anim-header">
+              <div class="pbo-anim-title" id="ionCurrentReactionTitle">
+                <span>⚡</span> Pemisahan & Eliminasi Elektron: Fe²⁺ + MnO₄⁻
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-success" style="padding: 5px 12px; font-size: 0.82rem;" id="ionAutoPlayBtn" onclick="toggleIonAutoPlay()">
+                  <span id="ionPlayIcon">▶️</span> Putar Animasi
+                </button>
+                <button class="btn btn-outline" style="padding: 5px 12px; font-size: 0.82rem;" onclick="resetIonStepOnly()">
+                  <span>🔄</span> Reset
+                </button>
+              </div>
+            </div>
+
+            <div class="pbo-canvas-wrapper">
+              <canvas id="ionHalfCanvas"></canvas>
+            </div>
+
+            <div class="pbo-status-banner">
+              <div id="ionAnimStatusText">
+                Pemisahan setengah reaksi oksidasi dan reduksi.
+              </div>
+              <div style="font-size: 0.78rem; color: #94a3b8;" id="ionStepHint">
+                Perhatikan bagaimana elektron di ruas kiri dan kanan saling meniadakan!
+              </div>
+            </div>
+          </div>
+
+          <!-- Stepper nav -->
+          <div class="stepper-nav">
+            <div class="step-pill active" id="ion-nav-1" onclick="jumpIonStep(1)">1</div>
+            <div class="step-pill" id="ion-nav-2" onclick="jumpIonStep(2)">2</div>
+            <div class="step-pill" id="ion-nav-3" onclick="jumpIonStep(3)">3</div>
+            <div class="step-pill" id="ion-nav-4" onclick="jumpIonStep(4)">4</div>
+            <div class="step-pill" id="ion-nav-5" onclick="jumpIonStep(5)">5</div>
+          </div>
+
+          <!-- Step Display -->
+          <div class="step-card">
+            <h4 id="ionStepTitle" style="color: var(--dark); font-size: 1.1rem; margin-bottom: 10px;">
+              Langkah 1: Pisahkan Reaksi Menjadi Dua Bagian
+            </h4>
+
+            <!-- INTERACTIVE CLICKABLE FORMULA FOR ION -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 8px;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: #475569;">
+                👇 <strong>KLIK SETIAP UNSUR DI BAWAH</strong> untuk melihat nilai & cara hitung biloksnya:
+              </span>
+              <button class="btn btn-outline-dark" style="padding: 4px 10px; font-size: 0.78rem;" id="toggleIonBiloksBtn" onclick="toggleAllIonAtomBiloks()">
+                👁️ Tampilkan Semua Biloks
+              </button>
+            </div>
+
+            <div class="atom-clickable-container" id="ionClickableFormula">
+              <!-- Diisi otomatis oleh JavaScript -->
+            </div>
+
+            <!-- PANEL INSPEKTUR BILOKS UNSUR FOR ION -->
+            <div class="atom-inspector-card" id="ionAtomInspectorPanel" style="display: none;">
+              <!-- Diisi otomatis saat atom diklik -->
+            </div>
+
+            <div class="step-explanation" id="ionExplanation">
+              Memuat penjelasan langkah...
+            </div>
+
+            <div class="step-actions">
+              <button class="btn btn-outline-dark" id="ionPrevBtn" onclick="prevIonStep()" disabled>
+                &larr; Langkah Sebelumnya
+              </button>
+              <button class="btn btn-primary" id="ionNextBtn" onclick="nextIonStep()">
+                Langkah Berikutnya &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- Guidance Box -->
+          <div style="margin-top: 20px; padding: 16px; background: #e0f2fe; border-radius: 12px; font-size: 0.9rem; border-left: 4px solid var(--primary-light);">
+            <strong>📌 Kunci Suasana Larutan Kelas 12:</strong><br>
+            &bull; <strong>Suasana ASAM:</strong> Ruas yang kekurangan O ditambah <strong>H₂O</strong>, lalu kekurangan H disetarakan dengan <strong>H⁺</strong>.<br>
+            &bull; <strong>Suasana BASA:</strong> Ruas yang kelebihan O ditambah <strong>H₂O</strong>, lalu ruas lainnya disetarakan dengan <strong>OH⁻</strong>.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- TAB 5: BANK SOAL UTBK & HOTS KELAS 12          -->
+    <!-- ============================================== -->
+    <div id="tab-kuis" class="tab-content">
+      <div class="card quiz-container">
+        <div class="quiz-header">
+          <div>
+            <h2 style="font-size: 1.25rem; color: var(--dark);">Bank Soal HOTS & Persiapan UTBK/SNBT</h2>
+            <p style="font-size: 0.85rem; color: var(--gray);">Materi Reaksi Redoks & Penyetaraan &bull; Kelas 12 SMA</p>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary);" id="quizQuestionCount">Soal 1 / 8</span>
+            <div style="font-size: 0.8rem; color: var(--gray);" id="quizScoreText">Skor: 0</div>
+          </div>
+        </div>
+
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quizProgressBar"></div>
+        </div>
+
+        <div id="quizPlayArea">
+          <div class="question-box" id="quizQuestion">
+            Memuat pertanyaan...
+          </div>
+
+          <div class="options-list" id="quizOptions">
+            <!-- Pilihan jawaban diisi oleh JS -->
+          </div>
+
+          <div class="quiz-feedback" id="quizFeedback">
+            <!-- Feedback -->
+          </div>
+
+          <div style="margin-top: 20px; text-align: right;">
+            <button class="btn btn-primary" id="quizNextBtn" onclick="nextQuestion()" style="display: none;">
+              Soal Selanjutnya &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="quizResultArea" style="display: none;" class="score-modal">
+          <div class="score-trophy" id="resultTrophy">🏆</div>
+          <h2 style="font-size: 1.6rem; margin-bottom: 8px;" id="resultTitle">Luar Biasa!</h2>
+          <p style="font-size: 1.05rem; color: var(--gray); margin-bottom: 20px;" id="resultMessage">
+            Kamu telah menyelesaikan simulasi soal redoks tingkat SMA Kelas 12!
+          </p>
+          
+          <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 20px;" id="finalScoreVal">
+            100
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="restartQuiz()">
+              <span>🔄</span> Coba Lagi
+            </button>
+            <button class="btn btn-outline-dark" onclick="switchTab('konsep')">
+              <span>📖</span> Tinjau Teori
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <strong>Media Pembelajaran Kimia Fase F (Kelas 12 SMA)</strong> &bull; Reaksi Redoks & Penyetaraan Reaksi Berjenjang
+      </div>
+      <div>
+        Dilengkapi Fitur Klik Setiap Unsur untuk Memunculkan Nilai Biloks & Cara Hitung Aljabar
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    /* ========================================================
+       1. SOUND EFFECTS (Web Audio API Synthesizer - Standalone)
+       ======================================================== */
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('soundBtn');
+      btn.innerText = soundEnabled ? '🔔' : '🔕';
+      btn.title = soundEnabled ? 'Suara Aktif' : 'Suara Mati';
+    }
+
+    function playTone(freq, type = 'sine', duration = 0.15, vol = 0.1) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playSuccessSound() {
+      if (!soundEnabled) return;
+      playTone(523.25, 'sine', 0.1, 0.1);
+      setTimeout(() => playTone(659.25, 'sine', 0.15, 0.1), 80);
+      setTimeout(() => playTone(783.99, 'sine', 0.25, 0.12), 160);
+    }
+
+    function playWrongSound() {
+      if (!soundEnabled) return;
+      playTone(260, 'sawtooth', 0.18, 0.08);
+      setTimeout(() => playTone(200, 'sawtooth', 0.22, 0.08), 120);
+    }
+
+    function playTransferSound() {
+      if (!soundEnabled) return;
+      playTone(400, 'triangle', 0.08, 0.08);
+      setTimeout(() => playTone(600, 'sine', 0.12, 0.1), 90);
+      setTimeout(() => playTone(880, 'sine', 0.2, 0.08), 200);
+    }
+
+    function playChimeSound() {
+      if (!soundEnabled) return;
+      playTone(600, 'sine', 0.08, 0.08);
+      setTimeout(() => playTone(800, 'sine', 0.12, 0.06), 60);
+    }
+
+    /* ========================================================
+       2. TAB NAVIGATION
+       ======================================================== */
+    function switchTab(tabId) {
+      playTone(440, 'sine', 0.05, 0.04);
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+      const targetTab = document.getElementById('tab-' + tabId);
+      if (targetTab) targetTab.classList.add('active');
+
+      const matchingBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+      if (matchingBtn) matchingBtn.classList.add('active');
+
+      if (tabId === 'simulasi') {
+        resizeCanvas();
+      } else if (tabId === 'penyetaraan') {
+        resizePboCanvas();
+        resizeIonCanvas();
+      }
+    }
+
+    /* ========================================================
+       3. INTERACTIVE SIMULATION (CANVAS 2D) - TINGKAT SMA
+       ======================================================== */
+    const canvas = document.getElementById('redoxCanvas');
+    const ctx = canvas.getContext('2d');
+    let animationId = null;
+    let isPlaying = false;
+    let simProgress = 0;
+    let currentSimMode = 'zncu';
+
+    function changeSimMode(mode) {
+      currentSimMode = mode;
+      document.getElementById('simMode1').classList.toggle('active', mode === 'zncu');
+      document.getElementById('simMode2').classList.toggle('active', mode === 'mno4fe');
+      
+      const donorTitle = document.getElementById('simDonorTitle');
+      const donorDesc = document.getElementById('simDonorDesc');
+      const accTitle = document.getElementById('simAcceptorTitle');
+      const accDesc = document.getElementById('simAcceptorDesc');
+
+      if (mode === 'zncu') {
+        donorTitle.innerText = 'Reaksi Oksidasi (Anoda):';
+        donorDesc.innerHTML = 'Logam Seng melepaskan 2 mol elektron: <strong>Zn &rarr; Zn²⁺ + 2e⁻</strong>.<br><strong>Peran:</strong> Reduktor &bull; Biloks naik dari 0 ke +2 &bull; Menghasilkan kation Zn²⁺.';
+        accTitle.innerText = 'Reaksi Reduksi (Katoda):';
+        accDesc.innerHTML = 'Ion Tembaga(II) menangkap 2 mol elektron: <strong>Cu²⁺ + 2e⁻ &rarr; Cu</strong>.<br><strong>Peran:</strong> Oksidator &bull; Biloks turun dari +2 ke 0 &bull; Mengendap sebagai logam Cu.';
+      } else {
+        donorTitle.innerText = 'Reaksi Oksidasi (5 mol Fe²⁺):';
+        donorDesc.innerHTML = '5 mol Ion Fe²⁺ melepaskan total 5 mol elektron: <strong>5Fe²⁺ &rarr; 5Fe³⁺ + 5e⁻</strong>.<br><strong>Peran:</strong> Reduktor &bull; Biloks Fe naik dari +2 ke +3.';
+        accTitle.innerText = 'Reaksi Reduksi (1 mol MnO₄⁻):';
+        accDesc.innerHTML = '1 mol Ion Permanganat mengikat 5 mol elektron: <strong>MnO₄⁻ + 8H⁺ + 5e⁻ &rarr; Mn²⁺ + 4H₂O</strong>.<br><strong>Peran:</strong> Oksidator kuat &bull; Biloks Mn turun dari +7 ke +2.';
+      }
+
+      resetSim();
+    }
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      drawSim(simProgress);
+    }
+
+    function drawSim(progress) {
+      if (!ctx) return;
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const dX = w * 0.28;
+      const dY = h * 0.5;
+      const aX = w * 0.72;
+      const aY = h * 0.5;
+
+      const isZnCu = currentSimMode === 'zncu';
+      const donorName = isZnCu ? (progress > 0.85 ? 'Zn²⁺' : 'Zn') : (progress > 0.85 ? 'Fe³⁺' : 'Fe²⁺');
+      const accName = isZnCu ? (progress > 0.85 ? 'Cu' : 'Cu²⁺') : (progress > 0.85 ? 'Mn²⁺' : 'MnO₄⁻');
+      const numElectrons = isZnCu ? 2 : 5;
+
+      // Glow backgrounds
+      const radGlowD = ctx.createRadialGradient(dX, dY, 20, dX, dY, 120);
+      radGlowD.addColorStop(0, 'rgba(247, 37, 133, 0.2)');
+      radGlowD.addColorStop(1, 'transparent');
+      ctx.fillStyle = radGlowD;
+      ctx.beginPath();
+      ctx.arc(dX, dY, 120, 0, Math.PI * 2);
+      ctx.fill();
+
+      const radGlowA = ctx.createRadialGradient(aX, aY, 20, aX, aY, 120);
+      radGlowA.addColorStop(0, 'rgba(6, 182, 212, 0.2)');
+      radGlowA.addColorStop(1, 'transparent');
+      ctx.fillStyle = radGlowA;
+      ctx.beginPath();
+      ctx.arc(aX, aY, 120, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Orbitals
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 4]);
+      [42, 74, 100].forEach(r => {
+        ctx.beginPath();
+        ctx.arc(dX, dY, r, 0, Math.PI * 2);
+        ctx.stroke();
+      });
+      [42, 74, 100].forEach(r => {
+        ctx.beginPath();
+        ctx.arc(aX, aY, r, 0, Math.PI * 2);
+        ctx.stroke();
+      });
+      ctx.setLineDash([]);
+
+      // Atom Cores
+      ctx.fillStyle = '#f72585';
+      ctx.beginPath();
+      ctx.arc(dX, dY, 34, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 15px system-ui';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(donorName, dX, dY);
+
+      ctx.fillStyle = isZnCu ? '#0284c7' : '#7c3aed';
+      ctx.beginPath();
+      ctx.arc(aX, aY, 36, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(accName, aX, aY);
+
+      // Flying Electrons
+      const startX = dX + 100;
+      const endX = aX - 100;
+
+      for (let eIdx = 0; eIdx < numElectrons; eIdx++) {
+        const spreadOffset = (eIdx - (numElectrons - 1) / 2) * 22;
+        const arcBase = isZnCu ? -60 : -90;
+        const curX = startX + (endX - startX) * progress;
+        const arcHeight = Math.sin(progress * Math.PI) * arcBase + spreadOffset * Math.sin(progress * Math.PI);
+        const curY = dY + arcHeight;
+
+        if (progress > 0 && progress < 1) {
+          ctx.strokeStyle = 'rgba(255, 230, 109, 0.35)';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(startX, dY);
+          ctx.quadraticCurveTo((startX + endX) / 2, dY + arcBase * 1.3 + spreadOffset, curX, curY);
+          ctx.stroke();
+        }
+
+        ctx.fillStyle = '#ffe66d';
+        ctx.shadowColor = '#ffe66d';
+        ctx.shadowBlur = 12;
+        ctx.beginPath();
+        ctx.arc(curX, curY, 6.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 8px system-ui';
+        ctx.fillText('e⁻', curX, curY);
+      }
+
+      ctx.font = '12px system-ui';
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillText(progress > 0.85 ? 'Teroksidasi (Anoda)' : (isZnCu ? 'Reduktor Zn(s)' : 'Reduktor Fe²⁺'), dX, dY + 120);
+      ctx.fillText(progress > 0.85 ? 'Tereduksi (Katoda)' : (isZnCu ? 'Oksidator Cu²⁺' : 'Oksidator MnO₄⁻'), aX, aY + 120);
+
+      const dBadge = document.getElementById('donorStatus');
+      const aBadge = document.getElementById('acceptorStatus');
+      const desc = document.getElementById('simStatusDesc');
+
+      if (progress < 0.1) {
+        dBadge.innerText = `${isZnCu ? 'Logam Zn' : 'Ion Fe²⁺'} (Reaktan)`;
+        aBadge.innerText = `${isZnCu ? 'Ion Cu²⁺' : 'Ion MnO₄⁻'} (Reaktan)`;
+        desc.innerHTML = `Status: Keadaan awal. Total elektron yang akan berpindah = <strong>${numElectrons} mol e⁻</strong>.`;
+      } else if (progress < 0.9) {
+        dBadge.innerText = `Melepas ${numElectrons}e⁻...`;
+        aBadge.innerText = `Menangkap ${numElectrons}e⁻...`;
+        desc.innerHTML = `Status: <strong style="color:#ffe66d;">Transfer ${numElectrons} mol elektron (n = ${numElectrons}) sedang berlangsung!</strong>`;
+      } else {
+        dBadge.innerText = `${isZnCu ? 'Ion Zn²⁺' : 'Ion Fe³⁺'} [HASIL OKSIDASI]`;
+        aBadge.innerText = `${isZnCu ? 'Logam Cu' : 'Ion Mn²⁺'} [HASIL REDUKSI]`;
+        desc.innerHTML = `Status: Selesai! Reaksi redoks tuntas, menghasilkan spesi produk yang stabil.`;
+      }
+    }
+
+    function toggleSim() {
+      const btn = document.getElementById('playBtn');
+      if (isPlaying) {
+        isPlaying = false;
+        btn.innerHTML = '<span>▶️</span> Lanjutkan';
+        cancelAnimationFrame(animationId);
+      } else {
+        if (simProgress >= 1) simProgress = 0;
+        isPlaying = true;
+        btn.innerHTML = '<span>⏸️</span> Jeda';
+        playTransferSound();
+        runSimLoop();
+      }
+    }
+
+    function runSimLoop() {
+      if (!isPlaying) return;
+      simProgress += 0.007;
+      if (simProgress >= 1) {
+        simProgress = 1;
+        isPlaying = false;
+        document.getElementById('playBtn').innerHTML = '<span>▶️</span> Putar Ulang';
+        playSuccessSound();
+      }
+      drawSim(simProgress);
+      if (isPlaying) {
+        animationId = requestAnimationFrame(runSimLoop);
+      }
+    }
+
+    function resetSim() {
+      isPlaying = false;
+      cancelAnimationFrame(animationId);
+      simProgress = 0;
+      document.getElementById('playBtn').innerHTML = '<span>▶️</span> Mainkan Animasi';
+      drawSim(0);
+      playTone(350, 'sine', 0.08, 0.05);
+    }
+
+    function stepSim() {
+      isPlaying = false;
+      cancelAnimationFrame(animationId);
+      simProgress = Math.min(1, simProgress + 0.2);
+      document.getElementById('playBtn').innerHTML = '<span>▶️</span> Mainkan Animasi';
+      drawSim(simProgress);
+      playTone(450, 'triangle', 0.08, 0.05);
+    }
+
+
+    /* ========================================================
+       4. BILOKS EXPLORER DATA & LOGIC (SMA 12)
+       ======================================================== */
+    const biloksSpeciesData = {
+      'Cr2O7': {
+        name: "Ion Dikromat (Cr₂O₇²⁻)",
+        formula: "Cr₂O₇²⁻",
+        target: "Cr (Kromium)",
+        explanation: `
+          <strong>Aturan yang digunakan:</strong><br>
+          1. Bilangan oksidasi O = -2.<br>
+          2. Jumlah seluruh biloks dalam ion poliatomik = muatan ionnya (-2).<br><br>
+          <strong>Langkah Aljabar:</strong><br>
+          2(Biloks Cr) + 7(Biloks O) = -2<br>
+          2(Biloks Cr) + 7(-2) = -2<br>
+          2(Biloks Cr) - 14 = -2<br>
+          2(Biloks Cr) = -2 + 14 = +12<br>
+          <strong>Biloks Cr = +12 / 2 = <span style="color:var(--primary); font-size:1.15rem; font-weight:800;">+6</span></strong><br>
+          <em style="color:var(--gray);">Catatan UTBK: Ion dikromat merupakan oksidator kuat dalam suasana asam.</em>
+        `
+      },
+      'MnO4': {
+        name: "Ion Permanganat (MnO₄⁻)",
+        formula: "MnO₄⁻",
+        target: "Mn (Mangan)",
+        explanation: `
+          <strong>Aturan yang digunakan:</strong><br>
+          1. Biloks O = -2.<br>
+          2. Muatan total ion = -1.<br><br>
+          <strong>Langkah Aljabar:</strong><br>
+          (Biloks Mn) + 4(Biloks O) = -1<br>
+          (Biloks Mn) + 4(-2) = -1<br>
+          (Biloks Mn) - 8 = -1<br>
+          <strong>Biloks Mn = -1 + 8 = <span style="color:var(--ox-color); font-size:1.15rem; font-weight:800;">+7</span></strong><br>
+          <em style="color:var(--gray);">Catatan UTBK: +7 adalah bilangan oksidasi maksimum bagi atom Mangan.</em>
+        `
+      },
+      'C2O4': {
+        name: "Ion Oksalat (C₂O₄²⁻)",
+        formula: "C₂O₄²⁻",
+        target: "C (Karbon)",
+        explanation: `
+          <strong>Aturan yang digunakan:</strong><br>
+          1. Biloks O = -2.<br>
+          2. Muatan total ion = -2.<br><br>
+          <strong>Langkah Aljabar:</strong><br>
+          2(Biloks C) + 4(-2) = -2<br>
+          2(Biloks C) - 8 = -2<br>
+          2(Biloks C) = +6<br>
+          <strong>Biloks C = <span style="color:var(--primary); font-size:1.15rem; font-weight:800;">+3</span></strong><br>
+          <em style="color:var(--gray);">Pada reaksi redoks, C₂O₄²⁻ teroksidasi menjadi gas CO₂ (biloks C = +4).</em>
+        `
+      },
+      'H2O2': {
+        name: "Hidrogen Peroksida (H₂O₂)",
+        formula: "H₂O₂",
+        target: "O (Oksigen)",
+        explanation: `
+          <strong>Kasus Khusus Senyawa Peroksida:</strong><br>
+          Senyawa netral dengan ikatan kovalen tunggal antar-oksigen (-O-O-).<br>
+          1. Biloks H = +1.<br>
+          2. Senyawa netral = 0.<br><br>
+          <strong>Langkah Aljabar:</strong><br>
+          2(+1) + 2(Biloks O) = 0<br>
+          +2 + 2(Biloks O) = 0<br>
+          2(Biloks O) = -2<br>
+          <strong>Biloks O = <span style="color:#d97706; font-size:1.15rem; font-weight:800;">-1</span></strong> (Bukan -2!)
+        `
+      },
+      'NaH': {
+        name: "Natrium Hidrida (NaH)",
+        formula: "NaH",
+        target: "H (Hidrogen)",
+        explanation: `
+          <strong>Kasus Khusus Hidrida Logam:</strong><br>
+          Natrium (Na) adalah logam Golongan IA yang sangat elektropositif dengan biloks mutlak <strong>+1</strong>.<br><br>
+          <strong>Langkah Aljabar:</strong><br>
+          (Biloks Na) + (Biloks H) = 0<br>
+          (+1) + (Biloks H) = 0<br>
+          <strong>Biloks H = <span style="color:#d97706; font-size:1.15rem; font-weight:800;">-1</span></strong> (Bukan +1!)
+        `
+      },
+      'S2O3': {
+        name: "Ion Tiosulfat (S₂O₃²⁻)",
+        formula: "S₂O₃²⁻",
+        target: "S (Belerang)",
+        explanation: `
+          <strong>Aturan yang digunakan:</strong><br>
+          1. Biloks O = -2.<br>
+          2. Muatan total ion = -2.<br><br>
+          <strong>Langkah Aljabar:</strong><br>
+          2(Biloks S) + 3(-2) = -2<br>
+          2(Biloks S) - 6 = -2<br>
+          2(Biloks S) = +4<br>
+          <strong>Biloks rata-rata S = <span style="color:var(--primary); font-size:1.15rem; font-weight:800;">+2</span></strong>
+        `
+      }
+    };
+
+    function loadBiloksSpecies(key) {
+      playTone(450, 'sine', 0.05, 0.04);
+      const data = biloksSpeciesData[key];
+      const area = document.getElementById('biloksBreakdownArea');
+      area.innerHTML = `
+        <h4 style="color:var(--primary); font-size:1.1rem; margin-bottom:8px;">${data.name}</h4>
+        <div>${data.explanation}</div>
+      `;
+
+      document.querySelectorAll('.species-pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes(key));
+      });
+    }
+
+
+    /* =========================================================================
+       5. DATA ATOM KLIK & INSPEKTUR BILOKS (FITUR BARU)
+       ========================================================================= */
+    const atomDatabase = {
+      // PBO Level 1
+      'pbo_1_mn_r': { name: "Mangan (Mn)", species: "MnO₄⁻ (Reaktan)", biloks: "+7", color: "#f72585", role: "Oksidator (Mengalami Reduksi: +7 → +2)", calc: "(Biloks Mn) + 4(-2) = -1 &rarr; Mn - 8 = -1 &rarr; <strong>Mn = +7</strong>" },
+      'pbo_1_o_r':  { name: "Oksigen (O)", species: "MnO₄⁻ (Reaktan)", biloks: "-2", color: "#64748b", role: "Atom Spektator (Biloks tetap)", calc: "Berdasarkan aturan umum oksigen pada ion poliatomik, <strong>Biloks O = -2</strong>." },
+      'pbo_1_fe_r': { name: "Besi (Fe)", species: "Fe²⁺ (Reaktan)", biloks: "+2", color: "#06b6d4", role: "Reduktor (Mengalami Oksidasi: +2 → +3)", calc: "Ion monoatomik Fe²⁺ memiliki <strong>Biloks = +2</strong> (sama dengan muatan ionnya)." },
+      'pbo_1_mn_p': { name: "Mangan (Mn)", species: "Mn²⁺ (Produk)", biloks: "+2", color: "#f72585", role: "Hasil Reduksi", calc: "Ion monoatomik Mn²⁺ memiliki <strong>Biloks = +2</strong>." },
+      'pbo_1_fe_p': { name: "Besi (Fe)", species: "Fe³⁺ (Produk)", biloks: "+3", color: "#06b6d4", role: "Hasil Oksidasi", calc: "Ion monoatomik Fe³⁺ memiliki <strong>Biloks = +3</strong>." },
+
+      // PBO Level 2
+      'pbo_2_cr_r': { name: "Kromium (Cr)", species: "Cr₂O₇²⁻ (Reaktan)", biloks: "+6 (+12 total)", color: "#f72585", role: "Oksidator (Mengalami Reduksi: +12 → +6)", calc: "2(Cr) + 7(-2) = -2 &rarr; 2(Cr) - 14 = -2 &rarr; 2(Cr) = +12 &rarr; <strong>Cr = +6</strong> per atom (Total Cr₂ = +12)." },
+      'pbo_2_o_r':  { name: "Oksigen (O)", species: "Cr₂O₇²⁻ (Reaktan)", biloks: "-2", color: "#64748b", role: "Atom Spektator (Biloks tetap)", calc: "Berdasarkan aturan biloks, <strong>Biloks O = -2</strong>." },
+      'pbo_2_fe_r': { name: "Besi (Fe)", species: "Fe²⁺ (Reaktan)", biloks: "+2", color: "#06b6d4", role: "Reduktor (Mengalami Oksidasi: +2 → +3)", calc: "Ion monoatomik Fe²⁺ memiliki <strong>Biloks = +2</strong>." },
+      'pbo_2_cr_p': { name: "Kromium (Cr)", species: "2Cr³⁺ (Produk)", biloks: "+3 (+6 total)", color: "#f72585", role: "Hasil Reduksi", calc: "Ion Cr³⁺ memiliki <strong>Biloks = +3</strong> per atom (2 atom Cr = +6 total)." },
+      'pbo_2_fe_p': { name: "Besi (Fe)", species: "Fe³⁺ (Produk)", biloks: "+3", color: "#06b6d4", role: "Hasil Oksidasi", calc: "Ion monoatomik Fe³⁺ memiliki <strong>Biloks = +3</strong>." },
+
+      // PBO Level 3
+      'pbo_3_mn_r': { name: "Mangan (Mn)", species: "MnO₄⁻ (Reaktan)", biloks: "+7", color: "#f72585", role: "Oksidator (Mengalami Reduksi: +7 → +4)", calc: "(Mn) + 4(-2) = -1 &rarr; Mn - 8 = -1 &rarr; <strong>Mn = +7</strong>." },
+      'pbo_3_c_r':  { name: "Karbon (C)", species: "C₂O₄²⁻ (Reaktan)", biloks: "+3 (+6 total)", color: "#06b6d4", role: "Reduktor (Mengalami Oksidasi: +6 → +8)", calc: "2(C) + 4(-2) = -2 &rarr; 2(C) - 8 = -2 &rarr; 2(C) = +6 &rarr; <strong>C = +3</strong> per atom (Total C₂ = +6)." },
+      'pbo_3_mn_p': { name: "Mangan (Mn)", species: "MnO₂ (Produk)", biloks: "+4", color: "#f72585", role: "Hasil Reduksi", calc: "(Mn) + 2(-2) = 0 &rarr; Mn - 4 = 0 &rarr; <strong>Mn = +4</strong>." },
+      'pbo_3_c_p':  { name: "Karbon (C)", species: "2CO₂ (Produk)", biloks: "+4 (+8 total)", color: "#06b6d4", role: "Hasil Oksidasi", calc: "(C) + 2(-2) = 0 &rarr; <strong>C = +4</strong> per atom (2 atom C = +8 total)." },
+
+      // PBO Level 4
+      'pbo_4_cu_r': { name: "Tembaga (Cu)", species: "Cu(s) (Reaktan)", biloks: "0", color: "#f72585", role: "Reduktor (Mengalami Oksidasi: 0 → +2)", calc: "Sebagai unsur bebas murni, <strong>Biloks Cu = 0</strong>." },
+      'pbo_4_h_r':  { name: "Hidrogen (H)", species: "HNO₃ (Reaktan)", biloks: "+1", color: "#64748b", role: "Atom Spektator", calc: "Dalam asam oksi, <strong>Biloks H = +1</strong>." },
+      'pbo_4_n_r':  { name: "Nitrogen (N)", species: "HNO₃ (Reaktan)", biloks: "+5", color: "#06b6d4", role: "Oksidator (Mengalami Reduksi: +5 → +2)", calc: "(+1) + (N) + 3(-2) = 0 &rarr; N - 5 = 0 &rarr; <strong>N = +5</strong>." },
+      'pbo_4_cu_p': { name: "Tembaga (Cu)", species: "Cu(NO₃)₂ (Produk)", biloks: "+2", color: "#f72585", role: "Hasil Oksidasi", calc: "Dalam garam Cu(NO₃)₂, ion Cu²⁺ memiliki <strong>Biloks = +2</strong>." },
+      'pbo_4_n_no': { name: "Nitrogen (N)", species: "NO(g) (Produk)", biloks: "+2", color: "#06b6d4", role: "Hasil Reduksi", calc: "(N) + (-2) = 0 &rarr; <strong>N = +2</strong>." },
+
+      // ION LEVEL 4 (Autoredoks Cl2)
+      'ion_4_cl_r':  { name: "Klorin (Cl)", species: "Cl₂(g) (Reaktan)", biloks: "0", color: "#8b5cf6", role: "Autoredoks (Oksidator sekaligus Reduktor)", calc: "Sebagai molekul diatomik unsur bebas murni, <strong>Biloks Cl = 0</strong>." },
+      'ion_4_cl_red':{ name: "Klorin (Cl)", species: "Cl⁻ (Produk Reduksi)", biloks: "-1", color: "#06b6d4", role: "Hasil Reduksi (0 → -1)", calc: "Muatan ion klorida Cl⁻ = -1 &rarr; <strong>Biloks Cl = -1</strong>." },
+      'ion_4_cl_ox': { name: "Klorin (Cl)", species: "ClO₃⁻ (Produk Oksidasi)", biloks: "+5", color: "#f72585", role: "Hasil Oksidasi (0 → +5)", calc: "(Cl) + 3(-2) = -1 &rarr; Cl - 6 = -1 &rarr; <strong>Cl = +5</strong>." }
+    };
+
+    let pboAllBiloksVisible = false;
+    let ionAllBiloksVisible = false;
+
+    function inspectAtom(key, panelId = 'pboAtomInspectorPanel') {
+      playChimeSound();
+      const data = atomDatabase[key];
+      if (!data) return;
+
+      const panel = document.getElementById(panelId);
+      panel.style.display = 'block';
+      panel.innerHTML = `
+        <div class="atom-inspector-header">
+          <div class="atom-inspector-title">
+            <span>⚛️</span> ${data.name} &bull; <small style="color:var(--gray); font-weight:600;">${data.species}</small>
+          </div>
+          <span class="atom-inspector-biloks-badge" style="background:${data.color};">
+            Biloks = ${data.biloks}
+          </span>
+        </div>
+        <div class="atom-inspector-calc">
+          <div style="font-weight:700; color:var(--dark); margin-bottom:4px;">🔍 Peran dalam Reaksi:</div>
+          <p style="margin-bottom:8px; color:#334155;">${data.role}</p>
+          <div style="font-weight:700; color:var(--dark); margin-bottom:4px;">📐 Pembuktian & Cara Hitung Aljabar:</div>
+          <p style="color:#1e293b;">${data.calc}</p>
+        </div>
+      `;
+
+      // Highlight clicked chip
+      const chips = document.querySelectorAll('.atom-chip');
+      chips.forEach(c => {
+        if (c.getAttribute('data-atom-key') === key) {
+          c.classList.add('active', 'revealed');
+        } else {
+          c.classList.remove('active');
+        }
+      });
+    }
+
+    function toggleAllPboAtomBiloks() {
+      pboAllBiloksVisible = !pboAllBiloksVisible;
+      const btn = document.getElementById('togglePboBiloksBtn');
+      btn.innerText = pboAllBiloksVisible ? '🙈 Sembunyikan Semua Biloks' : '👁️ Tampilkan Semua Biloks';
+      document.querySelectorAll('#pboClickableFormula .atom-chip').forEach(chip => {
+        chip.classList.toggle('revealed', pboAllBiloksVisible);
+      });
+      playTone(500, 'sine', 0.05, 0.04);
+    }
+
+    function toggleAllIonAtomBiloks() {
+      ionAllBiloksVisible = !ionAllBiloksVisible;
+      const btn = document.getElementById('toggleIonBiloksBtn');
+      btn.innerText = ionAllBiloksVisible ? '🙈 Sembunyikan Semua Biloks' : '👁️ Tampilkan Semua Biloks';
+      document.querySelectorAll('#ionClickableFormula .atom-chip').forEach(chip => {
+        chip.classList.toggle('revealed', ionAllBiloksVisible);
+      });
+      playTone(500, 'sine', 0.05, 0.04);
+    }
+
+
+    /* =========================================================================
+       6. DATASET 4 LEVEL KESULITAN REAKSI (PBO)
+       ========================================================================= */
+    let currentPboLevel = 1;
+    let currentPboStep = 1;
+
+    const pboReactions = {
+      1: {
+        levelName: "🟢 Level 1: Mudah (Dasar - Reaksi Ion Asam)",
+        titleBar: "Jembatan Biloks: MnO₄⁻ + Fe²⁺ → Mn²⁺ + Fe³⁺",
+        sp1: "MnO₄⁻", sp2: "Fe²⁺", sp3: "Mn²⁺", sp4: "Fe³⁺",
+        b1: "+7", b2: "+2", b3: "+2", b4: "+3",
+        c1: "1", c2: "5", c3: "1", c4: "5",
+        topTextBase: "Oksidasi: Fe (+2 → +3) Naik 1",
+        topMult: " [× 5 = 5e⁻]",
+        botTextBase: "Reduksi: Mn (+7 → +2) Turun 5",
+        botMult: " [× 1 = 5e⁻]",
+        addAcidText: "+ 8H⁺ (Kiri)  |  + 4H₂O (Kanan)",
+        formulaChips: [
+          { key: 'pbo_1_mn_r', label: 'Mn', biloks: '+7', color: '#f72585' },
+          { key: 'pbo_1_o_r',  label: 'O₄⁻', biloks: '-2', color: '#64748b' },
+          { text: '+' },
+          { key: 'pbo_1_fe_r', label: 'Fe²⁺', biloks: '+2', color: '#06b6d4' },
+          { text: '→' },
+          { key: 'pbo_1_mn_p', label: 'Mn²⁺', biloks: '+2', color: '#f72585' },
+          { text: '+' },
+          { key: 'pbo_1_fe_p', label: 'Fe³⁺', biloks: '+3', color: '#06b6d4' }
+        ],
+        steps: [
+          {
+            title: "Langkah 1: Menentukan Biloks Seluruh Atom",
+            explanation: "Identifikasi biloks:<br>&bull; Mn pada MnO₄⁻: (Mn) + 4(-2) = -1 &rarr; <strong>Mn = +7</strong><br>&bull; Fe pada Fe²⁺ = <strong>+2</strong><br>&bull; Mn pada Mn²⁺ = <strong>+2</strong><br>&bull; Fe pada Fe³⁺ = <strong>+3</strong><br><em>(Klik masing-masing unsur di atas untuk melihat detail perhitungannya!)</em>"
+          },
+          {
+            title: "Langkah 2: Menyetarakan Jumlah Atom yang Berubah Biloks",
+            explanation: "Jumlah atom Mn di kiri = 1, kanan = 1. Atom Fe di kiri = 1, kanan = 1. (Sudah setara secara mandiri)."
+          },
+          {
+            title: "Langkah 3: Menghitung Selisih Kenaikan & Penurunan Biloks",
+            explanation: "Tarik jembatan biloks:<br>&bull; Reduksi (Mn): Turun 5.<br>&bull; Oksidasi (Fe): Naik 1."
+          },
+          {
+            title: "Langkah 4: Menyamakan Perubahan Biloks (KPK)",
+            explanation: "KPK dari 5 dan 1 adalah 5. Kalikan Mn dengan 1, dan kalikan Fe dengan 5 agar total kenaikan (1 &times; 5 = 5) sama persis dengan penurunan (5 &times; 1 = 5)."
+          },
+          {
+            title: "Langkah 5: Menyetarakan Muatan (H⁺) & Atom O/H (H₂O)",
+            explanation: "Muatan kiri = +9, muatan kanan = +17. Tambahkan <strong>8H⁺</strong> di ruas kiri, lalu setarakan atom O dengan <strong>4H₂O</strong> di kanan.<br><span style='color:var(--success); font-weight:700;'>🎉 Reaksi setara sempurna!</span>"
+          }
+        ]
+      },
+      2: {
+        levelName: "🟡 Level 2: Sedang (Perangkap Indeks Ganda Cr₂O₇²⁻)",
+        titleBar: "Jembatan Biloks: Cr₂O₇²⁻ + Fe²⁺ → Cr³⁺ + Fe³⁺",
+        sp1: "Cr₂O₇²⁻", sp2: "Fe²⁺", sp3: "2Cr³⁺", sp4: "Fe³⁺",
+        b1: "+12", b2: "+2", b3: "+6", b4: "+3",
+        c1: "1", c2: "6", c3: "2", c4: "6",
+        topTextBase: "Oksidasi: Fe (+2 → +3) Naik 1",
+        topMult: " [× 6 = 6e⁻]",
+        botTextBase: "Reduksi: Cr₂ (+12 → +6) Turun 6",
+        botMult: " [× 1 = 6e⁻]",
+        addAcidText: "+ 14H⁺ (Kiri)  |  + 7H₂O (Kanan)",
+        formulaChips: [
+          { key: 'pbo_2_cr_r', label: 'Cr₂', biloks: '+6 (total +12)', color: '#f72585' },
+          { key: 'pbo_2_o_r',  label: 'O₇²⁻', biloks: '-2', color: '#64748b' },
+          { text: '+' },
+          { key: 'pbo_2_fe_r', label: 'Fe²⁺', biloks: '+2', color: '#06b6d4' },
+          { text: '→' },
+          { key: 'pbo_2_cr_p', label: '2Cr³⁺', biloks: '+3 (total +6)', color: '#f72585' },
+          { text: '+' },
+          { key: 'pbo_2_fe_p', label: 'Fe³⁺', biloks: '+3', color: '#06b6d4' }
+        ],
+        steps: [
+          {
+            title: "Langkah 1: Menentukan Biloks (Hati-hati Indeks Cr₂!)",
+            explanation: "&bull; Masing-masing Cr pada Cr₂O₇²⁻ = +6. Karena ada 2 atom Cr, biloks total = <strong>+12</strong>.<br>&bull; Fe²⁺ = <strong>+2</strong>, Cr³⁺ = <strong>+3</strong>, Fe³⁺ = <strong>+3</strong>."
+          },
+          {
+            title: "Langkah 2: Setarakan Atom yang Berubah Biloks Dahulu",
+            explanation: "⚠️ <strong>Jebakan Sering Muncul:</strong> Ruas kiri memiliki 2 atom Cr, maka ruas kanan wajib dikalikan 2 terlebih dahulu menjadi <strong>2Cr³⁺</strong> sebelum menghitung perubahan biloks!"
+          },
+          {
+            title: "Langkah 3: Hitung Perubahan Total Biloks",
+            explanation: "Total perubahan biloks Cr₂ dari +12 menjadi +6 adalah <strong>turun 6</strong>. Kenaikan biloks Fe adalah <strong>naik 1</strong>."
+          },
+          {
+            title: "Langkah 4: Samakan Perubahan Biloks (KPK = 6)",
+            explanation: "KPK dari 6 dan 1 adalah 6. Kalikan Cr₂O₇²⁻ dengan 1, dan kalikan Fe dengan 6!"
+          },
+          {
+            title: "Langkah 5: Setarakan Muatan dengan 14H⁺ & 7H₂O",
+            explanation: "Muatan kiri = -2 + 12 = +10. Muatan kanan = 2(+3) + 6(+3) = +24.<br>Tambahkan <strong>14H⁺</strong> di kiri, lalu tambahkan <strong>7H₂O</strong> di kanan.<br><span style='color:var(--success); font-weight:700;'>🎉 Reaksi dengan indeks ganda berhasil setara!</span>"
+          }
+        ]
+      },
+      3: {
+        levelName: "🔴 Level 3: Sulit (Suasana Basa: Permanganat & Oksalat)",
+        titleBar: "Jembatan Biloks: MnO₄⁻ + C₂O₄²⁻ → MnO₂ + CO₂ (Basa)",
+        sp1: "MnO₄⁻", sp2: "C₂O₄²⁻", sp3: "MnO₂", sp4: "2CO₂",
+        b1: "+7", b2: "+6", b3: "+4", b4: "+8",
+        c1: "2", c2: "3", c3: "2", c4: "6",
+        topTextBase: "Oksidasi: C₂ (+6 → +8) Naik 2",
+        topMult: " [× 3 = 6e⁻]",
+        botTextBase: "Reduksi: Mn (+7 → +4) Turun 3",
+        botMult: " [× 2 = 6e⁻]",
+        addAcidText: "+ 4H₂O (Kiri)  |  + 8OH⁻ (Kanan)",
+        formulaChips: [
+          { key: 'pbo_3_mn_r', label: 'MnO₄⁻', biloks: '+7', color: '#f72585' },
+          { text: '+' },
+          { key: 'pbo_3_c_r',  label: 'C₂O₄²⁻', biloks: '+3 (total +6)', color: '#06b6d4' },
+          { text: '→' },
+          { key: 'pbo_3_mn_p', label: 'MnO₂', biloks: '+4', color: '#f72585' },
+          { text: '+' },
+          { key: 'pbo_3_c_p',  label: '2CO₂', biloks: '+4 (total +8)', color: '#06b6d4' }
+        ],
+        steps: [
+          {
+            title: "Langkah 1: Menentukan Biloks Seluruh Atom",
+            explanation: "&bull; Mn pada MnO₄⁻ = <strong>+7</strong> &rarr; Mn pada MnO₂ = <strong>+4</strong>.<br>&bull; C pada C₂O₄²⁻: 2(C) + 4(-2) = -2 &rarr; 2(C) = +6 (Masing-masing C = +3).<br>&bull; C pada CO₂ = +4."
+          },
+          {
+            title: "Langkah 2: Setarakan Atom yang Berubah Biloks",
+            explanation: "Di kiri ada 2 atom C, maka di kanan CO₂ dikalikan 2. Total biloks 2 atom C di kanan = 2(+4) = +8."
+          },
+          {
+            title: "Langkah 3: Hitung Selisih Perubahan Biloks",
+            explanation: "&bull; Oksidasi (C₂): Naik 2.<br>&bull; Reduksi (Mn): Turun 3."
+          },
+          {
+            title: "Langkah 4: Samakan Perubahan Biloks (KPK = 6)",
+            explanation: "KPK dari 2 dan 3 adalah 6. Kalikan Mn dengan 2, dan kalikan C₂O₄²⁻ dengan 3 (menghasilkan 6 CO₂)."
+          },
+          {
+            title: "Langkah 5: Setarakan Muatan Menggunakan OH⁻ (Suasana Basa)",
+            explanation: "Muatan kiri = 2(-1) + 3(-2) = -8. Muatan kanan netral = 0.<br>Tambahkan <strong>8OH⁻</strong> di ruas kanan yang kekurangan muatan negatif, lalu tambahkan <strong>4H₂O</strong> di ruas kiri.<br><span style='color:var(--success); font-weight:700;'>🎉 Reaksi redoks suasana basa setara!</span>"
+          }
+        ]
+      },
+      4: {
+        levelName: "🟣 Level 4: HOTS (Reaksi Molekul Asam Nitrat Netral)",
+        titleBar: "Jembatan Biloks: Cu + HNO₃ → Cu(NO₃)₂ + NO + H₂O",
+        sp1: "Cu", sp2: "HNO₃", sp3: "Cu(NO₃)₂", sp4: "NO",
+        b1: "0", b2: "+5", b3: "+2", b4: "+2",
+        c1: "3", c2: "8", c3: "3", c4: "2",
+        topTextBase: "Oksidasi: Cu (0 → +2) Naik 2",
+        topMult: " [× 3 = 6e⁻]",
+        botTextBase: "Reduksi: N (+5 → +2) Turun 3",
+        botMult: " [× 2 = 6e⁻]",
+        addAcidText: "Koefisien Lengkap Molekul: 3Cu + 8HNO₃ → 3Cu(NO₃)₂ + 2NO + 4H₂O",
+        formulaChips: [
+          { key: 'pbo_4_cu_r', label: 'Cu', biloks: '0', color: '#f72585' },
+          { text: '+' },
+          { key: 'pbo_4_h_r',  label: 'H', biloks: '+1', color: '#64748b' },
+          { key: 'pbo_4_n_r',  label: 'NO₃', biloks: 'N=+5', color: '#06b6d4' },
+          { text: '→' },
+          { key: 'pbo_4_cu_p', label: 'Cu(NO₃)₂', biloks: 'Cu=+2', color: '#f72585' },
+          { text: '+' },
+          { key: 'pbo_4_n_no', label: 'NO', biloks: 'N=+2', color: '#06b6d4' }
+        ],
+        steps: [
+          {
+            title: "Langkah 1: Menentukan Biloks Atom yang Berubah",
+            explanation: "&bull; Cu bebas = <strong>0</strong> &rarr; Cu pada Cu(NO₃)₂ = <strong>+2</strong>.<br>&bull; N pada HNO₃ = <strong>+5</strong> &rarr; N pada gas NO = <strong>+2</strong>."
+          },
+          {
+            title: "Langkah 2: Menyetarakan Atom yang Berubah Biloks",
+            explanation: "Atom Cu (1 di kiri, 1 di kanan). Atom N yang tereduksi menjadi gas NO (1 di kiri, 1 di kanan)."
+          },
+          {
+            title: "Langkah 3: Hitung Selisih Perubahan & KPK",
+            explanation: "KPK dari 2 dan 3 adalah 6. Kalikan Cu dengan 3, dan kalikan NO dengan 2."
+          },
+          {
+            title: "Langkah 4: Menghitung Total Atom N (Peran Ganda HNO₃)",
+            explanation: "⚠️ <strong>Konsep HOTS:</strong> Di ruas kanan, atom N ada pada dua tempat: 3&times;2 = 6 pada Cu(NO₃)₂ dan 2 pada NO. Maka total reaktan HNO₃ yang dibutuhkan adalah 6 + 2 = <strong>8 molekul HNO₃</strong>!"
+          },
+          {
+            title: "Langkah 5: Setarakan Hidrogen & Oksigen",
+            explanation: "Di kiri ada 8 atom H, maka ruas kanan diberi <strong>4H₂O</strong>.<br>Periksa atom O: Kiri = 8(3) = 24. Kanan = 3(6) + 2(1) + 4(1) = 24.<br><span style='color:var(--success); font-weight:700;'>🎉 Reaksi molekul redoks telah setara sempurna!</span>"
+          }
+        ]
+      }
+    };
+
+    function setPboReactionLevel(level) {
+      currentPboLevel = level;
+      currentPboStep = 1;
+      pboAllBiloksVisible = false;
+      document.getElementById('togglePboBiloksBtn').innerText = '👁️ Tampilkan Semua Biloks';
+      document.getElementById('pboAtomInspectorPanel').style.display = 'none';
+      playTone(450, 'sine', 0.08, 0.05);
+
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`diffPbo${i}`);
+        if (btn) btn.classList.toggle('active', i === level);
+      }
+
+      document.getElementById('pboCurrentReactionTitle').innerHTML = `<span>✨</span> ${pboReactions[level].titleBar}`;
+      renderPboStep();
+    }
+
+    function renderPboClickableFormula() {
+      const container = document.getElementById('pboClickableFormula');
+      const rData = pboReactions[currentPboLevel];
+      container.innerHTML = '';
+
+      rData.formulaChips.forEach(item => {
+        if (item.text) {
+          const span = document.createElement('span');
+          span.style.color = '#94a3b8';
+          span.style.fontWeight = 'bold';
+          span.innerText = item.text;
+          container.appendChild(span);
+        } else {
+          const chip = document.createElement('div');
+          chip.className = `atom-chip ${pboAllBiloksVisible ? 'revealed' : ''}`;
+          chip.setAttribute('data-atom-key', item.key);
+          chip.innerHTML = `
+            <span class="atom-floating-biloks" style="background:${item.color};">${item.biloks}</span>
+            <span class="atom-chip-label">${item.label}</span>
+          `;
+          chip.onclick = () => inspectAtom(item.key, 'pboAtomInspectorPanel');
+          container.appendChild(chip);
+        }
+      });
+    }
+
+
+    /* ========================================================
+       6B. ANIMASI JEMBATAN PERUBAHAN BILOKS (CANVAS)
+       ======================================================== */
+    const pboCanvas = document.getElementById('pboBridgeCanvas');
+    const pboCtx = pboCanvas.getContext('2d');
+    let pboAutoPlayTimer = null;
+    let isPboAutoPlaying = false;
+    let animPulseTime = 0;
+
+    function resizePboCanvas() {
+      if (!pboCanvas) return;
+      const rect = pboCanvas.parentElement.getBoundingClientRect();
+      pboCanvas.width = rect.width;
+      pboCanvas.height = rect.height;
+      drawPboBridge();
+    }
+
+    function drawPboBridge() {
+      if (!pboCtx) return;
+      const w = pboCanvas.width;
+      const h = pboCanvas.height;
+      pboCtx.clearRect(0, 0, w, h);
+
+      animPulseTime += 0.04;
+      const centerY = h * 0.52;
+      const rData = pboReactions[currentPboLevel];
+
+      // Coordinates
+      const x1 = w * 0.16;
+      const x2 = w * 0.38;
+      const xArr = w * 0.52;
+      const x3 = w * 0.67;
+      const x4 = w * 0.88;
+
+      // 1. Draw Molecule Text Labels
+      pboCtx.font = 'bold 20px Consolas, monospace';
+      pboCtx.textAlign = 'center';
+      pboCtx.textBaseline = 'middle';
+
+      const showCoef = currentPboStep >= 4;
+      const coef1 = showCoef ? (rData.c1 + ' ') : '';
+      const coef2 = showCoef ? (rData.c2 + ' ') : '';
+      const coef3 = showCoef ? (rData.c3 + ' ') : '';
+      const coef4 = showCoef ? (rData.c4 + ' ') : '';
+
+      pboCtx.fillStyle = '#ffffff';
+      pboCtx.fillText(`${coef1}${rData.sp1}`, x1, centerY);
+      pboCtx.fillStyle = '#94a3b8';
+      pboCtx.fillText('+', (x1 + x2) / 2, centerY);
+      pboCtx.fillStyle = '#ffffff';
+      pboCtx.fillText(`${coef2}${rData.sp2}`, x2, centerY);
+      
+      pboCtx.fillStyle = '#38bdf8';
+      pboCtx.fillText('→', xArr, centerY);
+
+      pboCtx.fillStyle = '#ffffff';
+      pboCtx.fillText(`${coef3}${rData.sp3}`, x3, centerY);
+      pboCtx.fillStyle = '#94a3b8';
+      pboCtx.fillText('+', (x3 + x4) / 2, centerY);
+      pboCtx.fillStyle = '#ffffff';
+      pboCtx.fillText(`${coef4}${rData.sp4}`, x4, centerY);
+
+      // In Step 5, show additions
+      if (currentPboStep === 5) {
+        pboCtx.fillStyle = '#4ade80';
+        pboCtx.font = 'bold 13px Consolas, monospace';
+        pboCtx.fillText(rData.addAcidText, w * 0.50, centerY + 32);
+      }
+
+      // 2. FASE 1+: Tampilkan Biloks Badges
+      if (currentPboStep >= 1) {
+        drawBiloksBadge(x1, centerY - 32, rData.b1, '#f72585');
+        drawBiloksBadge(x2, centerY + 32, rData.b2, '#06b6d4');
+        drawBiloksBadge(x3, centerY - 32, rData.b3, '#f72585');
+        drawBiloksBadge(x4, centerY + 32, rData.b4, '#06b6d4');
+      }
+
+      // 3. FASE 2+: Tarik Garis Lengkung Jembatan Biloks
+      if (currentPboStep >= 2) {
+        // TOP ARC
+        const topArcY = 32;
+        pboCtx.beginPath();
+        pboCtx.moveTo(x1, centerY - 44);
+        pboCtx.bezierCurveTo(x1, topArcY, x3, topArcY, x3, centerY - 44);
+        pboCtx.strokeStyle = '#f72585';
+        pboCtx.lineWidth = 3;
+        pboCtx.shadowColor = '#f72585';
+        pboCtx.shadowBlur = 10;
+        pboCtx.stroke();
+        pboCtx.shadowBlur = 0;
+
+        // Animated Pulse Dot
+        const tPulse1 = (Math.sin(animPulseTime) + 1) / 2;
+        const pulseTopX = (1 - tPulse1) * x1 + tPulse1 * x3;
+        const pulseTopY = topArcY + Math.sin(tPulse1 * Math.PI) * -6;
+        pboCtx.fillStyle = '#ffe66d';
+        pboCtx.beginPath();
+        pboCtx.arc(pulseTopX, pulseTopY + 12, 5, 0, Math.PI * 2);
+        pboCtx.fill();
+
+        // Top Arc Label
+        let topText = rData.topTextBase;
+        if (currentPboStep >= 4) topText += rData.topMult;
+        drawPillBanner((x1 + x3) / 2, topArcY + 8, topText, '#f72585');
+
+        // BOTTOM ARC
+        const botArcY = h - 28;
+        pboCtx.beginPath();
+        pboCtx.moveTo(x2, centerY + 44);
+        pboCtx.bezierCurveTo(x2, botArcY, x4, botArcY, x4, centerY + 44);
+        pboCtx.strokeStyle = '#06b6d4';
+        pboCtx.lineWidth = 3;
+        pboCtx.shadowColor = '#06b6d4';
+        pboCtx.shadowBlur = 10;
+        pboCtx.stroke();
+        pboCtx.shadowBlur = 0;
+
+        // Animated Pulse Dot
+        const tPulse2 = (Math.cos(animPulseTime) + 1) / 2;
+        const pulseBotX = (1 - tPulse2) * x2 + tPulse2 * x4;
+        const pulseBotY = botArcY - Math.sin(tPulse2 * Math.PI) * -6;
+        pboCtx.fillStyle = '#ffe66d';
+        pboCtx.beginPath();
+        pboCtx.arc(pulseBotX, pulseBotY - 12, 5, 0, Math.PI * 2);
+        pboCtx.fill();
+
+        // Bottom Arc Label
+        let botText = rData.botTextBase;
+        if (currentPboStep >= 4) botText += rData.botMult;
+        drawPillBanner((x2 + x4) / 2, botArcY - 8, botText, '#06b6d4');
+      }
+
+      // Status text
+      const statusText = document.getElementById('pboAnimStatusText');
+      if (currentPboStep === 1) {
+        statusText.innerHTML = `<strong>Langkah 1:</strong> Biloks atom dihitung & ditandai melayang di atas/bawah spesi.`;
+      } else if (currentPboStep === 2) {
+        statusText.innerHTML = `<strong>Langkah 2:</strong> Menarik garis jembatan merah (Oksidasi) & biru (Reduksi) antara reaktan & produk.`;
+      } else if (currentPboStep === 3) {
+        statusText.innerHTML = `<strong>Langkah 3:</strong> Menghitung selisih perubahan biloks pada masing-masing jembatan.`;
+      } else if (currentPboStep === 4) {
+        statusText.innerHTML = `<strong>Langkah 4:</strong> Perkalian KPK! Koefisien angka pengali meluncur masuk ke rumus molekul.`;
+      } else {
+        statusText.innerHTML = `<strong>Langkah 5:</strong> Selesai! Reaksi redoks telah setara sempurna!`;
+      }
+    }
+
+    // Canvas click hit-testing for PBO
+    if (pboCanvas) {
+      pboCanvas.addEventListener('click', (e) => {
+        const rect = pboCanvas.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const w = pboCanvas.width;
+        const rData = pboReactions[currentPboLevel];
+
+        if (Math.abs(clickX - w * 0.16) < 45) {
+          inspectAtom(rData.formulaChips[0].key);
+        } else if (Math.abs(clickX - w * 0.38) < 45) {
+          inspectAtom(rData.formulaChips[rData.formulaChips.length > 5 ? 3 : 2].key);
+        } else if (Math.abs(clickX - w * 0.67) < 45) {
+          inspectAtom(rData.formulaChips[rData.formulaChips.length > 5 ? 5 : 4].key);
+        } else if (Math.abs(clickX - w * 0.88) < 45) {
+          inspectAtom(rData.formulaChips[rData.formulaChips.length - 1].key);
+        }
+      });
+      pboCanvas.style.cursor = 'pointer';
+    }
+
+    function drawBiloksBadge(x, y, text, color) {
+      pboCtx.save();
+      pboCtx.fillStyle = color;
+      pboCtx.shadowColor = color;
+      pboCtx.shadowBlur = 8;
+      pboCtx.beginPath();
+      pboCtx.roundRect(x - 26, y - 11, 52, 22, 6);
+      pboCtx.fill();
+      pboCtx.shadowBlur = 0;
+
+      pboCtx.fillStyle = '#ffffff';
+      pboCtx.font = 'bold 11px system-ui';
+      pboCtx.textAlign = 'center';
+      pboCtx.textBaseline = 'middle';
+      pboCtx.fillText(text, x, y);
+      pboCtx.restore();
+    }
+
+    function drawPillBanner(x, y, text, bgColor) {
+      pboCtx.save();
+      pboCtx.font = 'bold 11px system-ui';
+      const textWidth = pboCtx.measureText(text).width;
+      pboCtx.fillStyle = bgColor;
+      pboCtx.beginPath();
+      pboCtx.roundRect(x - textWidth / 2 - 10, y - 11, textWidth + 20, 22, 11);
+      pboCtx.fill();
+
+      pboCtx.fillStyle = '#ffffff';
+      pboCtx.textAlign = 'center';
+      pboCtx.textBaseline = 'middle';
+      pboCtx.fillText(text, x, y);
+      pboCtx.restore();
+    }
+
+    function togglePboAutoPlay() {
+      const btn = document.getElementById('pboAutoPlayBtn');
+      const icon = document.getElementById('pboPlayIcon');
+
+      if (isPboAutoPlaying) {
+        isPboAutoPlaying = false;
+        clearInterval(pboAutoPlayTimer);
+        icon.innerText = '▶️';
+        btn.innerHTML = '<span>▶️</span> Putar Animasi Jembatan';
+      } else {
+        isPboAutoPlaying = true;
+        icon.innerText = '⏸️';
+        btn.innerHTML = '<span>⏸️</span> Jeda Animasi';
+        currentPboStep = 1;
+        renderPboStep();
+        playTransferSound();
+
+        pboAutoPlayTimer = setInterval(() => {
+          if (currentPboStep < 5) {
+            currentPboStep++;
+            playTone(420 + currentPboStep * 50, 'sine', 0.1, 0.08);
+            renderPboStep();
+          } else {
+            isPboAutoPlaying = false;
+            clearInterval(pboAutoPlayTimer);
+            icon.innerText = '▶️';
+            btn.innerHTML = '<span>▶️</span> Putar Ulang Animasi';
+            playSuccessSound();
+          }
+        }, 1600);
+      }
+    }
+
+    function resetPboStepOnly() {
+      isPboAutoPlaying = false;
+      clearInterval(pboAutoPlayTimer);
+      document.getElementById('pboAutoPlayBtn').innerHTML = '<span>▶️</span> Putar Animasi Jembatan';
+      currentPboStep = 1;
+      renderPboStep();
+      playTone(350, 'sine', 0.08, 0.05);
+    }
+
+    function renderPboStep() {
+      const rData = pboReactions[currentPboLevel];
+      const stepData = rData.steps[currentPboStep - 1];
+
+      document.getElementById('pboStepTitle').innerText = stepData.title;
+      document.getElementById('pboExplanation').innerHTML = stepData.explanation;
+
+      document.getElementById('pboPrevBtn').disabled = currentPboStep === 1;
+      document.getElementById('pboNextBtn').innerText = currentPboStep === 5 ? 'Selesai / Ulangi' : 'Langkah Berikutnya →';
+
+      for (let i = 1; i <= 5; i++) {
+        const pill = document.getElementById(`pbo-nav-${i}`);
+        pill.classList.remove('active', 'completed');
+        if (i === currentPboStep) pill.classList.add('active');
+        else if (i < currentPboStep) pill.classList.add('completed');
+      }
+
+      renderPboClickableFormula();
+      drawPboBridge();
+    }
+
+    function nextPboStep() {
+      if (currentPboStep < 5) {
+        currentPboStep++;
+        playTone(480, 'sine', 0.08, 0.05);
+      } else {
+        currentPboStep = 1;
+        playTone(350, 'sine', 0.08, 0.05);
+      }
+      renderPboStep();
+    }
+
+    function prevPboStep() {
+      if (currentPboStep > 1) {
+        currentPboStep--;
+        playTone(400, 'sine', 0.08, 0.05);
+        renderPboStep();
+      }
+    }
+
+    function jumpPboStep(step) {
+      currentPboStep = step;
+      playTone(450, 'sine', 0.08, 0.05);
+      renderPboStep();
+    }
+
+
+    /* =========================================================================
+       7. DATASET 4 LEVEL KESULITAN REAKSI (METODE SETENGAH REAKSI)
+       ========================================================================= */
+    let currentIonLevel = 1;
+    let currentIonStep = 1;
+
+    const ionReactions = {
+      1: {
+        levelName: "🟢 Level 1: Mudah (Asam Tunggal: Fe²⁺ + MnO₄⁻)",
+        titleBar: "Pemisahan & Eliminasi Elektron: Fe²⁺ + MnO₄⁻ (Asam)",
+        formulaChips: [
+          { key: 'pbo_1_fe_r', label: 'Fe²⁺', biloks: '+2', color: '#06b6d4' },
+          { text: '+' },
+          { key: 'pbo_1_mn_r', label: 'MnO₄⁻', biloks: '+7', color: '#f72585' },
+          { text: '→' },
+          { key: 'pbo_1_fe_p', label: 'Fe³⁺', biloks: '+3', color: '#06b6d4' },
+          { text: '+' },
+          { key: 'pbo_1_mn_p', label: 'Mn²⁺', biloks: '+2', color: '#f72585' }
+        ],
+        steps: [
+          {
+            title: "Langkah 1: Pisahkan Reaksi Menjadi Dua Setengah Reaksi",
+            explanation: "Pisahkan reaksi redoks menjadi dua setengah reaksi sesuai zat yang berubah biloks."
+          },
+          {
+            title: "Langkah 2: Setarakan Atom Utama Selain O dan H",
+            explanation: "Atom Fe (1 di kiri, 1 di kanan). Atom Mn (1 di kiri, 1 di kanan). Kedua atom utama sudah setara!"
+          },
+          {
+            title: "Langkah 3: Setarakan Oksigen (H₂O) & Hidrogen (H⁺)",
+            explanation: "Di reduksi, ruas kiri punya 4 atom O, tambahkan <strong>4H₂O</strong> di kanan. Lalu tambahkan <strong>8H⁺</strong> di kiri."
+          },
+          {
+            title: "Langkah 4: Setarakan Muatan Menggunakan Elektron (e⁻)",
+            explanation: "Tambahkan 1e⁻ pada reaksi oksidasi dan 5e⁻ pada reaksi reduksi agar muatan kiri dan kanan seimbang."
+          },
+          {
+            title: "Langkah 5: Samakan Elektron & Jumlahkan Reaksi",
+            explanation: "Kalikan reaksi oksidasi dengan 5 sehingga 5e⁻ saling menghilangkan.<br><span style='color:var(--success); font-weight:700;'>🎉 Reaksi ion-elektron suasana asam selesai!</span>"
+          }
+        ],
+        canvasOx: ["Fe²⁺ → Fe³⁺", "Fe²⁺ → Fe³⁺", "Fe²⁺ → Fe³⁺", "Fe²⁺ → Fe³⁺ + 1e⁻", "5Fe²⁺ → 5Fe³⁺ + 5e⁻  (× 5)"],
+        canvasRed: ["MnO₄⁻ → Mn²⁺", "MnO₄⁻ → Mn²⁺", "MnO₄⁻ + 8H⁺ → Mn²⁺ + 4H₂O", "MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O", "MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O  (× 1)"]
+      },
+      2: {
+        levelName: "🟡 Level 2: Sedang (Asam Dikromat: Cr₂O₇²⁻ + Fe²⁺)",
+        titleBar: "Pemisahan & Eliminasi Elektron: Cr₂O₇²⁻ + Fe²⁺ (Asam)",
+        formulaChips: [
+          { key: 'pbo_2_cr_r', label: 'Cr₂O₇²⁻', biloks: '+6 (total +12)', color: '#f72585' },
+          { text: '+' },
+          { key: 'pbo_2_fe_r', label: 'Fe²⁺', biloks: '+2', color: '#06b6d4' },
+          { text: '→' },
+          { key: 'pbo_2_cr_p', label: '2Cr³⁺', biloks: '+3 (total +6)', color: '#f72585' },
+          { text: '+' },
+          { key: 'pbo_2_fe_p', label: 'Fe³⁺', biloks: '+3', color: '#06b6d4' }
+        ],
+        steps: [
+          {
+            title: "Langkah 1: Pisahkan Reaksi Menjadi Dua Setengah Reaksi",
+            explanation: "Pisahkan reaksi utama ke dalam setengah reaksi oksidasi dan reduksi."
+          },
+          {
+            title: "Langkah 2: Setarakan Atom Utama Selain O dan H (Cr₂)",
+            explanation: "Karena ada 2 atom Cr pada Cr₂O₇²⁻ di ruas kiri, kalikan Cr³⁺ di ruas kanan dengan koefisien <strong>2</strong>!"
+          },
+          {
+            title: "Langkah 3: Setarakan Oksigen (H₂O) & Hidrogen (H⁺)",
+            explanation: "Ruas kanan kekurangan 7 atom O, tambahkan <strong>7H₂O</strong>. Ruas kiri tambahkan <strong>14H⁺</strong>."
+          },
+          {
+            title: "Langkah 4: Setarakan Muatan Menggunakan Elektron (e⁻)",
+            explanation: "Muatan reduksi kiri = +12, kanan = +6. Tambahkan <strong>6e⁻</strong> di ruas kiri."
+          },
+          {
+            title: "Langkah 5: Samakan Elektron & Eliminasi",
+            explanation: "Kalikan reaksi oksidasi dengan 6 sehingga elektron saling meniadakan.<br><span style='color:var(--success); font-weight:700;'>🎉 Reaksi dikromat tuntas disetarakan!</span>"
+          }
+        ],
+        canvasOx: ["Fe²⁺ → Fe³⁺", "Fe²⁺ → Fe³⁺", "Fe²⁺ → Fe³⁺", "Fe²⁺ → Fe³⁺ + 1e⁻", "6Fe²⁺ → 6Fe³⁺ + 6e⁻  (× 6)"],
+        canvasRed: ["Cr₂O₇²⁻ → Cr³⁺", "Cr₂O₇²⁻ → 2Cr³⁺", "Cr₂O₇²⁻ + 14H⁺ → 2Cr³⁺ + 7H₂O", "Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O", "Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O  (× 1)"]
+      },
+      3: {
+        levelName: "🔴 Level 3: Sulit (Suasana Basa: MnO₄⁻ + C₂O₄²⁻)",
+        titleBar: "Pemisahan & Eliminasi Elektron: MnO₄⁻ + C₂O₄²⁻ (Basa)",
+        formulaChips: [
+          { key: 'pbo_3_mn_r', label: 'MnO₄⁻', biloks: '+7', color: '#f72585' },
+          { text: '+' },
+          { key: 'pbo_3_c_r',  label: 'C₂O₄²⁻', biloks: '+3 (total +6)', color: '#06b6d4' },
+          { text: '→' },
+          { key: 'pbo_3_mn_p', label: 'MnO₂', biloks: '+4', color: '#f72585' },
+          { text: '+' },
+          { key: 'pbo_3_c_p',  label: '2CO₂', biloks: '+4 (total +8)', color: '#06b6d4' }
+        ],
+        steps: [
+          {
+            title: "Langkah 1: Pisahkan Reaksi Menjadi Dua Bagian",
+            explanation: "Dalam suasana basa, ion permanganat (MnO₄⁻) tereduksi menjadi endapan cokelat mangan dioksida (MnO₂)."
+          },
+          {
+            title: "Langkah 2: Setarakan Atom Utama (C)",
+            explanation: "Kalikan CO₂ di ruas kanan dengan koefisien 2 agar jumlah atom C sama."
+          },
+          {
+            title: "Langkah 3: Setarakan Oksigen & Hidrogen (Suasana Basa)",
+            explanation: "Ruas kiri kelebihan 2 atom O, tambahkan <strong>2H₂O</strong> di kiri, lalu tambahkan <strong>4OH⁻</strong> di ruas kanan."
+          },
+          {
+            title: "Langkah 4: Setarakan Muatan Menggunakan Elektron (e⁻)",
+            explanation: "Tambahkan 2e⁻ pada oksidasi dan 3e⁻ pada reduksi agar muatan kedua sisi setara (-4)."
+          },
+          {
+            title: "Langkah 5: Samakan Elektron & Jumlahkan Reaksi",
+            explanation: "KPK elektron adalah 6. Setelah dijumlahkan, elektron saling menghilangkan.<br><span style='color:var(--success); font-weight:700;'>🎉 Reaksi redoks suasana basa selesai!</span>"
+          }
+        ],
+        canvasOx: ["C₂O₄²⁻ → CO₂", "C₂O₄²⁻ → 2CO₂", "C₂O₄²⁻ → 2CO₂", "C₂O₄²⁻ → 2CO₂ + 2e⁻", "3C₂O₄²⁻ → 6CO₂ + 6e⁻  (× 3)"],
+        canvasRed: ["MnO₄⁻ → MnO₂", "MnO₄⁻ → MnO₂", "MnO₄⁻ + 2H₂O → MnO₂ + 4OH⁻", "MnO₄⁻ + 2H₂O + 3e⁻ → MnO₂ + 4OH⁻", "2MnO₄⁻ + 4H₂O + 6e⁻ → 2MnO₂ + 8OH⁻  (× 2)"]
+      },
+      4: {
+        levelName: "🟣 Level 4: HOTS (Autoredoks Gas Klorin: Cl₂ → Cl⁻ + ClO₃⁻)",
+        titleBar: "Pemisahan & Eliminasi Elektron: Autoredoks Cl₂ (Suasana Basa)",
+        formulaChips: [
+          { key: 'ion_4_cl_r',   label: 'Cl₂', biloks: '0 (Autoredoks)', color: '#8b5cf6' },
+          { text: '→' },
+          { key: 'ion_4_cl_red', label: 'Cl⁻', biloks: '-1 (Reduksi)', color: '#06b6d4' },
+          { text: '+' },
+          { key: 'ion_4_cl_ox',  label: 'ClO₃⁻', biloks: '+5 (Oksidasi)', color: '#f72585' }
+        ],
+        steps: [
+          {
+            title: "Langkah 1: Pisahkan Reaksi Disproporsionasi (Cl₂ Berperan Ganda)",
+            explanation: "Gas klorin (Cl₂) mengalami oksidasi sekaligus reduksi. Tuliskan Cl₂ pada kedua setengah reaksi!"
+          },
+          {
+            title: "Langkah 2: Setarakan Atom Utama Klorin",
+            explanation: "Kalikan ClO₃⁻ dan Cl⁻ di ruas kanan dengan koefisien 2 agar jumlah atom Cl di kedua sisi setara."
+          },
+          {
+            title: "Langkah 3: Setarakan O & H (Suasana Basa)",
+            explanation: "Pada oksidasi, tambahkan <strong>12 OH⁻</strong> di ruas kiri dan <strong>6 H₂O</strong> di ruas kanan untuk menyetarakan atom Oksigen & Hidrogen."
+          },
+          {
+            title: "Langkah 4: Setarakan Muatan dengan Elektron (e⁻)",
+            explanation: "Tambahkan <strong>10e⁻</strong> pada reaksi oksidasi dan <strong>2e⁻</strong> pada reaksi reduksi."
+          },
+          {
+            title: "Langkah 5: Samakan Elektron & Sederhanakan Koefisien",
+            explanation: "KPK elektron adalah 10. Jumlahkan lalu sederhanakan seluruh koefisien dengan membagi 2.<br><span style='color:var(--success); font-weight:700;'>🎉 Reaksi disproporsionasi HOTS sukses setara!</span>"
+          }
+        ],
+        canvasOx: ["Cl₂ → ClO₃⁻", "Cl₂ → 2ClO₃⁻", "Cl₂ + 12OH⁻ → 2ClO₃⁻ + 6H₂O", "Cl₂ + 12OH⁻ → 2ClO₃⁻ + 6H₂O + 10e⁻", "Cl₂ + 12OH⁻ → 2ClO₃⁻ + 6H₂O + 10e⁻  (× 1)"],
+        canvasRed: ["Cl₂ → Cl⁻", "Cl₂ → 2Cl⁻", "Cl₂ → 2Cl⁻", "Cl₂ + 2e⁻ → 2Cl⁻", "5Cl₂ + 10e⁻ → 10Cl⁻  (× 5)"]
+      }
+    };
+
+    function setIonReactionLevel(level) {
+      currentIonLevel = level;
+      currentIonStep = 1;
+      ionAllBiloksVisible = false;
+      document.getElementById('toggleIonBiloksBtn').innerText = '👁️ Tampilkan Semua Biloks';
+      document.getElementById('ionAtomInspectorPanel').style.display = 'none';
+      playTone(450, 'sine', 0.08, 0.05);
+
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`diffIon${i}`);
+        if (btn) btn.classList.toggle('active', i === level);
+      }
+
+      document.getElementById('ionCurrentReactionTitle').innerHTML = `<span>⚡</span> ${ionReactions[level].titleBar}`;
+      renderIonStep();
+    }
+
+    function renderIonClickableFormula() {
+      const container = document.getElementById('ionClickableFormula');
+      const rData = ionReactions[currentIonLevel];
+      container.innerHTML = '';
+
+      rData.formulaChips.forEach(item => {
+        if (item.text) {
+          const span = document.createElement('span');
+          span.style.color = '#94a3b8';
+          span.style.fontWeight = 'bold';
+          span.innerText = item.text;
+          container.appendChild(span);
+        } else {
+          const chip = document.createElement('div');
+          chip.className = `atom-chip ${ionAllBiloksVisible ? 'revealed' : ''}`;
+          chip.setAttribute('data-atom-key', item.key);
+          chip.innerHTML = `
+            <span class="atom-floating-biloks" style="background:${item.color};">${item.biloks}</span>
+            <span class="atom-chip-label">${item.label}</span>
+          `;
+          chip.onclick = () => inspectAtom(item.key, 'ionAtomInspectorPanel');
+          container.appendChild(chip);
+        }
+      });
+    }
+
+
+    /* ========================================================
+       7B. ANIMASI HALF-REACTION CANVAS (SETENGAH REAKSI)
+       ======================================================== */
+    const ionCanvas = document.getElementById('ionHalfCanvas');
+    const ionCtx = ionCanvas.getContext('2d');
+    let isIonAutoPlaying = false;
+    let ionAutoPlayTimer = null;
+
+    function resizeIonCanvas() {
+      if (!ionCanvas) return;
+      const rect = ionCanvas.parentElement.getBoundingClientRect();
+      ionCanvas.width = rect.width;
+      ionCanvas.height = rect.height;
+      drawIonHalfCanvas();
+    }
+
+    function drawIonHalfCanvas() {
+      if (!ionCtx) return;
+      const w = ionCanvas.width;
+      const h = ionCanvas.height;
+      ionCtx.clearRect(0, 0, w, h);
+
+      const rData = ionReactions[currentIonLevel];
+      const row1Y = h * 0.32;
+      const row2Y = h * 0.70;
+
+      // Header row
+      ionCtx.font = 'bold 12px system-ui';
+      ionCtx.fillStyle = '#f72585';
+      ionCtx.textAlign = 'left';
+      ionCtx.fillText('SETENGAH REAKSI OKSIDASI:', 20, row1Y - 26);
+
+      ionCtx.fillStyle = '#06b6d4';
+      ionCtx.fillText('SETENGAH REAKSI REDUKSI:', 20, row2Y - 26);
+
+      // Equations Text
+      ionCtx.font = 'bold 15px Consolas, monospace';
+      ionCtx.fillStyle = '#ffffff';
+
+      const oxText = rData.canvasOx[currentIonStep - 1];
+      const redText = rData.canvasRed[currentIonStep - 1];
+
+      ionCtx.fillText(oxText, 25, row1Y);
+      ionCtx.fillText(redText, 25, row2Y);
+
+      // Step 4 & 5
+      if (currentIonStep >= 4) {
+        ionCtx.fillStyle = '#ffe66d';
+        ionCtx.font = 'bold 12px system-ui';
+        ionCtx.fillText('⚡ Elektron seimbang', w * 0.72, row1Y - 26);
+      }
+
+      if (currentIonStep === 5) {
+        // Red Strike through line over matching electrons
+        ionCtx.strokeStyle = '#ef4444';
+        ionCtx.lineWidth = 3;
+        ionCtx.beginPath();
+        ionCtx.moveTo(w * 0.40, row1Y - 5);
+        ionCtx.lineTo(w * 0.68, row1Y + 5);
+        ionCtx.stroke();
+
+        ionCtx.beginPath();
+        ionCtx.moveTo(w * 0.40, row2Y - 5);
+        ionCtx.lineTo(w * 0.68, row2Y + 5);
+        ionCtx.stroke();
+
+        // Final result badge
+        ionCtx.fillStyle = '#10b981';
+        ionCtx.font = 'bold 13px system-ui';
+        ionCtx.fillText('🎉 Elektron Dieliminasi & Reaksi Dijumlahkan!', w * 0.45, h - 12);
+      }
+    }
+
+    function toggleIonAutoPlay() {
+      const btn = document.getElementById('ionAutoPlayBtn');
+      const icon = document.getElementById('ionPlayIcon');
+
+      if (isIonAutoPlaying) {
+        isIonAutoPlaying = false;
+        clearInterval(ionAutoPlayTimer);
+        icon.innerText = '▶️';
+        btn.innerHTML = '<span>▶️</span> Putar Animasi';
+      } else {
+        isIonAutoPlaying = true;
+        icon.innerText = '⏸️';
+        btn.innerHTML = '<span>⏸️</span> Jeda';
+        currentIonStep = 1;
+        renderIonStep();
+        playTransferSound();
+
+        ionAutoPlayTimer = setInterval(() => {
+          if (currentIonStep < 5) {
+            currentIonStep++;
+            playTone(440 + currentIonStep * 40, 'sine', 0.1, 0.08);
+            renderIonStep();
+          } else {
+            isIonAutoPlaying = false;
+            clearInterval(ionAutoPlayTimer);
+            icon.innerText = '▶️';
+            btn.innerHTML = '<span>▶️</span> Putar Ulang';
+            playSuccessSound();
+          }
+        }, 1600);
+      }
+    }
+
+    function resetIonStepOnly() {
+      isIonAutoPlaying = false;
+      clearInterval(ionAutoPlayTimer);
+      document.getElementById('ionAutoPlayBtn').innerHTML = '<span>▶️</span> Putar Animasi';
+      currentIonStep = 1;
+      renderIonStep();
+      playTone(350, 'sine', 0.08, 0.05);
+    }
+
+    function renderIonStep() {
+      const rData = ionReactions[currentIonLevel];
+      const stepData = rData.steps[currentIonStep - 1];
+
+      document.getElementById('ionStepTitle').innerText = stepData.title;
+      document.getElementById('ionExplanation').innerHTML = stepData.explanation;
+
+      document.getElementById('ionPrevBtn').disabled = currentIonStep === 1;
+      document.getElementById('ionNextBtn').innerText = currentIonStep === 5 ? 'Selesai / Ulangi' : 'Langkah Berikutnya →';
+
+      for (let i = 1; i <= 5; i++) {
+        const pill = document.getElementById(`ion-nav-${i}`);
+        pill.classList.remove('active', 'completed');
+        if (i === currentIonStep) pill.classList.add('active');
+        else if (i < currentIonStep) pill.classList.add('completed');
+      }
+
+      renderIonClickableFormula();
+      drawIonHalfCanvas();
+    }
+
+    function nextIonStep() {
+      if (currentIonStep < 5) {
+        currentIonStep++;
+        playTone(480, 'sine', 0.08, 0.05);
+      } else {
+        currentIonStep = 1;
+        playTone(350, 'sine', 0.08, 0.05);
+      }
+      renderIonStep();
+    }
+
+    function prevIonStep() {
+      if (currentIonStep > 1) {
+        currentIonStep--;
+        playTone(400, 'sine', 0.08, 0.05);
+        renderIonStep();
+      }
+    }
+
+    function jumpIonStep(step) {
+      currentIonStep = step;
+      playTone(450, 'sine', 0.08, 0.05);
+      renderIonStep();
+    }
+
+
+    /* ========================================================
+       8. SWITCH METODE PENYETARAAN (PBO vs SETENGAH REAKSI)
+       ======================================================== */
+    function switchMethod(method) {
+      playTone(500, 'sine', 0.05, 0.04);
+      if (method === 'pbo') {
+        document.getElementById('method-pbo').style.display = 'block';
+        document.getElementById('method-ion').style.display = 'none';
+        document.getElementById('btn-pbo').classList.add('active');
+        document.getElementById('btn-ion').classList.remove('active');
+        resizePboCanvas();
+      } else {
+        document.getElementById('method-pbo').style.display = 'none';
+        document.getElementById('method-ion').style.display = 'block';
+        document.getElementById('btn-pbo').classList.remove('active');
+        document.getElementById('btn-ion').classList.add('active');
+        resizeIonCanvas();
+      }
+    }
+
+
+    /* ========================================================
+       9. BANK SOAL HOTS & UTBK KELAS 12 (8 SOAL)
+       ======================================================== */
+    const quizData = [
+      {
+        question: "Perhatikan reaksi redoks berikut:\nCu(s) + 4HNO₃(aq) → Cu(NO₃)₂(aq) + 2NO₂(g) + 2H₂O(l)\nZat yang bertindak sebagai Oksidator dan Hasil Oksidasi berturut-turut adalah...",
+        options: [
+          "Cu dan Cu(NO₃)₂",
+          "HNO₃ dan Cu(NO₃)₂",
+          "HNO₃ dan NO₂",
+          "Cu dan NO₂",
+          "Cu(NO₃)₂ dan H₂O"
+        ],
+        correct: 1,
+        explanation: "Oksidator adalah zat pereaksi yang mengalami reduksi (HNO₃, karena N turun dari +5 ke +4). Hasil oksidasi adalah zat di ruas kanan dari zat yang teroksidasi (Cu(NO₃)₂)."
+      },
+      {
+        question: "Berapa mol elektron yang dibutuhkan untuk mereduksi 1 mol ion dikromat (Cr₂O₇²⁻) menjadi ion Cr³⁺ dalam suasana asam?",
+        options: [
+          "2 mol elektron",
+          "3 mol elektron",
+          "5 mol elektron",
+          "6 mol elektron",
+          "14 mol elektron"
+        ],
+        correct: 3,
+        explanation: "Pada Cr₂O₇²⁻, biloks total 2Cr adalah 2(+6) = +12. Pada 2Cr³⁺, biloks total adalah 2(+3) = +6. Perubahan biloks = 12 - 6 = 6. Persamaan setengah reaksinya: Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O (Dibutuhkan 6 mol elektron)."
+      },
+      {
+        question: "Reaksi berikut yang merupakan reaksi autoredoks (disproporsionasi) adalah...",
+        options: [
+          "Zn + 2HCl → ZnCl₂ + H₂",
+          "2H₂S + SO₂ → 3S + 2H₂O",
+          "Cl₂ + 2NaOH → NaCl + NaClO + H₂O",
+          "AgNO₃ + NaCl → AgCl + NaNO₃",
+          "CuO + H₂ → Cu + H₂O"
+        ],
+        correct: 2,
+        explanation: "Pada reaksi Cl₂ + 2NaOH → NaCl + NaClO + H₂O, atom klorin pada Cl₂ (biloks 0) mengalami reduksi menjadi NaCl (-1) sekaligus oksidasi menjadi NaClO (+1)."
+      },
+      {
+        question: "Bilangan oksidasi atom oksigen bernilai -1 pada senyawa...",
+        options: [
+          "H₂O",
+          "OF₂",
+          "BaO₂",
+          "KO₂",
+          "CO₂"
+        ],
+        correct: 2,
+        explanation: "BaO₂ (Barium peroksida) merupakan senyawa peroksida di mana Ba memiliki biloks +2 sehingga masing-masing atom O memiliki biloks -1."
+      },
+      {
+        question: "Pada persamaan reaksi redoks berikut (suasana asam):\na MnO₄⁻ + b Fe²⁺ + c H⁺ → d Mn²⁺ + e Fe³⁺ + f H₂O\nNilai koefisien a, b, dan c berturut-turut adalah...",
+        options: [
+          "1, 5, dan 8",
+          "2, 5, dan 16",
+          "1, 2, dan 4",
+          "2, 10, dan 8",
+          "1, 6, dan 14"
+        ],
+        correct: 0,
+        explanation: "Persamaan setaranya adalah: 1MnO₄⁻ + 5Fe²⁺ + 8H⁺ → 1Mn²⁺ + 5Fe³⁺ + 4H₂O. Maka a = 1, b = 5, dan c = 8."
+      },
+      {
+        question: "Pada penyetaraan reaksi redoks metode ion-elektron dalam suasana BASA, jika ruas kiri kelebihan 2 atom oksigen, maka yang harus ditambahkan adalah...",
+        options: [
+          "2 ion H⁺ di ruas kiri",
+          "2 molekul H₂O di ruas kiri dan 4 ion OH⁻ di ruas kanan",
+          "2 ion OH⁻ di ruas kiri",
+          "1 molekul H₂O di ruas kanan",
+          "4 ion H⁺ di ruas kanan"
+        ],
+        correct: 1,
+        explanation: "Aturan suasana basa: ruas yang kelebihan atom oksigen ditambah molekul H₂O sebanyak kelebihannya (2H₂O), dan ruas yang berlawanan ditambah ion OH⁻ sebanyak dua kali lipatnya (4OH⁻)."
+      },
+      {
+        question: "Reaksi: 2H₂S + SO₂ → 3S + 2H₂O digolongkan sebagai reaksi...",
+        options: [
+          "Disproporsionasi",
+          "Konproporsionasi",
+          "Pengendapan murni",
+          "Bukan reaksi redoks",
+          "Netralisasi asam-basa"
+        ],
+        correct: 1,
+        explanation: "Reaksi ini adalah konproporsionasi karena dua reaktan yang memiliki biloks berbeda (H₂S: S = -2 dan SO₂: S = +4) bereaksi menghasilkan produk dengan biloks yang sama (S bebas = 0)."
+      },
+      {
+        question: "Sebanyak 0,2 mol ion permanganat (MnO₄⁻) direaksikan dengan ion Fe²⁺ berlebih dalam suasana asam. Jumlah mol ion Fe²⁺ yang teroksidasi adalah...",
+        options: [
+          "0,2 mol",
+          "0,4 mol",
+          "0,5 mol",
+          "1,0 mol",
+          "2,0 mol"
+        ],
+        correct: 3,
+        explanation: "Berdasarkan perbandingan koefisien reaksi setara: 1MnO₄⁻ sebanding dengan 5Fe²⁺. Maka mol Fe²⁺ yang teroksidasi = 5 × 0,2 mol = 1,0 mol."
+      }
+    ];
+
+    let currentQuestionIdx = 0;
+    let userScore = 0;
+    let questionAnswered = false;
+
+    function renderQuestion() {
+      questionAnswered = false;
+      const q = quizData[currentQuestionIdx];
+      document.getElementById('quizQuestionCount').innerText = `Soal ${currentQuestionIdx + 1} / ${quizData.length}`;
+      document.getElementById('quizProgressBar').style.width = `${((currentQuestionIdx + 1) / quizData.length) * 100}%`;
+      document.getElementById('quizQuestion').innerText = q.question;
+      
+      const optContainer = document.getElementById('quizOptions');
+      optContainer.innerHTML = '';
+
+      q.options.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span style="font-weight:700; width: 26px; height:26px; border-radius:50%; background:#f1f5f9; display:inline-flex; align-items:center; justify-content:center; font-size:0.85rem;">${String.fromCharCode(65 + idx)}</span> <span>${optText}</span>`;
+        btn.onclick = () => selectOption(idx);
+        optContainer.appendChild(btn);
+      });
+
+      const feedback = document.getElementById('quizFeedback');
+      feedback.className = 'quiz-feedback';
+      feedback.innerHTML = '';
+      document.getElementById('quizNextBtn').style.display = 'none';
+    }
+
+    function selectOption(selectedIdx) {
+      if (questionAnswered) return;
+      questionAnswered = true;
+
+      const q = quizData[currentQuestionIdx];
+      const buttons = document.querySelectorAll('.option-btn');
+      const feedback = document.getElementById('quizFeedback');
+
+      const pointPerQuestion = Math.round(100 / quizData.length);
+
+      if (selectedIdx === q.correct) {
+        buttons[selectedIdx].classList.add('correct');
+        feedback.className = 'quiz-feedback show correct-feedback';
+        feedback.innerHTML = `<strong>Jawaban Benar! 🎉</strong><br>${q.explanation}`;
+        userScore += pointPerQuestion;
+        document.getElementById('quizScoreText').innerText = `Skor: ${userScore}`;
+        playSuccessSound();
+      } else {
+        buttons[selectedIdx].classList.add('incorrect');
+        buttons[q.correct].classList.add('correct');
+        feedback.className = 'quiz-feedback show incorrect-feedback';
+        feedback.innerHTML = `<strong>Jawaban Kurang Tepat 😊</strong><br>${q.explanation}`;
+        playWrongSound();
+      }
+
+      document.getElementById('quizNextBtn').style.display = 'inline-flex';
+    }
+
+    function nextQuestion() {
+      if (currentQuestionIdx < quizData.length - 1) {
+        currentQuestionIdx++;
+        playTone(500, 'sine', 0.05, 0.04);
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      playSuccessSound();
+      document.getElementById('quizPlayArea').style.display = 'none';
+      document.getElementById('quizResultArea').style.display = 'block';
+      document.getElementById('finalScoreVal').innerText = userScore > 100 ? 100 : userScore;
+
+      const trophy = document.getElementById('resultTrophy');
+      const title = document.getElementById('resultTitle');
+      const msg = document.getElementById('resultMessage');
+
+      if (userScore >= 80) {
+        trophy.innerText = '🏆';
+        title.innerText = 'Master Redoks SMA!';
+        msg.innerText = 'Luar biasa! Penguasaan materi redoks dan penyetaraan reaksimu sangat siap untuk UTBK dan Ujian Sekolah!';
+      } else if (userScore >= 60) {
+        trophy.innerText = '🥈';
+        title.innerText = 'Hasil yang Bagus!';
+        msg.innerText = 'Dasar konsepmu sudah kuat. Perdalam kembali penyetaraan suasana basa dan perhitungan mol elektron untuk meraih nilai sempurna!';
+      } else {
+        trophy.innerText = '💡';
+        title.innerText = 'Tetap Bersemangat!';
+        msg.innerText = 'Pelajari kembali alur stepper metode PBO & setengah reaksi serta tinjau bank soal di atas.';
+      }
+    }
+
+    function restartQuiz() {
+      currentQuestionIdx = 0;
+      userScore = 0;
+      document.getElementById('quizScoreText').innerText = 'Skor: 0';
+      document.getElementById('quizPlayArea').style.display = 'block';
+      document.getElementById('quizResultArea').style.display = 'none';
+      renderQuestion();
+    }
+
+
+    /* ========================================================
+       10. INITIALIZATION & RESIZE LISTENERS
+       ======================================================== */
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      resizePboCanvas();
+      resizeIonCanvas();
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      resizeCanvas();
+      drawSim(0);
+      loadBiloksSpecies('Cr2O7');
+      resizePboCanvas();
+      resizeIonCanvas();
+      renderPboStep();
+      renderIonStep();
+      renderQuestion();
+
+      function ambientLoop() {
+        if (pboCanvas && document.getElementById('tab-penyetaraan').classList.contains('active')) {
+          drawPboBridge();
+        }
+        requestAnimationFrame(ambientLoop);
+      }
+      ambientLoop();
+    });
+  </script>
+</body>
+</html>
