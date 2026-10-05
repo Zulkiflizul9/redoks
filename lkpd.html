@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>RedoxQuest · LKPD Interaktif (Papan Tulis Digital 5 Layar)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --cd: #ffffff;
+      --tx: #0f172a;
+      --mu: #64748b;
+      --ln: #cbd5e1;
+      --in: #f8fafc;
+      --ok: #16a34a;
+      --bad: #dc2626;
+      --primary: #1F4E79;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: pan-y;
+      -webkit-touch-callout: none;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #0f172a;
+      color: var(--tx);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.4;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none; /* Cegah zoom pada root papan tulis */
+      overscroll-behavior: none;
+    }
+
+    /* MASTER TOP BAR UNTUK GURU / PAPAN TULIS */
+    #master-bar {
+      height: 48px;
+      background: linear-gradient(90deg, #091322 0%, #172554 50%, #091322 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      border-bottom: 2px solid #334155;
+      position: relative;
+      z-index: 100;
+      touch-action: none;
+    }
+
+    .master-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: -0.3px;
+    }
+
+    .master-badge {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .master-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .layout-pills {
+      display: flex;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 3px;
+      border-radius: 8px;
+      gap: 2px;
+    }
+
+    .layout-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .layout-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .timer-widget {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid #334155;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+
+    .timer-btn {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 2px 4px;
+    }
+
+    .master-action-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+
+    .master-action-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    /* KONTEN UTAMA: PAPAN SPLIT LAYAR */
+    #board-wrapper {
+      display: flex;
+      width: 100vw;
+      height: calc(100vh - 48px);
+      background: #0f172a;
+      overflow: hidden;
+      position: relative;
+      touch-action: none;
+    }
+
+    /* KOLOM LAYAR TIAP KELOMPOK (PORTRAIT) */
+    .group-col {
+      flex: 1 1 0px;
+      min-width: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border-right: 2px solid #cbd5e1;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    .group-col:last-child {
+      border-right: none;
+    }
+
+    /* HEADER KOLOM KELOMPOK */
+    .group-header {
+      padding: 10px 12px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      z-index: 10;
+      touch-action: none;
+    }
+
+    .group-title-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .group-pill {
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .group-name-text {
+      font-size: 13.5px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .group-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .col-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      transition: all 0.15s;
+    }
+
+    .col-btn:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .col-btn.kb-active {
+      background: #fbbf24;
+      color: #78350f;
+      border-color: #f59e0b;
+      font-weight: 800;
+    }
+
+    /* AREA SCROLL INDEPENDEN TIAP KELOMPOK */
+    .group-scroll-area {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain; /* Mengunci scroll agar tidak menyenggol kolom lain */
+      touch-action: pan-y; /* Hanya izinkan geser vertikal dalam kolom ini */
+      padding: 12px 10px 40px 10px;
+      position: relative;
+    }
+
+    /* KARTU & KOMPONEN DI DALAM LAYAR */
+    .card {
+      background: var(--cd);
+      border: 1px solid var(--ln);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .col-hd {
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .col-hd h2 {
+      margin: 2px 0 0;
+      font-size: 18px;
+    }
+
+    .col-hd small {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      opacity: 0.9;
+    }
+
+    .grid-levels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .box-btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 10px;
+      color: #ffffff;
+      cursor: pointer;
+      min-height: 110px;
+      text-align: left;
+      font: inherit;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s;
+    }
+
+    .box-btn:active {
+      transform: scale(0.97);
+    }
+
+    .box-btn:disabled {
+      filter: grayscale(0.7) brightness(0.7);
+      cursor: not-allowed;
+    }
+
+    .box-btn .ic {
+      font-size: 26px;
+    }
+
+    .box-btn h4 {
+      margin: 2px 0 0;
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .box-btn small {
+      font-size: 10px;
+      opacity: 0.9;
+      line-height: 1.2;
+    }
+
+    .box-peti {
+      min-height: 70px;
+      background: #b45309;
+      margin-top: 10px;
+    }
+
+    /* INPUT KHUSUS WHITEBOARD (READONLY ANTI-POPUP KEYBOARD BAWAAN) */
+    .touch-input {
+      width: 100%;
+      background: var(--in);
+      color: var(--tx);
+      border: 1.5px solid var(--ln);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .touch-input:focus, .touch-input.active-input {
+      border-color: #2563eb !important;
+      background: #ffffff !important;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25) !important;
+    }
+
+    textarea.touch-input {
+      min-height: 54px;
+      resize: none;
+    }
+
+    .f {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin: 8px 0;
+    }
+
+    .f b {
+      padding-top: 8px;
+      min-width: 1.4em;
+      font-size: 12px;
+      color: var(--mu);
+    }
+
+    .f.col {
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .f.col b {
+      padding: 0;
+      font-size: 11px;
+    }
+
+    /* DIGIT BOX */
+    .dg {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1.5px dashed #f59e0b;
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin-top: 10px;
+    }
+
+    .dg input {
+      width: 44px;
+      height: 44px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+      flex: none;
+      padding: 0;
+    }
+
+    /* TOMBOL AKSI BIASA */
+    .btn {
+      background: var(--primary);
+      color: #ffffff;
+      border: 0;
+      border-radius: 8px;
+      padding: 9px 15px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: transform 0.1s;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn.g {
+      background: transparent;
+      color: var(--tx);
+      border: 1px solid var(--ln);
+    }
+
+    .gate-box {
+      text-align: center;
+      padding: 16px 10px;
+    }
+
+    .gate-box input.code {
+      font-size: 24px;
+      letter-spacing: 0.3em;
+      font-weight: 800;
+      max-width: 220px;
+      text-align: center;
+      margin: 10px auto;
+    }
+
+    .rd {
+      font-style: italic;
+      background: var(--in);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: left;
+      font-size: 12px;
+      border-left: 3px solid #2563eb;
+    }
+
+    .shake {
+      animation: sk 0.35s;
+    }
+    @keyframes sk {
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    /* KEYBOARD VIRTUAL INDEPENDEN TIAP KELOMPOK */
+    .group-kb-dock {
+      background: #0f172a;
+      border-top: 2px solid #334155;
+      padding: 6px;
+      flex-shrink: 0;
+      z-index: 20;
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.25);
+      touch-action: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .kb-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4px 4px 4px;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .kb-target-name {
+      font-weight: 700;
+      color: #38bdf8;
+      max-width: 140px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .kb-dock-actions {
+      display: flex;
+      gap: 4px;
+    }
+
+    .kb-mini-btn {
+      background: #334155;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .kb-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .kb-row {
+      display: flex;
+      gap: 3px;
+      justify-content: center;
+      touch-action: none;
+    }
+
+    .k-key {
+      flex: 1;
+      height: 38px;
+      background: #ffffff;
+      color: #0f172a;
+      border: none;
+      border-radius: 6px;
+      font-size: 13.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      touch-action: none;
+      transition: transform 0.05s, background-color 0.1s;
+    }
+
+    .k-key:active {
+      transform: scale(0.92);
+      background: #e2e8f0;
+    }
+
+    .k-key.func {
+      background: #475569;
+      color: #ffffff;
+      font-size: 12px;
+      flex: 1.3;
+    }
+
+    .k-key.enter {
+      background: #16a34a;
+      color: #ffffff;
+      font-size: 13px;
+      flex: 1.5;
+    }
+
+    .k-key.space {
+      flex: 4;
+    }
+
+    /* KEYBOARD NUMERIK */
+    .num-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+
+    .num-grid .k-key {
+      height: 42px;
+      font-size: 16px;
+    }
+
+    /* CETAK PDF */
+    @media print {
+      body {
+        overflow: visible;
+        background: #ffffff;
+      }
+      #master-bar, .group-kb-dock, .np, .col-btn {
+        display: none !important;
+      }
+      #board-wrapper {
+        display: block;
+        height: auto;
+      }
+      .group-col {
+        display: block;
+        page-break-after: always;
+        border: none;
+        height: auto;
+      }
+      .group-scroll-area {
+        overflow: visible;
+        height: auto;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================== -->
+  <!-- 1. MASTER TOP BAR (KONTROL GURU & PAPAN TULIS) -->
+  <!-- ============================================== -->
+  <header id="master-bar">
+    <div class="master-title">
+      <span>⚡</span>
+      <span>RedoxQuest</span>
+      <span class="master-badge">PAPAN TULIS MULTI-TOUCH</span>
+    </div>
+
+    <!-- Pilihan Split Layar -->
+    <div class="master-controls">
+      <div class="layout-pills" title="Pilih jumlah kelompok yang tampil di layar">
+        <button class="layout-btn active" data-col="5" onclick="setLayout(5)">5 Layar</button>
+        <button class="layout-btn" data-col="4" onclick="setLayout(4)">4 Layar</button>
+        <button class="layout-btn" data-col="3" onclick="setLayout(3)">3 Layar</button>
+        <button class="layout-btn" data-col="2" onclick="setLayout(2)">2 Layar</button>
+        <button class="layout-btn" data-col="1" onclick="setLayout(1)">1 Layar</button>
+      </div>
+
+      <!-- Timer Praktikum -->
+      <div class="timer-widget" title="Timer Pengerjaan Praktikum / LKPD">
+        <span>⏱️</span>
+        <span id="timer-display">30:00</span>
+        <button class="timer-btn" onclick="toggleTimer()" id="timer-toggle-btn" title="Mulai / Jeda">▶️</button>
+        <button class="timer-btn" onclick="resetTimer()" title="Reset Waktu">🔄</button>
+      </div>
+
+      <!-- Aksi Papan Tulis -->
+      <button class="master-action-btn" onclick="toggleAllKeyboards()" title="Munculkan/Sembunyikan Semua Keyboard">
+        <span>⌨️</span> <span>Keyboard</span>
+      </button>
+      <button class="master-action-btn" onclick="printAllReports()" title="Cetak Seluruh Laporan Kelompok">
+        <span>🖨️</span> <span>Cetak Semua</span>
+      </button>
+      <button class="master-action-btn" onclick="resetAllGroups()" title="Reset data seluruh kelompok">
+        <span>🔄</span> <span>Reset Semua</span>
+      </button>
+      <button class="master-action-btn" onclick="toggleFullscreen()" title="Layar Penuh Papan Tulis">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================== -->
+  <!-- 2. KONTEN SPLIT SCREEN 5 KELOMPOK               -->
+  <!-- ============================================== -->
+  <main id="board-wrapper">
+    <!-- Di-generate secara dinamis oleh JavaScript -->
+  </main>
+
+  <script>
+    /* ========================================================
+       DATA SOAL & KODE RAHASIA REDOXQUEST (TETAP & LENGKAP)
+       ======================================================== */
+    const L = [
+      {
+        n: 'Gerbang Konsep', c: '#2E75B6',
+        s: [
+          ['Detektif Senyawa', ['a', 'b', 'c'], 'Nomor golongan logam (IIIA → 3)'],
+          ['Setarakan Nyala Api', ['a', 'b*'], 'Jumlah seluruh koefisien persamaan setara'],
+          ['Jejak Elektron', ['a*', 'b*'], 'Elektron yang diterima satu molekul O₂'],
+          ['Sidang Juri Redoks', ['1', '2', '3', '4', '5', '6'], 'Jumlah pernyataan yang benar'],
+          ['Tantangan Sang Penjaga', ['a', 'b', 'c*'], 'Jawaban pertanyaan (a)']
+        ]
+      },
+      {
+        n: 'Lorong Bilangan Oksidasi', c: '#7030A0',
+        s: [
+          ['Detektif Senyawa', ['a', 'b*'], 'Jumlah atom O pada anion'],
+          ['Mangan Berganti Wajah', ['KMnO₄', 'MnO₂', 'MnSO₄', 'K₂MnO₄', 'Urutan dari terkecil ke terbesar'], 'Biloks Mn yang paling kecil'],
+          ['Tangga Klorin', ['Cl₂', 'HCl', 'HClO', 'ClO₃⁻', 'ClO₄⁻'], 'Biloks Cl pada ClO₃⁻'],
+          ['Detektif Kesalahan', ['a*', 'b'], 'Biloks S yang benar'],
+          ['Ungu yang Menghilang', ['a', 'b', 'c*'], 'Elektron yang diterima satu atom Mn']
+        ]
+      },
+      {
+        n: 'Jembatan Pelaku', c: '#C55A11',
+        s: [
+          ['Detektif Senyawa', ['a', 'b'], 'Jumlah seluruh atom dalam satu satuan rumus'],
+          ['Peta Perubahan Biloks', ['Al (sebelum → sesudah)', 'Cu (sebelum → sesudah)', 'S (sebelum → sesudah)', 'O (sebelum → sesudah)', 'Unsur yang biloksnya berubah'], 'Kenaikan biloks satu atom Al'],
+          ['Siapa Pelakunya?', ['Oksidator', 'Reduktor', 'Hasil oksidasi', 'Hasil reduksi'], 'Elektron yang diterima satu ion Cu²⁺'],
+          ['Menyortir Papan Jembatan', ['1', '2', '3', '4', '5', '6'], 'Jumlah reaksi redoks (Ya)'],
+          ['Tembaga Dua Arah', ['a', 'b', 'c*'], 'Elektron yang dilepas satu atom Cu yang teroksidasi']
+        ]
+      },
+      {
+        n: 'Laboratorium Rahasia', c: '#548235',
+        s: [
+          ['Detektif Senyawa', ['a', 'b'], 'Jumlah seluruh atom dalam satu satuan rumus'],
+          ['Menimbang Perubahan Biloks', ['Fe (awal → akhir, perubahan)', 'C (awal → akhir, perubahan)', 'Total elektron yang diterima satu Fe₂O₃'], 'Total elektron yang diterima satu Fe₂O₃'],
+          ['Menyamakan Elektron', ['a', 'b'], 'Koefisien CO'],
+          ['Menulis Persamaan Setara', ['a*', 'b*'], 'Jumlah seluruh koefisien persamaan setara'],
+          ['Tantangan Termit', ['a*', 'b*', 'c'], 'Jumlah seluruh koefisien persamaan termit setara']
+        ]
+      }
+    ];
+
+    const C = ['MjU0Mzg=', 'NDI1NjM=', 'NjMyMzE=', 'NTYzOTY='];
+
+    /* 5 TEMA WARNA KHAS UNTUK 5 KELOMPOK */
+    const GROUPS = [
+      { id: 0, name: 'Kelompok 1', color: '#1F4E79', light: '#eef5ff' },
+      { id: 1, name: 'Kelompok 2', color: '#7030A0', light: '#f7f0fc' },
+      { id: 2, name: 'Kelompok 3', color: '#C55A11', light: '#fef3ec' },
+      { id: 3, name: 'Kelompok 4', color: '#2E7D32', light: '#f0f9f1' },
+      { id: 4, name: 'Kelompok 5', color: '#B83280', light: '#fdf0f7' }
+    ];
+
+    let currentLayout = 5; // Default 5 Layar Split
+
+    /* STATE PER KELOMPOK (TERISOLASI 100%) */
+    const freshGroup = (g) => ({
+      g: `Kelompok ${g + 1}`,
+      u: [0, 0, 0, 0, 0],
+      d: [0, 0, 0, 0],
+      a: {}
+    });
+
+    const S = [];
+    const V = [];
+    const bad = [0, 0, 0, 0, 0];
+    const rs = [0, 0, 0, 0, 0];
+    const activeInput = [null, null, null, null, null];
+    const kbState = [
+      { visible: false, mode: 'alpha', shift: false },
+      { visible: false, mode: 'alpha', shift: false },
+      { visible: false, mode: 'alpha', shift: false },
+      { visible: false, mode: 'alpha', shift: false },
+      { visible: false, mode: 'alpha', shift: false }
+    ];
+
+    // Load data dari localStorage independen
+    for (let g = 0; g < 5; g++) {
+      S[g] = freshGroup(g);
+      try {
+        const saved = localStorage.getItem('rq_multi_k' + g);
+        if (saved) Object.assign(S[g], JSON.parse(saved));
+      } catch (e) {}
+      V[g] = { t: 'home' };
+    }
+
+    const save = (g) => {
+      try {
+        localStorage.setItem('rq_multi_k' + g, JSON.stringify(S[g]));
+      } catch (e) {}
+    };
+
+    const esc = (s) => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    const keys = (i) => {
+      const k = [];
+      L[i].s.forEach((s, j) => {
+        s[1].forEach((_, p) => k.push(`${i}.${j}.${p}`));
+        k.push(`${i}.${j}.d`);
+      });
+      return k;
+    };
+
+    const okK = (g, k) => {
+      const v = (S[g].a[k] || '').trim();
+      return k.endsWith('.d') ? /^\d$/.test(v) : !!v;
+    };
+
+    const prog = (g, i) => {
+      const k = keys(i);
+      return [k.filter(key => okK(g, key)).length, k.length];
+    };
+
+    const go = (g, v) => {
+      V[g] = v;
+      rs[g] = 0;
+      activeInput[g] = null;
+      renderGroup(g);
+      const scr = document.getElementById(`scroll-${g}`);
+      if (scr) scr.scrollTo(0, 0);
+    };
+
+    /* ========================================================
+       EFEK SUARA SINTESIS WEB AUDIO (KLIK TACTILE FEEDBACK)
+       ======================================================== */
+    let audioCtx = null;
+    function playBeep(freq = 650, duration = 0.04) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    /* ========================================================
+       PENGUNCI GESTURE ZOOM MULTI-TOUCH DI PAPAN TULIS
+       ======================================================== */
+    // Cegah pinch zoom dua jari pada layar
+    document.addEventListener('touchstart', (e) => {
+      if (e.touches.length > 1) {
+        // Multi-touch terdeteksi lintas kelompok: biarkan tiap kolom scroll sendiri tapi cegah zoom layar
+      }
+    }, { passive: false });
+
+    document.addEventListener('touchmove', (e) => {
+      if (e.scale && e.scale !== 1) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    // Cegah zoom gesture safari / iOS
+    document.addEventListener('gesturestart', e => e.preventDefault(), { passive: false });
+    document.addEventListener('gesturechange', e => e.preventDefault(), { passive: false });
+    document.addEventListener('gestureend', e => e.preventDefault(), { passive: false });
+
+    // Cegah double-tap to zoom
+    let lastTap = 0;
+    document.addEventListener('touchend', (e) => {
+      const now = Date.now();
+      if (now - lastTap <= 300) {
+        e.preventDefault();
+      }
+      lastTap = now;
+    }, { passive: false });
+
+    // Cegah Ctrl + Wheel Zoom
+    window.addEventListener('wheel', (e) => {
+      if (e.ctrlKey) e.preventDefault();
+    }, { passive: false });
+
+    /* ========================================================
+       VIEW BUILDERS UNTUK TIAP KELOMPOK
+       ======================================================== */
+    function renderHome(g) {
+      const bx = L.map((l, i) => {
+        const st = S[g].d[i] ? 'done' : S[g].u[i] ? 'open' : (!i || S[g].d[i - 1]) ? 'gate' : 'lock';
+        const ic = { done: '✅', open: '🔓', gate: '🔒', lock: '🔒' }[st];
+        const sb = {
+          done: 'Selesai · tinjau',
+          open: 'Terbuka · isi',
+          gate: i ? 'Kode 5 digit' : 'Pecahkan teka-teki',
+          lock: 'Kunci Lv.' + i
+        }[st];
+        return `
+          <button class="box-btn" style="background:${l.c}" onclick="handleBoxClick(${g}, ${i})" ${st === 'lock' ? 'disabled' : ''}>
+            <div class="ic">${ic}</div>
+            <div>
+              <h4>Level ${i + 1}</h4>
+              <div style="font-size:11px; font-weight:600;">${l.n}</div>
+            </div>
+            <small>${sb}</small>
+          </button>`;
+      }).join('');
+
+      const pt = S[g].d[3] ? `
+        <button class="box-btn box-peti" onclick="handlePetiClick(${g})">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:24px;">${S[g].u[4] ? '🎉' : '🎁'}</span>
+            <div>
+              <h4 style="margin:0;">Peti Harta Elektron</h4>
+              <small>${S[g].u[4] ? 'Terbuka · lihat ringkasan' : 'Buka dengan kode Level 4'}</small>
+            </div>
+          </div>
+        </button>` : '';
+
+      return `
+        <div class="card">
+          <label style="font-size:11px; font-weight:700; color:var(--mu);">Nama Kelompok</label>
+          <input class="touch-input" data-group="${g}" data-g readonly inputmode="none" placeholder="Tulis nama kelompok" value="${esc(S[g].g)}" onclick="selectInput(${g}, this)" ontouchstart="selectInput(${g}, this)">
+        </div>
+        <div class="grid-levels">${bx}</div>
+        ${pt}
+        <div style="margin-top:12px; text-align:right;">
+          <button class="btn g np" style="font-size:11px; padding:5px 9px;" onclick="resetGroup(${g})">
+            ${rs[g] ? 'Yakin reset?' : 'Mulai Ulang'}
+          </button>
+        </div>
+      `;
+    }
+
+    function renderGate(g, i) {
+      let h = `
+        <div style="margin-bottom:8px;">
+          <button class="btn g np" style="font-size:11px; padding:4px 8px;" onclick="go(${g}, {t:'home'})">← Kembali</button>
+        </div>
+        <div class="card gate-box" id="gate-box-${g}">
+          <div style="font-size:36px;">🔒</div>`;
+
+      if (!i) {
+        h += `
+          <h3 style="margin:4px 0;">Kotak Level 1 Terkunci</h3>
+          <p style="font-size:12px; color:var(--mu);">Pecahkan teka-teki gembok ini:</p>
+          <div class="rd">“Aku kecil dan bermuatan negatif. Saat oksidasi, atom kehilangan aku; saat reduksi, atom menerimaku. Siapakah aku?”</div>
+          <input class="touch-input" id="in-${g}" data-group="${g}" readonly inputmode="none" placeholder="Jawabanmu…" autocomplete="off" style="margin-top:10px; text-align:center;" onclick="selectInput(${g}, this)" ontouchstart="selectInput(${g}, this)">`;
+      } else {
+        h += `
+          <h3 style="margin:4px 0;">${i === 4 ? 'Peti Harta' : 'Kotak Level ' + (i + 1)} Terkunci</h3>
+          <p style="font-size:12px; color:var(--mu);">Masukkan <b>kode rahasia 5 digit</b> dari Level ${i}:</p>
+          <input class="touch-input code" id="in-${g}" data-group="${g}" readonly inputmode="none" maxlength="5" placeholder="•••••" autocomplete="off" onclick="selectInput(${g}, this)" ontouchstart="selectInput(${g}, this)">`;
+      }
+
+      return h + `
+        <div id="msg-${g}" style="min-height:1.5em; font-size:12px; font-weight:700; margin:6px 0;"></div>
+        <button class="btn" style="width:100%; justify-content:center;" onclick="tryGate(${g}, ${i})">Buka Gembok 🔓</button>
+      </div>`;
+    }
+
+    function fld(g, i, j, k, p) {
+      const ta = p.endsWith('*');
+      const lb = ta ? p.slice(0, -1) : p;
+      const key = `${i}.${j}.${k}`;
+      const v = esc(S[g].a[key] || '');
+      const sh = lb.length <= 2;
+
+      return `
+        <div class="f${sh ? '' : ' col'}">
+          <b>${esc(lb)}${sh ? ')' : ''}</b>
+          ${ta ? `
+            <textarea class="touch-input" rows="2" data-group="${g}" data-k="${key}" readonly inputmode="none" placeholder="Jawaban…" onclick="selectInput(${g}, this)" ontouchstart="selectInput(${g}, this)">${v}</textarea>
+          ` : `
+            <input class="touch-input" data-group="${g}" data-k="${key}" readonly inputmode="none" placeholder="Jawaban…" value="${v}" onclick="selectInput(${g}, this)" ontouchstart="selectInput(${g}, this)">
+          `}
+        </div>`;
+    }
+
+    function renderLevel(g, i) {
+      const l = L[i];
+      let h = `
+        <div style="margin-bottom:8px;">
+          <button class="btn g np" style="font-size:11px; padding:4px 8px;" onclick="go(${g}, {t:'home'})">← Kotak</button>
+        </div>
+        <div class="col-hd" style="background:${l.c}">
+          <small>LEVEL ${i + 1}</small>
+          <h2>${l.n}</h2>
+          <div id="pg-${g}" style="font-size:11px; opacity:0.95; margin-top:2px;"></div>
+        </div>`;
+
+      l.s.forEach((s, j) => {
+        h += `
+          <div class="card">
+            <h4 style="color:${l.c}; margin:0 0 8px 0; font-size:13px;">Soal ${j + 1} · ${s[0]}</h4>
+            ${s[1].map((p, k) => fld(g, i, j, k, p)).join('')}
+            <div class="dg">
+              <span style="font-size:20px;">🔑</span>
+              <div style="flex:1;">
+                <b style="font-size:11px;">Digit Soal ${j + 1}</b>
+                <div style="font-size:10px; color:var(--mu);">${s[2]}</div>
+              </div>
+              <input class="touch-input" data-group="${g}" data-k="${i}.${j}.d" maxlength="1" readonly inputmode="none" value="${esc(S[g].a[`${i}.${j}.d`] || '')}" onclick="selectInput(${g}, this)" ontouchstart="selectInput(${g}, this)">
+            </div>
+          </div>`;
+      });
+
+      return h + `
+        <div style="text-align:right; margin-top:10px;">
+          <button class="btn" id="fin-btn-${g}" onclick="finishLevel(${g}, ${i})">
+            ${S[g].d[i] ? 'Simpan & Kembali' : 'Selesai Level ' + (i + 1) + ' →'}
+          </button>
+        </div>`;
+    }
+
+    function renderDone(g) {
+      let h = `
+        <div class="card gate-box">
+          <div style="font-size:42px;">🎉</div>
+          <h2 style="margin:4px 0; font-size:18px;">Misi Selesai!</h2>
+          <p style="font-size:12px; color:var(--mu); margin:4px 0 10px;">Menara Redoks menyala! Elektron mengalir ke Kota Elektron.</p>
+          <div style="font-weight:800; color:${GROUPS[g].color}; font-size:14px; margin-bottom:12px;">${esc(S[g].g)}</div>
+          <div class="np" style="display:flex; gap:6px; justify-content:center;">
+            <button class="btn" style="font-size:11px; padding:6px 10px;" onclick="printGroup(${g})">🖨️ Cetak PDF</button>
+            <button class="btn g" style="font-size:11px; padding:6px 10px;" onclick="go(${g}, {t:'home'})">← Kotak</button>
+          </div>
+        </div>`;
+
+      L.forEach((l, i) => {
+        h += `
+          <div class="card">
+            <h4 style="color:${l.c}; margin:0 0 6px 0; font-size:12px;">Level ${i + 1} · ${l.n}</h4>
+            ${l.s.map((s, j) => `
+              <div style="font-size:11px; border-bottom:1px dashed #e2e8f0; padding:4px 0;">
+                <b>Soal ${j + 1}: ${s[0]}</b><br>
+                ${s[1].map((p, k) => esc(p.replace('*', '')) + ': ' + esc(S[g].a[`${i}.${j}.${k}`] || '-')).join(' | ')}<br>
+                <span style="color:#d97706; font-weight:700;">Digit Kunci: ${esc(S[g].a[`${i}.${j}.d`] || '-')}</span>
+              </div>
+            `).join('')}
+          </div>`;
+      });
+      return h;
+    }
+
+    /* ========================================================
+       RENDER SELURUH KOLOM KELOMPOK KE DALAM BOARD
+       ======================================================== */
+    function renderGroup(g) {
+      const scr = document.getElementById(`scroll-${g}`);
+      if (!scr) return;
+
+      const v = V[g];
+      scr.innerHTML = v.t === 'home' ? renderHome(g) :
+                      v.t === 'gate' ? renderGate(g, v.i) :
+                      v.t === 'lv' ? renderLevel(g, v.i) : renderDone(g);
+
+      if (v.t === 'lv') upd(g);
+
+      // Update header info
+      const nameEl = document.getElementById(`g-name-${g}`);
+      if (nameEl) nameEl.textContent = S[g].g || `Kelompok ${g + 1}`;
+    }
+
+    function upd(g) {
+      const p = document.getElementById(`pg-${g}`);
+      if (!p) return;
+      const [a, b] = prog(g, V[g].i);
+      p.textContent = `Terisi ${a} dari ${b} kolom`;
+      const btn = document.getElementById(`fin-btn-${g}`);
+      if (btn) btn.disabled = (a < b);
+    }
+
+    function handleBoxClick(g, i) {
+      playBeep(700);
+      go(g, S[g].u[i] ? { t: 'lv', i } : { t: 'gate', i });
+    }
+
+    function handlePetiClick(g) {
+      playBeep(800);
+      go(g, S[g].u[4] ? { t: 'fin' } : { t: 'gate', i: 4 });
+    }
+
+    function tryGate(g, i) {
+      const inp = document.getElementById(`in-${g}`);
+      const m = document.getElementById(`msg-${g}`);
+      if (!inp || !m) return;
+
+      const val = inp.value.trim();
+      const ok = i ? (btoa(val) === C[i - 1]) : /elektron|electron/i.test(val);
+
+      if (ok) {
+        playBeep(950, 0.12);
+        S[g].u[i] = 1;
+        save(g);
+        m.style.color = 'var(--ok)';
+        m.textContent = '🔓 Gembok Terbuka!';
+        setTimeout(() => go(g, i < 4 ? { t: 'lv', i } : { t: 'fin' }), 550);
+      } else {
+        playBeep(320, 0.1);
+        bad[g]++;
+        m.style.color = 'var(--bad)';
+        m.textContent = i ? 'Kode belum tepat. Periksa susunan digit!' : 'Belum tepat, coba lagi!';
+        if (!i && bad[g] > 1) m.textContent += ' Petunjuk: 7 huruf, lambang e⁻.';
+
+        const box = document.getElementById(`gate-box-${g}`);
+        if (box) {
+          box.classList.remove('shake');
+          void box.offsetWidth;
+          box.classList.add('shake');
+        }
+      }
+    }
+
+    function finishLevel(g, i) {
+      playBeep(880, 0.08);
+      S[g].d[i] = 1;
+      save(g);
+      const next = i + 1;
+      go(g, next < 4 ? (S[g].u[next] ? { t: 'home' } : { t: 'gate', i: next }) : (S[g].u[4] ? { t: 'fin' } : { t: 'gate', i: 4 }));
+    }
+
+    function resetGroup(g) {
+      if (rs[g]) {
+        S[g] = freshGroup(g);
+        save(g);
+        go(g, { t: 'home' });
+      } else {
+        rs[g] = 1;
+        renderGroup(g);
+      }
+    }
+
+    /* ========================================================
+       KEYBOARD VIRTUAL INTERAKTIF TIAP KELOMPOK
+       ======================================================== */
+    function selectInput(g, inputEl) {
+      // Hapus kelas aktif sebelumnya
+      if (activeInput[g]) {
+        activeInput[g].classList.remove('active-input');
+      }
+
+      activeInput[g] = inputEl;
+      inputEl.classList.add('active-input');
+
+      // Tentukan mode keyboard otomatis
+      const isNum = inputEl.maxLength === 1 || inputEl.classList.contains('code') || (inputEl.dataset.k && inputEl.dataset.k.endsWith('.d'));
+      kbState[g].mode = isNum ? 'num' : 'alpha';
+      kbState[g].visible = true;
+
+      renderKeyboard(g);
+      updateKbToggleBtn(g);
+
+      // Scroll input ke view jika tertutup
+      setTimeout(() => {
+        try {
+          inputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch (e) {}
+      }, 100);
+    }
+
+    function renderKeyboard(g) {
+      const dock = document.getElementById(`kb-dock-${g}`);
+      if (!dock) return;
+
+      if (!kbState[g].visible) {
+        dock.style.display = 'none';
+        return;
+      }
+
+      dock.style.display = 'flex';
+      const targetEl = activeInput[g];
+      const targetLbl = document.getElementById(`kb-target-${g}`);
+      if (targetLbl) {
+        let label = 'Input';
+        if (targetEl) {
+          if (targetEl.hasAttribute('data-g')) label = 'Nama Kelompok';
+          else if (targetEl.id && targetEl.id.startsWith('in-')) label = 'Kode / Jawaban Gembok';
+          else if (targetEl.dataset.k) label = `Soal ${targetEl.dataset.k}`;
+        }
+        targetLbl.textContent = label;
+      }
+
+      const modeBtn = document.getElementById(`kb-mode-${g}`);
+      if (modeBtn) modeBtn.textContent = kbState[g].mode === 'alpha' ? '123' : 'ABC';
+
+      const grid = document.getElementById(`kb-grid-${g}`);
+      if (!grid) return;
+
+      if (kbState[g].mode === 'num') {
+        grid.innerHTML = `
+          <div class="num-grid">
+            <button class="k-key" onpointerdown="sendKey(${g}, '1')">1</button>
+            <button class="k-key" onpointerdown="sendKey(${g}, '2')">2</button>
+            <button class="k-key" onpointerdown="sendKey(${g}, '3')">3</button>
+            <button class="k-key func" onpointerdown="sendKey(${g}, '⌫')">⌫</button>
+            <button class="k-key" onpointerdown="sendKey(${g}, '4')">4</button>
+            <button class="k-key" onpointerdown="sendKey(${g}, '5')">5</button>
+            <button class="k-key" onpointerdown="sendKey(${g}, '6')">6</button>
+            <button class="k-key func" onpointerdown="sendKey(${g}, '-')">-</button>
+            <button class="k-key" onpointerdown="sendKey(${g}, '7')">7</button>
+            <button class="k-key" onpointerdown="sendKey(${g}, '8')">8</button>
+            <button class="k-key" onpointerdown="sendKey(${g}, '9')">9</button>
+            <button class="k-key func" onpointerdown="sendKey(${g}, '.')">.</button>
+            <button class="k-key func" onpointerdown="toggleKbMode(${g})">ABC</button>
+            <button class="k-key" onpointerdown="sendKey(${g}, '0')">0</button>
+            <button class="k-key func space" onpointerdown="sendKey(${g}, ' ')">Spasi</button>
+            <button class="k-key enter" onpointerdown="sendKey(${g}, '↵')">↵</button>
+          </div>
+        `;
+      } else {
+        // Mode Alpha QWERTY
+        grid.innerHTML = `
+          <div class="kb-row">
+            ${['1','2','3','4','5','6','7','8','9','0'].map(k => `<button class="k-key" onpointerdown="sendKey(${g}, '${k}')">${k}</button>`).join('')}
+          </div>
+          <div class="kb-row">
+            ${['Q','W','E','R','T','Y','U','I','O','P'].map(k => `<button class="k-key" onpointerdown="sendKey(${g}, '${k}')">${k}</button>`).join('')}
+          </div>
+          <div class="kb-row">
+            ${['A','S','D','F','G','H','J','K','L'].map(k => `<button class="k-key" onpointerdown="sendKey(${g}, '${k}')">${k}</button>`).join('')}
+          </div>
+          <div class="kb-row">
+            ${['Z','X','C','V','B','N','M'].map(k => `<button class="k-key" onpointerdown="sendKey(${g}, '${k}')">${k}</button>`).join('')}
+            <button class="k-key func" onpointerdown="sendKey(${g}, '⌫')">⌫</button>
+          </div>
+          <div class="kb-row">
+            <button class="k-key func" onpointerdown="toggleKbMode(${g})">123</button>
+            <button class="k-key func" onpointerdown="sendKey(${g}, '-')">-</button>
+            <button class="k-key space" onpointerdown="sendKey(${g}, ' ')">Spasi</button>
+            <button class="k-key func" onpointerdown="sendKey(${g}, '.')">.</button>
+            <button class="k-key enter" onpointerdown="sendKey(${g}, '↵')">↵</button>
+          </div>
+        `;
+      }
+    }
+
+    function sendKey(g, key) {
+      playBeep(key === '⌫' ? 420 : key === '↵' ? 880 : 720);
+      const input = activeInput[g];
+      if (!input) return;
+
+      const current = input.value || '';
+      const maxL = input.maxLength > 0 ? input.maxLength : 9999;
+
+      if (key === '⌫') {
+        input.value = current.slice(0, -1);
+      } else if (key === ' ') {
+        if (current.length < maxL) input.value = current + ' ';
+      } else if (key === '↵') {
+        if (input.id && input.id.startsWith('in-')) {
+          tryGate(g, V[g].i);
+        } else {
+          // Pindah ke input berikutnya dalam kelompok yang sama
+          const inputs = Array.from(document.querySelectorAll(`input[data-group="${g}"], textarea[data-group="${g}"]`));
+          const idx = inputs.indexOf(input);
+          if (idx !== -1 && idx < inputs.length - 1) {
+            selectInput(g, inputs[idx + 1]);
+          } else {
+            closeKeyboard(g);
+          }
+        }
+        return;
+      } else {
+        if (maxL === 1) {
+          input.value = key; // Langsung timpa digit tunggal
+        } else if (current.length < maxL) {
+          input.value = current + key;
+        }
+      }
+
+      // Simpan perubahan ke state
+      if (input.hasAttribute('data-g')) {
+        S[g].g = input.value;
+        save(g);
+        const nameEl = document.getElementById(`g-name-${g}`);
+        if (nameEl) nameEl.textContent = input.value || `Kelompok ${g + 1}`;
+        return;
+      }
+
+      const k = input.dataset.k;
+      if (k) {
+        if (k.endsWith('.d')) {
+          input.value = input.value.replace(/\D/g, '');
+        }
+        S[g].a[k] = input.value;
+        save(g);
+        upd(g);
+      }
+    }
+
+    function toggleKbMode(g) {
+      kbState[g].mode = kbState[g].mode === 'alpha' ? 'num' : 'alpha';
+      renderKeyboard(g);
+    }
+
+    function closeKeyboard(g) {
+      kbState[g].visible = false;
+      if (activeInput[g]) {
+        activeInput[g].classList.remove('active-input');
+        activeInput[g] = null;
+      }
+      renderKeyboard(g);
+      updateKbToggleBtn(g);
+    }
+
+    function toggleGroupKeyboard(g) {
+      kbState[g].visible = !kbState[g].visible;
+      if (kbState[g].visible && !activeInput[g]) {
+        // Fokuskan ke input pertama yang ada di viewport
+        const first = document.querySelector(`input[data-group="${g}"], textarea[data-group="${g}"]`);
+        if (first) selectInput(g, first);
+      } else if (!kbState[g].visible) {
+        closeKeyboard(g);
+      }
+      renderKeyboard(g);
+      updateKbToggleBtn(g);
+    }
+
+    function updateKbToggleBtn(g) {
+      const btn = document.getElementById(`kb-btn-${g}`);
+      if (btn) {
+        btn.classList.toggle('kb-active', kbState[g].visible);
+      }
+    }
+
+    function toggleAllKeyboards() {
+      const anyOpen = kbState.some(k => k.visible);
+      for (let g = 0; g < currentLayout; g++) {
+        kbState[g].visible = !anyOpen;
+        if (!anyOpen && !activeInput[g]) {
+          const first = document.querySelector(`input[data-group="${g}"], textarea[data-group="${g}"]`);
+          if (first) {
+            activeInput[g] = first;
+            first.classList.add('active-input');
+          }
+        } else if (anyOpen) {
+          if (activeInput[g]) activeInput[g].classList.remove('active-input');
+          activeInput[g] = null;
+        }
+        renderKeyboard(g);
+        updateKbToggleBtn(g);
+      }
+    }
+
+    /* ========================================================
+       INISIALISASI & SETUP BOARD
+       ======================================================== */
+    function buildBoard(numCols = 5) {
+      currentLayout = numCols;
+      const board = document.getElementById('board-wrapper');
+      board.innerHTML = '';
+
+      for (let g = 0; g < numCols; g++) {
+        const grp = GROUPS[g];
+        const col = document.createElement('section');
+        col.className = 'group-col';
+        col.id = `col-${g}`;
+
+        col.innerHTML = `
+          <!-- Header Kolom -->
+          <div class="group-header" style="background:${grp.color}">
+            <div class="group-title-box">
+              <span class="group-pill">K-${g + 1}</span>
+              <span class="group-name-text" id="g-name-${g}">${esc(S[g].g)}</span>
+            </div>
+            <div class="group-header-actions">
+              <button class="col-btn" id="kb-btn-${g}" onclick="toggleGroupKeyboard(${g})" title="Keyboard Kelompok">⌨️</button>
+              <button class="col-btn" onclick="go(${g}, {t:'home'})" title="Kembali ke Beranda">🏠</button>
+              <button class="col-btn" onclick="resetGroup(${g})" title="Mulai Ulang Kelompok Ini">🔄</button>
+            </div>
+          </div>
+
+          <!-- Area Scroll Bebas -->
+          <div class="group-scroll-area" id="scroll-${g}">
+            <!-- Konten level/soal diisi renderGroup -->
+          </div>
+
+          <!-- Keyboard Dock Kolom -->
+          <div class="group-kb-dock" id="kb-dock-${g}" style="display:none;">
+            <div class="kb-top-bar">
+              <span class="kb-target-name" id="kb-target-${g}">Mengetik…</span>
+              <div class="kb-dock-actions">
+                <button class="kb-mini-btn" id="kb-mode-${g}" onclick="toggleKbMode(${g})">123</button>
+                <button class="kb-mini-btn" onclick="closeKeyboard(${g})">✕</button>
+              </div>
+            </div>
+            <div class="kb-grid" id="kb-grid-${g}"></div>
+          </div>
+        `;
+
+        board.appendChild(col);
+        renderGroup(g);
+      }
+    }
+
+    function setLayout(num) {
+      document.querySelectorAll('.layout-btn').forEach(btn => {
+        btn.classList.toggle('active', parseInt(btn.dataset.col) === num);
+      });
+      buildBoard(num);
+    }
+
+    /* ========================================================
+       TIMER PRAKTIKUM KELAS (STOPWATCH / COUNTDOWN)
+       ======================================================== */
+    let timerSeconds = 30 * 60; // 30 Menit
+    let timerInterval = null;
+
+    function formatTimer(sec) {
+      const m = Math.floor(sec / 60).toString().padStart(2, '0');
+      const s = (sec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function toggleTimer() {
+      const btn = document.getElementById('timer-toggle-btn');
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        if (btn) btn.textContent = '▶️';
+      } else {
+        if (btn) btn.textContent = '⏸️';
+        timerInterval = setInterval(() => {
+          if (timerSeconds > 0) {
+            timerSeconds--;
+            document.getElementById('timer-display').textContent = formatTimer(timerSeconds);
+          } else {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            if (btn) btn.textContent = '▶️';
+            playBeep(880, 0.4);
+            alert('⏱️ Waktu pengerjaan LKPD telah selesai!');
+          }
+        }, 1000);
+      }
+    }
+
+    function resetTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        document.getElementById('timer-toggle-btn').textContent = '▶️';
+      }
+      timerSeconds = 30 * 60;
+      document.getElementById('timer-display').textContent = formatTimer(timerSeconds);
+    }
+
+    /* ========================================================
+       FITUR CETAK & FULLSCREEN
+       ======================================================== */
+    function printGroup(g) {
+      // Sembunyikan kolom lain saat print tunggal
+      const allCols = document.querySelectorAll('.group-col');
+      allCols.forEach((c, idx) => {
+        c.style.display = (idx === g) ? 'flex' : 'none';
+      });
+      try {
+        window.print();
+      } catch (e) {}
+      allCols.forEach(c => c.style.display = 'flex');
+    }
+
+    function printAllReports() {
+      try {
+        window.print();
+      } catch (e) {}
+    }
+
+    function resetAllGroups() {
+      if (confirm('Yakin ingin mereset seluruh data 5 kelompok?')) {
+        for (let g = 0; g < 5; g++) {
+          S[g] = freshGroup(g);
+          save(g);
+          go(g, { t: 'home' });
+        }
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    // Jalankan build pertama saat load
+    window.addEventListener('DOMContentLoaded', () => {
+      buildBoard(5);
+    });
+  </script>
+</body>
+</html>

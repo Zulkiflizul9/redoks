@@ -69,3 +69,5 @@ $$\mathrm{Cl_2 \rightarrow Cl^- + ClO_3^-}$$
 2. Masuk ke tab **"🛠️ Penyetaraan Reaksi"**.
 3. Pilih tombol tingkat kesulitan: **🟢 Level 1**, **🟡 Level 2**, **🔴 Level 3**, atau **🟣 Level 4**.
 4. Klik **`"▶️ Putar Animasi Jembatan"`** untuk melihat animasi perubahan biloks yang menyesuaikan reaksi tersebut.
+5. Klik tombol **`"📜 LKPD Interaktif"`** di header, navigasi, atau banner halaman untuk membuka modal **RedoxQuest · LKPD Interaktif** (atau buka langsung berkas **[`lkpd.html`](file:///d:/KIMIA/lkpd.html)**).
+6. **Mode Papan Tulis Digital (5 Layar Split):** Pada layar sentuh / smartboard interaktif kelas, buka **[`lkpd.html`](file:///d:/KIMIA/lkpd.html)** dalam mode layar penuh (`[⛶ Fullscreen]`). 5 kelompok dapat bekerja secara simultan pada 5 kolom potrait masing-masing dengan keyboard virtual on-screen mandiri (tanpa memunculkan popup keyboard bawaan OS), scroll mandiri yang terisolasi, kunci anti-zoom multi-touch, serta countdown timer praktikum terpadu.
