@@ -642,6 +642,21 @@
       font-weight: 800;
     }
 
+    /* MUSIK KOMPETISI ACTIVE STATE */
+    .master-action-btn.active-music {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6) !important;
+      color: #ffffff !important;
+      font-weight: 800;
+      border-color: #f472b6 !important;
+      box-shadow: 0 0 12px rgba(236, 72, 153, 0.6);
+      animation: pulseGlow 1.4s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      from { transform: scale(1); box-shadow: 0 0 6px rgba(236, 72, 153, 0.4); }
+      to { transform: scale(1.05); box-shadow: 0 0 16px rgba(236, 72, 153, 0.8); }
+    }
+
     /* KEYBOARD NUMERIK */
     .num-grid {
       display: grid;
@@ -703,10 +718,16 @@
         <button class="layout-btn" data-col="1" onclick="setLayout(1)">1 Layar</button>
       </div>
 
+      <!-- Musik Dua Lipa - Training Season -->
+      <button class="master-action-btn" id="bgm-toggle-btn" onclick="toggleBgm()" title="Putar / Hentikan Musik (Dua Lipa - Training Season)">
+        <span id="bgm-icon">🎵</span> <span id="bgm-text">Dua Lipa - Training</span>
+      </button>
+
       <!-- Timer Praktikum -->
-      <div class="timer-widget" title="Timer Pengerjaan Praktikum / LKPD">
+      <div class="timer-widget" title="Klik pada durasi atau tombol ⚙️ untuk mengatur waktu pengerjaan LKPD">
         <span>⏱️</span>
-        <span id="timer-display">30:00</span>
+        <span id="timer-display" onclick="changeTimerDuration()" style="cursor: pointer;" title="Klik untuk ubah menit pengerjaan">30:00</span>
+        <button class="timer-btn" onclick="changeTimerDuration()" title="Atur Menit Pengerjaan (⚙️)">⚙️</button>
         <button class="timer-btn" onclick="toggleTimer()" id="timer-toggle-btn" title="Mulai / Jeda">▶️</button>
         <button class="timer-btn" onclick="resetTimer()" title="Reset Waktu">🔄</button>
       </div>
@@ -862,12 +883,16 @@
     };
 
     /* ========================================================
-       EFEK SUARA SINTESIS WEB AUDIO (KLIK TACTILE FEEDBACK)
+       EFEK SUARA SINTESIS WEB AUDIO & MUSIK BG (DUA LIPA)
        ======================================================== */
     let audioCtx = null;
+    let bgmAudio = null;
+    let bgmPlaying = false;
+
     function playBeep(freq = 650, duration = 0.04) {
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'sine';
@@ -879,6 +904,75 @@
         osc.start();
         osc.stop(audioCtx.currentTime + duration);
       } catch (e) {}
+    }
+
+    function autoStartBgm() {
+      if (bgmPlaying) return;
+      if (!bgmAudio) {
+        bgmAudio = new Audio('dua%20lipa%20training.mp3');
+        bgmAudio.loop = true;
+        bgmAudio.volume = 0.6;
+      }
+      bgmAudio.play().then(() => {
+        bgmPlaying = true;
+        const btn = document.getElementById('bgm-toggle-btn');
+        const icon = document.getElementById('bgm-icon');
+        const text = document.getElementById('bgm-text');
+        if (btn) btn.classList.add('active-music');
+        if (icon) icon.textContent = '🔊';
+        if (text) text.textContent = 'Dua Lipa: ON';
+      }).catch(err => {
+        bgmAudio.src = 'dua lipa training.mp3';
+        bgmAudio.play().then(() => {
+          bgmPlaying = true;
+          const btn = document.getElementById('bgm-toggle-btn');
+          const icon = document.getElementById('bgm-icon');
+          const text = document.getElementById('bgm-text');
+          if (btn) btn.classList.add('active-music');
+          if (icon) icon.textContent = '🔊';
+          if (text) text.textContent = 'Dua Lipa: ON';
+        }).catch(e => {});
+      });
+    }
+
+    function toggleBgm() {
+      const btn = document.getElementById('bgm-toggle-btn');
+      const icon = document.getElementById('bgm-icon');
+      const text = document.getElementById('bgm-text');
+
+      if (!bgmAudio) {
+        bgmAudio = new Audio('dua%20lipa%20training.mp3');
+        bgmAudio.loop = true;
+        bgmAudio.volume = 0.6;
+      }
+
+      if (!bgmPlaying) {
+        bgmAudio.play().then(() => {
+          bgmPlaying = true;
+          if (btn) btn.classList.add('active-music');
+          if (icon) icon.textContent = '🔊';
+          if (text) text.textContent = 'Dua Lipa: ON';
+          playBeep(880, 0.08);
+        }).catch(err => {
+          // Fallback unencoded path
+          bgmAudio.src = 'dua lipa training.mp3';
+          bgmAudio.play().then(() => {
+            bgmPlaying = true;
+            if (btn) btn.classList.add('active-music');
+            if (icon) icon.textContent = '🔊';
+            if (text) text.textContent = 'Dua Lipa: ON';
+          }).catch(e => {
+            alert("Gagal memutar berkas 'dua lipa training.mp3'. Pastikan berkas tersedia di folder aplikasi.");
+          });
+        });
+      } else {
+        bgmAudio.pause();
+        bgmPlaying = false;
+        if (btn) btn.classList.remove('active-music');
+        if (icon) icon.textContent = '🎵';
+        if (text) text.textContent = 'Dua Lipa - Training';
+        playBeep(440, 0.08);
+      }
     }
 
     /* ========================================================
@@ -1106,11 +1200,13 @@
     }
 
     function handleBoxClick(g, i) {
+      autoStartBgm();
       playBeep(700);
       go(g, S[g].u[i] ? { t: 'lv', i } : { t: 'gate', i });
     }
 
     function handlePetiClick(g) {
+      autoStartBgm();
       playBeep(800);
       go(g, S[g].u[4] ? { t: 'fin' } : { t: 'gate', i: 4 });
     }
@@ -1169,6 +1265,7 @@
        KEYBOARD VIRTUAL INTERAKTIF TIAP KELOMPOK
        ======================================================== */
     function selectInput(g, inputEl) {
+      autoStartBgm();
       // Hapus kelas aktif sebelumnya
       if (activeInput[g]) {
         activeInput[g].classList.remove('active-input');
@@ -1345,6 +1442,7 @@
     }
 
     function sendKey(g, key) {
+      autoStartBgm();
       playBeep(key === '⌫' ? 420 : key === '↵' ? 880 : 720);
       const input = activeInput[g];
       if (!input) return;
@@ -1525,7 +1623,8 @@
     /* ========================================================
        TIMER PRAKTIKUM KELAS (STOPWATCH / COUNTDOWN)
        ======================================================== */
-    let timerSeconds = 30 * 60; // 30 Menit
+    let defaultTimerMinutes = 30;
+    let timerSeconds = defaultTimerMinutes * 60;
     let timerInterval = null;
 
     function formatTimer(sec) {
@@ -1534,7 +1633,30 @@
       return `${m}:${s}`;
     }
 
+    function changeTimerDuration() {
+      const currentMin = Math.ceil(timerSeconds / 60) || defaultTimerMinutes;
+      const input = prompt(`⏱️ Masukkan durasi pengerjaan LKPD (dalam menit):\nContoh: 15, 20, 30, 45, 60`, currentMin);
+      if (input !== null) {
+        const mins = parseInt(input.trim(), 10);
+        if (!isNaN(mins) && mins > 0 && mins <= 300) {
+          defaultTimerMinutes = mins;
+          if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            const btn = document.getElementById('timer-toggle-btn');
+            if (btn) btn.textContent = '▶️';
+          }
+          timerSeconds = defaultTimerMinutes * 60;
+          document.getElementById('timer-display').textContent = formatTimer(timerSeconds);
+          playBeep(750, 0.06);
+        } else if (input.trim() !== '') {
+          alert('Mohon masukkan angka menit yang valid (1 - 300 menit).');
+        }
+      }
+    }
+
     function toggleTimer() {
+      autoStartBgm();
       const btn = document.getElementById('timer-toggle-btn');
       if (timerInterval) {
         clearInterval(timerInterval);
@@ -1563,8 +1685,9 @@
         timerInterval = null;
         document.getElementById('timer-toggle-btn').textContent = '▶️';
       }
-      timerSeconds = 30 * 60;
+      timerSeconds = defaultTimerMinutes * 60;
       document.getElementById('timer-display').textContent = formatTimer(timerSeconds);
+      playBeep(520, 0.06);
     }
 
     /* ========================================================
