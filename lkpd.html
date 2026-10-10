@@ -706,6 +706,100 @@
       transform: translateY(-1px);
     }
 
+    /* MODAL OVERLAY MENU PILIH KELOMPOK DI HP MOBILE */
+    .mobile-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      padding: 16px;
+      overflow-y: auto;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mobile-modal-card {
+      background: #1e293b;
+      border: 2px solid #3b82f6;
+      border-radius: 20px;
+      padding: 22px 18px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      color: #ffffff;
+      margin: auto;
+    }
+
+    .mobile-modal-header h2 {
+      margin: 4px 0 2px 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: #38bdf8;
+      letter-spacing: -0.3px;
+    }
+
+    .mobile-modal-header p {
+      margin: 0 0 16px 0;
+      font-size: 12.5px;
+      color: #94a3b8;
+    }
+
+    .mobile-group-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mobile-group-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.1));
+      border: 2px solid var(--g-color, #2563eb);
+      border-left: 8px solid var(--g-color, #2563eb);
+      border-radius: 14px;
+      padding: 12px 16px;
+      color: #ffffff;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.15s, background-color 0.15s;
+    }
+
+    .mobile-group-card:active {
+      transform: scale(0.97);
+      background: var(--g-color, #2563eb);
+    }
+
+    .mobile-group-card .g-num {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+    }
+
+    .mobile-group-card .g-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .mobile-group-card .g-badge {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
     /* RESPONSIF UNTUK SMARTPHONE (HP MOBILE < 768px) */
     @media (max-width: 768px) {
       #master-bar {
@@ -860,22 +954,76 @@
   <!-- BAR NAVIGASI KELOMPOK (TAMPILAN HP / MOBILE)   -->
   <!-- ============================================== -->
   <nav id="mobile-group-bar">
+    <button class="mobile-group-btn" onclick="openMobileGroupModal()" style="background: #2563eb; color: #ffffff; border-color: #3b82f6; font-weight: 800;">
+      <span>📱</span> Menu Kelompok
+    </button>
+    <div style="width: 1px; height: 20px; background: #334155; margin: 0 3px; flex-shrink: 0;"></div>
     <button class="mobile-group-btn active" data-g="0" onclick="selectMobileGroup(0)">
-      <span>👥</span> Kelompok 1
+      <span>👥</span> K-1
     </button>
     <button class="mobile-group-btn" data-g="1" onclick="selectMobileGroup(1)">
-      <span>👥</span> Kelompok 2
+      <span>👥</span> K-2
     </button>
     <button class="mobile-group-btn" data-g="2" onclick="selectMobileGroup(2)">
-      <span>👥</span> Kelompok 3
+      <span>👥</span> K-3
     </button>
     <button class="mobile-group-btn" data-g="3" onclick="selectMobileGroup(3)">
-      <span>👥</span> Kelompok 4
+      <span>👥</span> K-4
     </button>
     <button class="mobile-group-btn" data-g="4" onclick="selectMobileGroup(4)">
-      <span>👥</span> Kelompok 5
+      <span>👥</span> K-5
     </button>
   </nav>
+
+  <!-- ============================================== -->
+  <!-- MODAL SELEKSI KELOMPOK KHUSUS TAMPILAN HP      -->
+  <!-- ============================================== -->
+  <div id="mobile-group-modal" class="mobile-modal-overlay">
+    <div class="mobile-modal-card">
+      <div class="mobile-modal-header">
+        <div style="font-size: 38px; margin-bottom: 4px;">📱</div>
+        <h2>PETUALANGAN ZULOKS</h2>
+        <p>Pilih Kelompok Anda untuk Memulai Pengerjaan di HP:</p>
+      </div>
+      <div class="mobile-group-grid">
+        <button class="mobile-group-card" onclick="chooseGroupMobile(0)" style="--g-color: #1F4E79;">
+          <div>
+            <div class="g-num">KELOMPOK 1</div>
+            <div class="g-name" id="modal-gname-0">Kelompok 1</div>
+          </div>
+          <div class="g-badge">Isi LKPD ➔</div>
+        </button>
+        <button class="mobile-group-card" onclick="chooseGroupMobile(1)" style="--g-color: #7030A0;">
+          <div>
+            <div class="g-num">KELOMPOK 2</div>
+            <div class="g-name" id="modal-gname-1">Kelompok 2</div>
+          </div>
+          <div class="g-badge">Isi LKPD ➔</div>
+        </button>
+        <button class="mobile-group-card" onclick="chooseGroupMobile(2)" style="--g-color: #C55A11;">
+          <div>
+            <div class="g-num">KELOMPOK 3</div>
+            <div class="g-name" id="modal-gname-2">Kelompok 3</div>
+          </div>
+          <div class="g-badge">Isi LKPD ➔</div>
+        </button>
+        <button class="mobile-group-card" onclick="chooseGroupMobile(3)" style="--g-color: #2E7D32;">
+          <div>
+            <div class="g-num">KELOMPOK 4</div>
+            <div class="g-name" id="modal-gname-3">Kelompok 4</div>
+          </div>
+          <div class="g-badge">Isi LKPD ➔</div>
+        </button>
+        <button class="mobile-group-card" onclick="chooseGroupMobile(4)" style="--g-color: #B83280;">
+          <div>
+            <div class="g-num">KELOMPOK 5</div>
+            <div class="g-name" id="modal-gname-4">Kelompok 5</div>
+          </div>
+          <div class="g-badge">Isi LKPD ➔</div>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================== -->
   <!-- 2. KONTEN SPLIT SCREEN 5 KELOMPOK               -->
@@ -1703,6 +1851,40 @@
     }
 
     /* ========================================================
+       MODAL SELEKSI 5 KELOMPOK KHUSUS SMARTPHONE (HP MOBILE)
+       ======================================================== */
+    function updateModalGroupNames() {
+      for (let g = 0; g < 5; g++) {
+        const el = document.getElementById(`modal-gname-${g}`);
+        if (el) {
+          el.textContent = (S[g] && S[g].g) ? S[g].g : `Kelompok ${g + 1}`;
+        }
+      }
+    }
+
+    function openMobileGroupModal() {
+      autoStartBgm();
+      playBeep(650, 0.08);
+      updateModalGroupNames();
+      const modal = document.getElementById('mobile-group-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeMobileGroupModal() {
+      const modal = document.getElementById('mobile-group-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function chooseGroupMobile(g) {
+      playBeep(880, 0.08);
+      closeMobileGroupModal();
+      selectMobileGroup(g);
+      try {
+        localStorage.setItem('lkpd_mobile_selected_group', g);
+      } catch (e) {}
+    }
+
+    /* ========================================================
        INISIALISASI & SETUP BOARD (RESPONSIF SMARTPHONE & MULTI-TOUCH)
        ======================================================== */
     function selectMobileGroup(g) {
@@ -1929,6 +2111,20 @@
     window.addEventListener('DOMContentLoaded', () => {
       buildBoard(5);
       checkResponsiveLayout();
+
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        try {
+          const savedG = localStorage.getItem('lkpd_mobile_selected_group');
+          if (savedG !== null) {
+            selectMobileGroup(parseInt(savedG, 10));
+          } else {
+            openMobileGroupModal();
+          }
+        } catch (e) {
+          openMobileGroupModal();
+        }
+      }
     });
 
     window.addEventListener('resize', () => {
