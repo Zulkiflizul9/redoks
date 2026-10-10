@@ -9,15 +9,18 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <style>
     :root {
-      --bg: #f1f5f9;
+      --bg: #f8fafc;
       --cd: #ffffff;
       --tx: #0f172a;
       --mu: #64748b;
-      --ln: #cbd5e1;
-      --in: #f8fafc;
+      --ln: #e2e8f0;
+      --in: #f1f5f9;
       --ok: #16a34a;
       --bad: #dc2626;
       --primary: #1F4E79;
+      --chem-cyan: #0284c7;
+      --chem-purple: #7030A0;
+      --chem-emerald: #059669;
     }
 
     * {
@@ -33,30 +36,31 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background: #0f172a;
+      background: #090d16;
       color: var(--tx);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 14px;
       line-height: 1.4;
       user-select: none;
       -webkit-user-select: none;
-      touch-action: none; /* Cegah zoom pada root papan tulis */
+      touch-action: none;
       overscroll-behavior: none;
     }
 
     /* MASTER TOP BAR UNTUK GURU / PAPAN TULIS */
     #master-bar {
-      height: 48px;
-      background: linear-gradient(90deg, #091322 0%, #172554 50%, #091322 100%);
+      height: 50px;
+      background: linear-gradient(90deg, #090d16 0%, #172554 45%, #090d16 100%);
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 14px;
-      border-bottom: 2px solid #334155;
+      border-bottom: 2px solid #1e293b;
       position: relative;
       z-index: 100;
       touch-action: none;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     }
 
     .master-title {
@@ -66,15 +70,17 @@
       font-weight: 800;
       font-size: 15px;
       letter-spacing: -0.3px;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
     }
 
     .master-badge {
       background: linear-gradient(135deg, #0284c7, #2563eb);
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 8px;
+      font-size: 10.5px;
       font-weight: 800;
       letter-spacing: 0.5px;
+      box-shadow: 0 0 12px rgba(37, 99, 235, 0.5);
     }
 
     .master-controls {
@@ -85,9 +91,10 @@
 
     .layout-pills {
       display: flex;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       padding: 3px;
-      border-radius: 8px;
+      border-radius: 10px;
       gap: 2px;
     }
 
@@ -100,27 +107,28 @@
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
     }
 
     .layout-btn.active {
-      background: #2563eb;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
       color: #ffffff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
     }
 
     .timer-widget {
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid #334155;
-      padding: 4px 10px;
-      border-radius: 8px;
+      background: rgba(2, 132, 199, 0.12);
+      border: 1.5px solid #0284c7;
+      padding: 4px 12px;
+      border-radius: 10px;
       font-family: monospace;
       font-size: 14px;
       font-weight: 800;
       color: #38bdf8;
+      box-shadow: inset 0 0 8px rgba(56, 189, 248, 0.2);
     }
 
     .timer-btn {
@@ -133,30 +141,36 @@
     }
 
     .master-action-btn {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #ffffff;
-      padding: 5px 12px;
-      border-radius: 8px;
+      padding: 6px 12px;
+      border-radius: 10px;
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
     }
 
     .master-action-btn:hover {
       background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
     }
 
-    /* KONTEN UTAMA: PAPAN SPLIT LAYAR */
+    /* KONTEN UTAMA: PAPAN SPLIT LAYAR WITH MOLECULAR BACKGROUND */
     #board-wrapper {
       display: flex;
       width: 100vw;
-      height: calc(100vh - 48px);
-      background: #0f172a;
+      height: calc(100vh - 50px);
+      background: #090d16;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
       overflow: hidden;
       position: relative;
       touch-action: none;
@@ -169,7 +183,7 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      border-right: 2px solid #cbd5e1;
+      border-right: 1px solid #334155;
       background: var(--bg);
       position: relative;
       overflow: hidden;
@@ -1046,7 +1060,7 @@
   <div id="mobile-group-modal" class="mobile-modal-overlay">
     <div class="mobile-modal-card">
       <div class="mobile-modal-header">
-        <div style="font-size: 38px; margin-bottom: 4px;">📱</div>
+        <div style="font-size: 52px; margin-bottom: 6px; filter: drop-shadow(0 4px 14px rgba(56,189,248,0.5));">📱 🧪</div>
         <h2>PETUALANGAN ZULOKS</h2>
         <p>Pilih Kelompok Anda untuk Memulai Pengerjaan di HP:</p>
       </div>
@@ -1103,7 +1117,7 @@
        ======================================================== */
     const L = [
       {
-        n: 'Gerbang Konsep', c: '#2E75B6',
+        n: 'Gerbang Konsep', c: '#2E75B6', icon: '🚪',
         s: [
           ['Detektif Senyawa', ['a', 'b', 'c'], 'Nomor golongan logam (IIIA → 3)'],
           ['Setarakan Nyala Api', ['a', 'b*'], 'Jumlah seluruh koefisien persamaan setara'],
@@ -1113,7 +1127,7 @@
         ]
       },
       {
-        n: 'Lorong Bilangan Oksidasi', c: '#7030A0',
+        n: 'Lorong Bilangan Oksidasi', c: '#7030A0', icon: '🌌',
         s: [
           ['Detektif Senyawa', ['a', 'b*'], 'Jumlah atom O pada anion'],
           ['Mangan Berganti Wajah', ['KMnO₄', 'MnO₂', 'MnSO₄', 'K₂MnO₄', 'Urutan dari terkecil ke terbesar'], 'Biloks Mn yang paling kecil'],
@@ -1123,7 +1137,7 @@
         ]
       },
       {
-        n: 'Jembatan Pelaku', c: '#C55A11',
+        n: 'Jembatan Pelaku', c: '#C55A11', icon: '🌉',
         s: [
           ['Detektif Senyawa', ['a', 'b'], 'Jumlah seluruh atom dalam satu satuan rumus'],
           ['Peta Perubahan Biloks', ['Al (sebelum → sesudah)', 'Cu (sebelum → sesudah)', 'S (sebelum → sesudah)', 'O (sebelum → sesudah)', 'Unsur yang biloksnya berubah'], 'Kenaikan biloks satu atom Al'],
@@ -1133,7 +1147,7 @@
         ]
       },
       {
-        n: 'Laboratorium Rahasia', c: '#548235',
+        n: 'Laboratorium Rahasia', c: '#548235', icon: '⚗️',
         s: [
           ['Detektif Senyawa', ['a', 'b'], 'Jumlah seluruh atom dalam satu satuan rumus'],
           ['Menimbang Perubahan Biloks', ['Fe (awal → akhir, perubahan)', 'C (awal → akhir, perubahan)', 'Total elektron yang diterima satu Fe₂O₃'], 'Total elektron yang diterima satu Fe₂O₃'],
@@ -1375,34 +1389,40 @@
           done: 'Selesai · tinjau',
           open: 'Terbuka · isi',
           gate: i ? 'Kode 5 digit' : 'Pecahkan teka-teki',
-          lock: 'Kunci Lv.' + i
+          lock: 'Kunci Lv.' + (i + 1)
         }[st];
         return `
           <button class="box-btn" style="background:${l.c}" onclick="handleBoxClick(${g}, ${i})" ${st === 'lock' ? 'disabled' : ''}>
-            <div class="ic">${ic}</div>
-            <div>
-              <h4>Level ${i + 1}</h4>
-              <div style="font-size:11px; font-weight:600;">${l.n}</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+              <span style="font-size:36px; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3)); display:inline-block; transform: scale(1.08);">${l.icon}</span>
+              <span class="ic" style="font-size:20px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));">${ic}</span>
             </div>
-            <small>${sb}</small>
+            <div>
+              <h4 style="margin:4px 0 0; font-size:14px; font-weight:800;">Level ${i + 1}</h4>
+              <div style="font-size:11.5px; font-weight:700; opacity:0.95;">${l.n}</div>
+            </div>
+            <small style="font-size:10px; font-weight:600;">${sb}</small>
           </button>`;
       }).join('');
 
       const pt = S[g].d[3] ? `
         <button class="box-btn box-peti" onclick="handlePetiClick(${g})">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span style="font-size:24px;">${S[g].u[4] ? '🎉' : '🎁'}</span>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:34px; filter: drop-shadow(0 3px 8px rgba(245,158,11,0.5));">${S[g].u[4] ? '🎉' : '🎁'}</span>
             <div>
-              <h4 style="margin:0;">Peti Harta Elektron</h4>
-              <small>${S[g].u[4] ? 'Terbuka · lihat ringkasan' : 'Buka dengan kode Level 4'}</small>
+              <h4 style="margin:0; font-size:14.5px; font-weight:800;">Peti Harta Elektron</h4>
+              <small style="font-size:10px;">${S[g].u[4] ? 'Terbuka · lihat ringkasan' : 'Buka dengan kode Level 4'}</small>
             </div>
           </div>
         </button>` : '';
 
       return `
-        <div class="card">
-          <label style="font-size:11px; font-weight:700; color:var(--mu);">Nama Kelompok</label>
-          <input class="touch-input" data-group="${g}" data-g readonly inputmode="none" placeholder="Tulis nama kelompok" value="${esc(S[g].g)}" onclick="selectInput(${g}, this)" ontouchstart="selectInput(${g}, this)">
+        <div class="card" style="border-left: 5px solid ${GROUPS[g].color}; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <label style="font-size:11px; font-weight:800; color:var(--mu); letter-spacing:0.5px;">🧪 IDENTITAS KELOMPOK</label>
+            <span style="font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:6px; background:${GROUPS[g].color}; color:#fff;">${GROUPS[g].name}</span>
+          </div>
+          <input class="touch-input" data-group="${g}" data-g readonly inputmode="none" placeholder="Tulis nama kelompok..." value="${esc(S[g].g)}" onclick="selectInput(${g}, this)" ontouchstart="selectInput(${g}, this)" style="font-weight:700; font-size:14px;">
         </div>
         <div class="grid-levels">${bx}</div>
         ${pt}
@@ -1415,22 +1435,23 @@
     }
 
     function renderGate(g, i) {
+      const targetL = L[i] || L[3];
       let h = `
         <div style="margin-bottom:8px;">
           <button class="btn g np" style="font-size:11px; padding:4px 8px;" onclick="go(${g}, {t:'home'})">← Kembali</button>
         </div>
         <div class="card gate-box" id="gate-box-${g}">
-          <div style="font-size:36px;">🔒</div>`;
+          <div style="font-size:52px; margin-bottom:8px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));">${targetL.icon} 🔒</div>`;
 
       if (!i) {
         h += `
-          <h3 style="margin:4px 0;">Kotak Level 1 Terkunci</h3>
+          <h3 style="margin:4px 0; font-size:16px; font-weight:800;">Kotak Level 1 · Gerbang Konsep</h3>
           <p style="font-size:12px; color:var(--mu);">Pecahkan teka-teki gembok ini:</p>
           <div class="rd">“Aku kecil dan bermuatan negatif. Saat oksidasi, atom kehilangan aku; saat reduksi, atom menerimaku. Siapakah aku?”</div>
-          <input class="touch-input" id="in-${g}" data-group="${g}" readonly inputmode="none" placeholder="Jawabanmu…" autocomplete="off" style="margin-top:10px; text-align:center;" onclick="selectInput(${g}, this)" ontouchstart="selectInput(${g}, this)">`;
+          <input class="touch-input" id="in-${g}" data-group="${g}" readonly inputmode="none" placeholder="Jawabanmu…" autocomplete="off" style="margin-top:10px; text-align:center; font-weight:700;" onclick="selectInput(${g}, this)" ontouchstart="selectInput(${g}, this)">`;
       } else {
         h += `
-          <h3 style="margin:4px 0;">${i === 4 ? 'Peti Harta' : 'Kotak Level ' + (i + 1)} Terkunci</h3>
+          <h3 style="margin:4px 0; font-size:16px; font-weight:800;">${i === 4 ? 'Peti Harta' : 'Kotak Level ' + (i + 1) + ' · ' + targetL.n} Terkunci</h3>
           <p style="font-size:12px; color:var(--mu);">Masukkan <b>kode rahasia 5 digit</b> dari Level ${i}:</p>
           <input class="touch-input code" id="in-${g}" data-group="${g}" readonly inputmode="none" maxlength="5" placeholder="•••••" autocomplete="off" onclick="selectInput(${g}, this)" ontouchstart="selectInput(${g}, this)">`;
       }
@@ -1465,19 +1486,23 @@
         <div style="margin-bottom:8px;">
           <button class="btn g np" style="font-size:11px; padding:4px 8px;" onclick="go(${g}, {t:'home'})">← Kotak</button>
         </div>
-        <div class="col-hd" style="background:${l.c}">
-          <small>LEVEL ${i + 1}</small>
-          <h2>${l.n}</h2>
-          <div id="pg-${g}" style="font-size:11px; opacity:0.95; margin-top:2px;"></div>
+        <div class="col-hd" style="background: linear-gradient(135deg, ${l.c} 0%, ${l.c}dd 100%); box-shadow: 0 4px 14px rgba(0,0,0,0.15); border-left: 5px solid rgba(255,255,255,0.4);">
+          <small style="font-weight:800; letter-spacing:1px;">LEVEL ${i + 1}</small>
+          <h2 style="margin:2px 0 0; font-size:19px; font-weight:800; display:flex; align-items:center; gap:8px;">
+            <span style="font-size:30px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); display:inline-block; transform:translateY(-1px);">${l.icon}</span> ${l.n}
+          </h2>
+          <div id="pg-${g}" style="font-size:11px; opacity:0.95; margin-top:4px; font-weight:600; background:rgba(0,0,0,0.15); display:inline-block; padding:2px 8px; border-radius:6px;"></div>
         </div>`;
 
       l.s.forEach((s, j) => {
         h += `
           <div class="card">
-            <h4 style="color:${l.c}; margin:0 0 8px 0; font-size:13px;">Soal ${j + 1} · ${s[0]}</h4>
+            <h4 style="color:${l.c}; margin:0 0 8px 0; font-size:13.5px; font-weight:800; display:flex; align-items:center; gap:6px;">
+              <span style="font-size:20px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">⚛️</span> Soal ${j + 1} · ${s[0]}
+            </h4>
             ${s[1].map((p, k) => fld(g, i, j, k, p)).join('')}
             <div class="dg">
-              <span style="font-size:20px;">🔑</span>
+              <span style="font-size:26px; filter: drop-shadow(0 2px 6px rgba(245,158,11,0.4));">🔑</span>
               <div style="flex:1;">
                 <b style="font-size:11px;">Digit Soal ${j + 1}</b>
                 <div style="font-size:10px; color:var(--mu);">${s[2]}</div>
@@ -1497,11 +1522,11 @@
 
     function renderDone(g) {
       let h = `
-        <div class="card gate-box">
-          <div style="font-size:42px;">🎉</div>
-          <h2 style="margin:4px 0; font-size:18px;">Misi Selesai!</h2>
-          <p style="font-size:12px; color:var(--mu); margin:4px 0 10px;">Menara Redoks menyala! Elektron mengalir ke Kota Elektron.</p>
-          <div style="font-weight:800; color:${GROUPS[g].color}; font-size:14px; margin-bottom:12px;">${esc(S[g].g)}</div>
+        <div class="card gate-box" style="background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%); border: 2px solid #10b981; box-shadow: 0 8px 24px rgba(16,185,129,0.18);">
+          <div style="font-size:58px; margin-bottom:8px; filter: drop-shadow(0 4px 16px rgba(16,185,129,0.4));">🎉 ⚗️</div>
+          <h2 style="margin:4px 0; font-size:19px; font-weight:800; color:#047857;">Misi Redoks Selesai!</h2>
+          <p style="font-size:12px; color:var(--mu); margin:4px 0 10px;">Menara Redoks menyala! Elektron mengalir ke Kota Elektron dengan sempurna.</p>
+          <div style="font-weight:800; color:${GROUPS[g].color}; font-size:14px; margin-bottom:12px; background:rgba(0,0,0,0.04); padding:4px 10px; border-radius:6px; display:inline-block;">${esc(S[g].g)}</div>
           <div class="np" style="display:flex; gap:6px; justify-content:center;">
             <button class="btn" style="font-size:11px; padding:6px 10px;" onclick="printGroup(${g})">🖨️ Cetak PDF</button>
             <button class="btn g" style="font-size:11px; padding:6px 10px;" onclick="go(${g}, {t:'home'})">← Kotak</button>
@@ -1511,7 +1536,9 @@
       L.forEach((l, i) => {
         h += `
           <div class="card">
-            <h4 style="color:${l.c}; margin:0 0 6px 0; font-size:12px;">Level ${i + 1} · ${l.n}</h4>
+            <h4 style="color:${l.c}; margin:0 0 6px 0; font-size:12.5px; font-weight:800; display:flex; align-items:center; gap:6px;">
+              <span style="font-size:22px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">${l.icon}</span> Level ${i + 1} · ${l.n}
+            </h4>
             ${l.s.map((s, j) => `
               <div style="font-size:11px; border-bottom:1px dashed #e2e8f0; padding:4px 0;">
                 <b>Soal ${j + 1}: ${s[0]}</b><br>
