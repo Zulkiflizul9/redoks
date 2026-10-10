@@ -669,6 +669,101 @@
       font-size: 16px;
     }
 
+    /* BAR PILIHAN KELOMPOK UNTUK MOBILE (HP) & SINGLE VIEW */
+    #mobile-group-bar {
+      display: none;
+      background: #0b1329;
+      border-bottom: 2px solid #1e293b;
+      padding: 6px 10px;
+      gap: 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      z-index: 90;
+      touch-action: pan-x;
+    }
+
+    .mobile-group-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .mobile-group-btn.active {
+      color: #ffffff;
+      font-weight: 800;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      transform: translateY(-1px);
+    }
+
+    /* RESPONSIF UNTUK SMARTPHONE (HP MOBILE < 768px) */
+    @media (max-width: 768px) {
+      #master-bar {
+        height: auto;
+        min-height: 48px;
+        padding: 6px 8px;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .master-title {
+        font-size: 13px;
+        gap: 6px;
+      }
+
+      .master-badge {
+        font-size: 9.5px;
+        padding: 2px 6px;
+      }
+
+      .master-controls {
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+
+      .layout-pills {
+        display: none !important;
+      }
+
+      .master-action-btn span:not(#bgm-icon) {
+        display: none;
+      }
+
+      #mobile-group-bar {
+        display: flex !important;
+      }
+
+      #board-wrapper {
+        height: calc(100vh - 94px);
+      }
+
+      .group-col {
+        display: none !important;
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        border-right: none !important;
+      }
+
+      .group-col.mobile-active {
+        display: flex !important;
+      }
+
+      .k-key {
+        height: 42px;
+        font-size: 14px;
+      }
+    }
+
     /* CETAK PDF */
     @media print {
       body {
@@ -749,6 +844,27 @@
   </header>
 
   <!-- ============================================== -->
+  <!-- BAR NAVIGASI KELOMPOK (TAMPILAN HP / MOBILE)   -->
+  <!-- ============================================== -->
+  <nav id="mobile-group-bar">
+    <button class="mobile-group-btn active" data-g="0" onclick="selectMobileGroup(0)">
+      <span>👥</span> Kelompok 1
+    </button>
+    <button class="mobile-group-btn" data-g="1" onclick="selectMobileGroup(1)">
+      <span>👥</span> Kelompok 2
+    </button>
+    <button class="mobile-group-btn" data-g="2" onclick="selectMobileGroup(2)">
+      <span>👥</span> Kelompok 3
+    </button>
+    <button class="mobile-group-btn" data-g="3" onclick="selectMobileGroup(3)">
+      <span>👥</span> Kelompok 4
+    </button>
+    <button class="mobile-group-btn" data-g="4" onclick="selectMobileGroup(4)">
+      <span>👥</span> Kelompok 5
+    </button>
+  </nav>
+
+  <!-- ============================================== -->
   <!-- 2. KONTEN SPLIT SCREEN 5 KELOMPOK               -->
   <!-- ============================================== -->
   <main id="board-wrapper">
@@ -814,6 +930,7 @@
     ];
 
     let currentLayout = 5; // Default 5 Layar Split
+    let currentMobileGroup = 0; // Group aktif untuk tampilan HP Mobile (0 - 4)
 
     /* STATE PER KELOMPOK (TERISOLASI 100%) */
     const freshGroup = (g) => ({
@@ -1563,8 +1680,54 @@
     }
 
     /* ========================================================
-       INISIALISASI & SETUP BOARD
+       INISIALISASI & SETUP BOARD (RESPONSIF SMARTPHONE & MULTI-TOUCH)
        ======================================================== */
+    function selectMobileGroup(g) {
+      currentMobileGroup = g;
+      
+      const btns = document.querySelectorAll('.mobile-group-btn');
+      btns.forEach(btn => {
+        const bg = parseInt(btn.dataset.g);
+        const isAct = (bg === g);
+        btn.classList.toggle('active', isAct);
+        if (isAct) {
+          const hex = GROUPS[g].color;
+          btn.style.backgroundColor = hex;
+          btn.style.borderColor = hex;
+        } else {
+          btn.style.backgroundColor = '';
+          btn.style.borderColor = '';
+        }
+      });
+
+      const cols = document.querySelectorAll('.group-col');
+      cols.forEach((col, idx) => {
+        if (idx === g) {
+          col.classList.add('mobile-active');
+        } else {
+          col.classList.remove('mobile-active');
+        }
+      });
+    }
+
+    function checkResponsiveLayout() {
+      const isMobile = window.innerWidth <= 768;
+      const bar = document.getElementById('mobile-group-bar');
+      if (bar) {
+        if (isMobile) {
+          bar.style.display = 'flex';
+          if (currentLayout !== 5) {
+            buildBoard(5);
+          }
+        } else if (currentLayout === 1) {
+          bar.style.display = 'flex';
+        } else {
+          bar.style.display = 'none';
+        }
+      }
+      selectMobileGroup(currentMobileGroup);
+    }
+
     function buildBoard(numCols = 5) {
       currentLayout = numCols;
       const board = document.getElementById('board-wrapper');
@@ -1573,7 +1736,7 @@
       for (let g = 0; g < numCols; g++) {
         const grp = GROUPS[g];
         const col = document.createElement('section');
-        col.className = 'group-col';
+        col.className = 'group-col' + (g === currentMobileGroup ? ' mobile-active' : '');
         col.id = `col-${g}`;
 
         col.innerHTML = `
@@ -1611,6 +1774,8 @@
         board.appendChild(col);
         renderGroup(g);
       }
+
+      checkResponsiveLayout();
     }
 
     function setLayout(num) {
@@ -1729,9 +1894,14 @@
       }
     }
 
-    // Jalankan build pertama saat load
+    // Jalankan build pertama saat load & pantau perubahan ukuran layar
     window.addEventListener('DOMContentLoaded', () => {
       buildBoard(5);
+      checkResponsiveLayout();
+    });
+
+    window.addEventListener('resize', () => {
+      checkResponsiveLayout();
     });
   </script>
 </body>
