@@ -758,8 +758,21 @@
         display: flex !important;
       }
 
+      .group-kb-dock {
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 99;
+        background: #091322;
+        border-top: 2px solid #2563eb;
+        box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.4);
+        padding: 5px;
+      }
+
       .k-key {
-        height: 42px;
+        height: 44px;
         font-size: 14px;
       }
     }
@@ -997,6 +1010,16 @@
       renderGroup(g);
       const scr = document.getElementById(`scroll-${g}`);
       if (scr) scr.scrollTo(0, 0);
+
+      // Otomatis aktifkan keyboard kimia saat masuk ke level atau gembok
+      if (v.t === 'lv' || v.t === 'gate') {
+        setTimeout(() => {
+          const firstInp = document.querySelector(`input[data-group="${g}"], textarea[data-group="${g}"]`);
+          if (firstInp) selectInput(g, firstInp);
+        }, 120);
+      } else {
+        closeKeyboard(g);
+      }
     };
 
     /* ========================================================
@@ -1391,11 +1414,11 @@
       activeInput[g] = inputEl;
       inputEl.classList.add('active-input');
 
-      // Tentukan mode keyboard otomatis
+      // Tentukan mode keyboard otomatis (Kimia / Numerik)
       const isNum = inputEl.maxLength === 1 || inputEl.classList.contains('code') || (inputEl.dataset.k && inputEl.dataset.k.endsWith('.d'));
       if (isNum) {
         kbState[g].mode = 'num';
-      } else if (kbState[g].mode === 'num') {
+      } else {
         kbState[g].mode = 'chem';
       }
       kbState[g].visible = true;
@@ -1708,6 +1731,14 @@
           col.classList.remove('mobile-active');
         }
       });
+
+      // Otomatis aktifkan keyboard kimia jika kelompok ini sedang membuka level/gembok
+      if (V[g] && (V[g].t === 'lv' || V[g].t === 'gate')) {
+        setTimeout(() => {
+          const firstInp = document.querySelector(`input[data-group="${g}"], textarea[data-group="${g}"]`);
+          if (firstInp) selectInput(g, firstInp);
+        }, 100);
+      }
     }
 
     function checkResponsiveLayout() {
