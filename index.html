@@ -3564,12 +3564,12 @@
             <h3 id="ref-h-in">1. Tuangkan perasaanmu</h3>
             <p class="ref-hint">Pilih emoji, lalu tulis satu atau dua kalimat alasannya.</p>
             <div class="ref-emojis" id="ref-emojis"></div>
-            <textarea id="ref-txt" class="ref-textarea" maxlength="160" placeholder="Hari ini aku merasa ... karena ..." onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></textarea>
+            <textarea id="ref-txt" class="ref-textarea" maxlength="160" inputmode="none" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Hari ini aku merasa ... karena ..." onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></textarea>
             <div class="ref-row">
               <label>
                 <input type="checkbox" id="ref-anon" checked onchange="toggleRefAnon(this.checked)"> Anonim
               </label>
-              <input type="text" id="ref-who" class="ref-input" placeholder="Namamu" maxlength="20" style="display:none" onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)">
+              <input type="text" id="ref-who" class="ref-input" inputmode="none" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Namamu" maxlength="20" style="display:none" onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)">
             </div>
 
             <!-- PAPAN KETIK PERASAAN SISWA (SEUKURAN KOTAK TUANGKAN PERASAAN) -->
@@ -3733,7 +3733,7 @@
               <label style="display: block; font-size: 0.92rem; font-weight: 700; color: #1b1b3a; margin-bottom: 6px;">
                 2. Ceritakan alasannya:
               </label>
-              <textarea id="ref-modal-txt" class="ref-textarea" maxlength="160" placeholder="Hari ini aku merasa ... karena ..." onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></textarea>
+              <textarea id="ref-modal-txt" class="ref-textarea" maxlength="160" inputmode="none" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Hari ini aku merasa ... karena ..." onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></textarea>
               <small style="color: #64748b; font-size: 0.78rem; display: block; text-align: right; margin-top: 4px;">Maksimal 160 karakter</small>
             </div>
 
@@ -3741,7 +3741,7 @@
               <label style="font-size: 0.9rem; color: #1b1b3a; font-weight: 700; cursor: pointer;">
                 <input type="checkbox" id="ref-modal-anon" checked onchange="toggleRefModalAnon(this.checked)"> Anonim
               </label>
-              <input type="text" id="ref-modal-who" class="ref-input" placeholder="Tulis Namamu" maxlength="20" style="display: none; flex: 1;" onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)">
+              <input type="text" id="ref-modal-who" class="ref-input" inputmode="none" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Tulis Namamu" maxlength="20" style="display: none; flex: 1;" onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)">
             </div>
 
             <!-- PAPAN KETIK PERASAAN SISWA MODAL (SEUKURAN KOTAK TUANGKAN PERASAAN) -->
@@ -5885,6 +5885,13 @@
 
     function openRefKeyboard(targetEl) {
       activeRefInput = targetEl || document.getElementById('ref-modal-txt') || document.getElementById('ref-txt');
+      if (activeRefInput) {
+        activeRefInput.setAttribute('inputmode', 'none');
+        activeRefInput.setAttribute('autocomplete', 'off');
+        activeRefInput.setAttribute('autocorrect', 'off');
+        activeRefInput.setAttribute('autocapitalize', 'off');
+        activeRefInput.setAttribute('spellcheck', 'false');
+      }
       var isModal = activeRefInput && (activeRefInput.id === 'ref-modal-txt' || activeRefInput.id === 'ref-modal-who');
       var dock = document.getElementById(isModal ? 'refModalKeyboardDock' : 'refKeyboardDock');
       var otherDock = document.getElementById(isModal ? 'refKeyboardDock' : 'refModalKeyboardDock');
@@ -6010,6 +6017,34 @@
         shiftBtn.style.background = isRefShift ? '#6366f1' : '#334155';
         shiftBtn.style.color = isRefShift ? '#ffffff' : '#f8fafc';
       });
+    }
+
+    // Nonaktifkan keyboard virtual bawaan OS Smart TV/Papan Digital & cegah blur saat menekan tombol virtual
+    function initRefKeyboardSuppression() {
+      ['ref-txt', 'ref-who', 'ref-modal-txt', 'ref-modal-who'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) {
+          el.setAttribute('inputmode', 'none');
+          el.setAttribute('autocomplete', 'off');
+          el.setAttribute('autocorrect', 'off');
+          el.setAttribute('autocapitalize', 'off');
+          el.setAttribute('spellcheck', 'false');
+        }
+      });
+
+      var kbBtns = document.querySelectorAll('#refKeyboardDock button, #refModalKeyboardDock button');
+      kbBtns.forEach(function(b) {
+        b.setAttribute('type', 'button');
+        b.addEventListener('mousedown', function(e) {
+          e.preventDefault(); // Mencegah input kehilangan fokus dan mencegah keyboard OS/TV muncul
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initRefKeyboardSuppression);
+    } else {
+      initRefKeyboardSuppression();
     }
   </script>
 </body>

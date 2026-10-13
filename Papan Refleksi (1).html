@@ -283,8 +283,8 @@ textarea:focus,input:focus,button:focus-visible{outline:3px solid var(--m1);outl
 <h2 id="h-in">1. Tuangkan perasaanmu</h2>
 <p class="hint">Pilih emoji, lalu tulis satu atau dua kalimat alasannya.</p>
 <div class="emojis" id="emojis"></div>
-<textarea id="txt" maxlength="160" placeholder="Hari ini aku merasa ... karena ..." onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></textarea>
-<div class="row"><label><input type="checkbox" id="anon" checked> Anonim</label><input type="text" id="who" placeholder="Namamu" maxlength="20" style="display:none" onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></div>
+<textarea id="txt" maxlength="160" inputmode="none" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Hari ini aku merasa ... karena ..." onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></textarea>
+<div class="row"><label><input type="checkbox" id="anon" checked> Anonim</label><input type="text" id="who" inputmode="none" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Namamu" maxlength="20" style="display:none" onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></div>
 
 <!-- PAPAN KETIK PERASAAN SISWA (SEUKURAN KOTAK TUANGKAN PERASAAN) -->
 <div id="refKeyboardDock" class="ref-keyboard-dock">
@@ -467,6 +467,13 @@ function playRefKeyTone(freq, type, duration, vol) {
 
 function openRefKeyboard(targetEl) {
   activeRefInput = targetEl || $("txt");
+  if (activeRefInput) {
+    activeRefInput.setAttribute('inputmode', 'none');
+    activeRefInput.setAttribute('autocomplete', 'off');
+    activeRefInput.setAttribute('autocorrect', 'off');
+    activeRefInput.setAttribute('autocapitalize', 'off');
+    activeRefInput.setAttribute('spellcheck', 'false');
+  }
   var dock = $("refKeyboardDock");
   if (dock) {
     dock.style.display = 'flex';
@@ -589,6 +596,29 @@ document.addEventListener('keydown', function(e) {
     closeRefKeyboard();
   }
 });
+
+// Nonaktifkan keyboard virtual bawaan OS Smart TV/Papan Digital & cegah blur saat menekan tombol virtual
+function initRefKeyboardSuppression() {
+  ['txt', 'who'].forEach(function(id) {
+    var el = $(id);
+    if (el) {
+      el.setAttribute('inputmode', 'none');
+      el.setAttribute('autocomplete', 'off');
+      el.setAttribute('autocorrect', 'off');
+      el.setAttribute('autocapitalize', 'off');
+      el.setAttribute('spellcheck', 'false');
+    }
+  });
+
+  var kbBtns = document.querySelectorAll('#refKeyboardDock button');
+  kbBtns.forEach(function(b) {
+    b.setAttribute('type', 'button');
+    b.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+    });
+  });
+}
+initRefKeyboardSuppression();
 
 drawPick();drawWall();
 </script>
