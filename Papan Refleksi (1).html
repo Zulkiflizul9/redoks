@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Papan Refleksi</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1ff;--ink:#1b1b3a;--soft:#5b5b80;--card:#fff;--line:#d4d9f5;--m0:#9be8c4;--m1:#a9c4ff;--m2:#ffe07a;--m3:#ffa99b;--m4:#cdb8ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14142b;--ink:#f1f1ff;--soft:#a3a3c8;--card:#1f1f3d;--line:#34345e}}
+:root[data-theme="dark"]{--bg:#14142b;--ink:#f1f1ff;--soft:#a3a3c8;--card:#1f1f3d;--line:#34345e}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.45}
+main{max-width:1800px;margin:0 auto;padding:18px 16px 36px}
+h1{font-size:clamp(1.9rem,6vw,2.8rem);line-height:1;margin:6px 0 4px;font-weight:800;letter-spacing:-.02em}
+.sub{color:var(--soft);margin:0 0 18px}
+h2{font-size:1.15rem;margin:0 0 4px;font-weight:800}
+.hint{color:var(--soft);font-size:.88rem;margin:0 0 12px}
+.layout{display:grid;gap:18px;grid-template-columns:1fr;align-items:start}
+@media(min-width:900px){.layout{grid-template-columns:minmax(300px,380px) 1fr}.panel.in{position:sticky;top:12px}}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:18px;box-sizing:border-box;overflow:hidden}
+.emojis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin-bottom:12px;width:100%;box-sizing:border-box}
+.emojis button{width:100%;box-sizing:border-box;min-width:0;font-size:1.35rem;background:var(--bg);border:2px solid transparent;border-radius:12px;padding:6px 1px 4px;cursor:pointer;color:var(--ink);transition:transform .12s,border-color .12s;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.emojis button small{display:block;font-size:.62rem;font-weight:700;color:var(--soft);font-family:inherit;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.emojis button:active{transform:scale(.95)}
+.emojis button.on{border-color:var(--ink);transform:scale(1.02)}
+.emojis button.on small{color:#1b1b3a}
+textarea,input[type=text]{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:10px}
+textarea{resize:none;height:96px}
+textarea:focus,input:focus,button:focus-visible{outline:3px solid var(--m1);outline-offset:1px}
+.row{display:flex;gap:10px;align-items:center;margin:10px 0}
+.row label{font-size:.85rem;color:var(--soft);display:flex;gap:6px;align-items:center;white-space:nowrap}
+.send{width:100%;font:inherit;font-weight:800;font-size:1.05rem;border:0;border-radius:14px;padding:13px;background:var(--ink);color:var(--bg);cursor:pointer}
+.msg{min-height:1.3em;font-size:.85rem;margin:8px 0 0;color:var(--soft)}
+.stat{display:flex;height:16px;border-radius:99px;overflow:hidden;background:var(--bg);margin:6px 0}
+.stat span{transition:flex .4s}
+.legend{font-size:.9rem;color:var(--soft);margin:0 0 14px;display:flex;gap:14px;flex-wrap:wrap}
+.wall{columns:2 240px;column-gap:14px}
+.card{break-inside:avoid;margin:0 0 14px;padding:14px;border-radius:8px 8px 20px 8px;color:#1b1b3a;box-shadow:0 3px 0 rgba(0,0,0,.12);animation:pop .3s}
+.card .e{font-size:2rem;line-height:1}
+.card p{margin:8px 0 10px;font-weight:500;word-wrap:break-word}
+.card footer{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;font-weight:700}
+.card button{font:inherit;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.55);border:0;border-radius:99px;padding:4px 10px;cursor:pointer;color:#1b1b3a}
+.card button.liked{background:#fff}
+.empty{color:var(--soft);text-align:center;padding:36px 16px;border:2px dashed var(--line);border-radius:18px}
+.tools{display:flex;justify-content:space-between;align-items:center;margin-top:18px;font-size:.82rem;color:var(--soft)}
+.tools button{font:inherit;background:none;border:2px solid var(--line);color:var(--soft);border-radius:99px;padding:6px 12px;cursor:pointer}
+@keyframes pop{from{opacity:0;scale:.9}to{opacity:1;scale:1}}
+@media(min-width:1100px){
+  .layout{grid-template-columns:minmax(380px,440px) 1fr;gap:24px}
+  textarea,input[type=text]{font-size:1.05rem}
+  textarea{height:115px}
+  .emojis button{font-size:1.55rem;padding:7px 2px 5px}
+  .emojis button small{font-size:0.68rem}
+  .wall{columns:3 290px;column-gap:18px}
+  .stat{height:20px}
+  .card{padding:16px 18px}
+  .card .e{font-size:2.3rem}
+  .card p{font-size:1.05rem}
+  .ref-kb-key{height:34px;font-size:0.85rem}
+}
+
+/* SMART TV & PAPAN DIGITAL INTERAKTIF (FULL HD 1080p, 4K & FULLSCREEN) */
+@media (min-width: 1400px), :fullscreen, :-webkit-full-screen {
+  main{max-width:1920px;padding:22px 32px 36px}
+  h1{font-size:2.6rem;margin-bottom:6px}
+  .sub{font-size:1.08rem;margin-bottom:20px}
+  .layout{grid-template-columns:minmax(460px,520px) 1fr;gap:30px}
+  .panel{border-radius:26px;padding:24px;border-width:2.5px}
+  .panel.in{top:16px}
+  h2{font-size:1.35rem;margin-bottom:6px}
+  .hint{font-size:0.98rem;margin-bottom:14px}
+  .emojis{gap:6px;margin-bottom:14px}
+  .emojis button{font-size:1.75rem;padding:9px 2px 7px;border-radius:14px}
+  .emojis button small{font-size:0.75rem;margin-top:3px}
+  textarea,input[type=text]{font-size:1.15rem;padding:13px;border-radius:14px}
+  textarea{height:125px}
+  .row{margin:12px 0}
+  .row label{font-size:0.95rem}
+  .send{font-size:1.15rem;padding:15px;border-radius:16px}
+  .stat{height:24px;margin:10px 0 8px;box-shadow:inset 0 2px 6px rgba(0,0,0,0.1)}
+  .legend{font-size:1.05rem;gap:18px;margin-bottom:18px}
+  .wall{columns:3 330px;column-gap:22px}
+  .card{padding:18px 20px;border-radius:12px 12px 26px 12px;margin-bottom:20px;box-shadow:0 4px 14px rgba(0,0,0,0.14)}
+  .card .e{font-size:2.6rem;margin-bottom:4px}
+  .card p{font-size:1.15rem;line-height:1.52;margin:10px 0 14px;font-weight:600}
+  .card footer{font-size:0.95rem}
+  .card button{font-size:0.95rem;padding:5px 14px}
+  .tools{margin-top:24px;font-size:0.95rem}
+  .tools button{font-size:0.92rem;padding:8px 18px}
+  .ref-keyboard-dock{padding:10px 8px;border-radius:16px;margin:12px 0}
+  .ref-kb-title{font-size:0.82rem}
+  .ref-kb-close-btn{font-size:0.74rem;padding:3px 10px}
+  .ref-kb-chip{font-size:0.76rem;padding:4px 10px}
+  .ref-kb-key{height:38px;font-size:0.92rem;border-radius:6px}
+  .ref-kb-key.key-wide{font-size:0.82rem}
+  .ref-kb-key.key-space{font-size:0.85rem}
+  .ref-kb-key.key-action{font-size:0.82rem}
+}
+
+:fullscreen, :-webkit-full-screen {
+  background: var(--bg);
+  overflow-y: auto;
+}
+:fullscreen main, :-webkit-full-screen main {
+  height: 100vh;
+  box-sizing: border-box;
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* KEYBOARD VIRTUAL REFLEKSI (SEUKURAN KOTAK TUANGKAN PERASAAN) */
+.ref-keyboard-dock {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: #14142b;
+  border: 1.5px solid #6366f1;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  display: none;
+  flex-direction: column;
+  padding: 8px 6px;
+  margin: 10px 0;
+  user-select: none;
+  animation: refKbFadeIn 0.2s ease-out;
+  font-family: inherit;
+  overflow: hidden;
+}
+@keyframes refKbFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.ref-kb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 6px;
+  gap: 6px;
+}
+.ref-kb-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #cbd5e1;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+.ref-kb-close-btn {
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+.ref-kb-close-btn:hover {
+  background: #ef4444;
+  color: #fff;
+}
+.ref-kb-chips {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 3px;
+  margin-bottom: 6px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.ref-kb-chip {
+  background: rgba(99, 102, 241, 0.22);
+  border: 1px solid rgba(129, 140, 248, 0.4);
+  color: #e0e7ff;
+  border-radius: 12px;
+  padding: 2px 7px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.12s ease;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+.ref-kb-chip:hover {
+  background: #4f46e5;
+  color: #ffffff;
+}
+.ref-kb-chip:active {
+  transform: scale(0.95);
+}
+.ref-kb-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.ref-kb-row {
+  display: flex;
+  gap: 2.5px;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+.ref-kb-key {
+  flex: 1;
+  height: 31px;
+  min-width: 0;
+  background: #1f1f3d;
+  color: #f1f1ff;
+  border: 1px solid #34345e;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 1.5px 0 rgba(0, 0, 0, 0.35);
+  transition: all 0.08s ease;
+  font-family: inherit;
+  touch-action: manipulation;
+  user-select: none;
+}
+.ref-kb-key:hover {
+  background: #2d2d55;
+  border-color: #6366f1;
+}
+.ref-kb-key:active {
+  transform: translateY(1px);
+  box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.35);
+  background: #4f46e5;
+}
+.ref-kb-key.key-wide {
+  flex: 1.4;
+  font-size: 0.7rem;
+}
+.ref-kb-key.key-space {
+  flex: 3.2;
+  font-size: 0.72rem;
+}
+.ref-kb-key.key-action {
+  background: #4f46e5;
+  color: white;
+  border-color: #6366f1;
+  font-weight: 800;
+  font-size: 0.72rem;
+}
+.ref-kb-key.key-action:hover {
+  background: #4338ca;
+}
+@media (max-width: 600px) {
+  .ref-kb-key {
+    height: 29px;
+    font-size: 0.76rem;
+    border-radius: 4px;
+  }
+}
+</style>
+</head>
+<body>
+<main>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+  <div>
+    <h1>Papan Refleksi</h1>
+    <p class="sub">Pelajaran hari ini sudah selesai. Maju bergantian, tuang perasaanmu, lalu lihat jawaban teman-teman.</p>
+  </div>
+  <button class="send" style="width:auto;padding:10px 22px;border-radius:99px;font-size:0.95rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;" onclick="document.getElementById('txt').focus();document.querySelector('.panel.in').scrollIntoView({behavior:'smooth'});">
+    <span>✍️</span> Tuangkan Perasaanmu
+  </button>
+</div>
+
+<div class="layout">
+<section class="panel in" aria-labelledby="h-in">
+<h2 id="h-in">1. Tuangkan perasaanmu</h2>
+<p class="hint">Pilih emoji, lalu tulis satu atau dua kalimat alasannya.</p>
+<div class="emojis" id="emojis"></div>
+<textarea id="txt" maxlength="160" placeholder="Hari ini aku merasa ... karena ..." onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></textarea>
+<div class="row"><label><input type="checkbox" id="anon" checked> Anonim</label><input type="text" id="who" placeholder="Namamu" maxlength="20" style="display:none" onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></div>
+
+<!-- PAPAN KETIK PERASAAN SISWA (SEUKURAN KOTAK TUANGKAN PERASAAN) -->
+<div id="refKeyboardDock" class="ref-keyboard-dock">
+  <div class="ref-kb-header">
+    <div class="ref-kb-title">
+      <span>⌨️</span> <span>Papan Ketik Perasaan Siswa</span>
+    </div>
+    <button class="ref-kb-close-btn" onclick="closeRefKeyboard()" title="Sembunyikan Keyboard">
+      ✕ Tutup Keyboard
+    </button>
+  </div>
+
+  <!-- QUICK PHRASE CHIPS -->
+  <div class="ref-kb-chips">
+    <button class="ref-kb-chip" onclick="refInsertPhrase('karena seru dan asyik! ')">✨ seru & asyik</button>
+    <button class="ref-kb-chip" onclick="refInsertPhrase('karena sudah paham ')">💡 sudah paham</button>
+    <button class="ref-kb-chip" onclick="refInsertPhrase('karena mudah dimengerti ')">👍 mudah dimengerti</button>
+    <button class="ref-kb-chip" onclick="refInsertPhrase('karena banyak latihan ')">📝 banyak latihan</button>
+    <button class="ref-kb-chip" onclick="refInsertPhrase('karena masih agak bingung ')">🤔 agak bingung</button>
+    <button class="ref-kb-chip" onclick="refInsertPhrase('karena seru kerja bareng kelompok ')">🤝 kompak kelompok</button>
+    <button class="ref-kb-chip" onclick="refInsertPhrase('senang belajar reaksi redoks! ')">🔥 senang redoks</button>
+  </div>
+
+  <!-- KEYBOARD GRID -->
+  <div class="ref-kb-grid">
+    <!-- ROW 1: NUMBERS -->
+    <div class="ref-kb-row">
+      <button class="ref-kb-key" onclick="refKeyPress('1')">1</button>
+      <button class="ref-kb-key" onclick="refKeyPress('2')">2</button>
+      <button class="ref-kb-key" onclick="refKeyPress('3')">3</button>
+      <button class="ref-kb-key" onclick="refKeyPress('4')">4</button>
+      <button class="ref-kb-key" onclick="refKeyPress('5')">5</button>
+      <button class="ref-kb-key" onclick="refKeyPress('6')">6</button>
+      <button class="ref-kb-key" onclick="refKeyPress('7')">7</button>
+      <button class="ref-kb-key" onclick="refKeyPress('8')">8</button>
+      <button class="ref-kb-key" onclick="refKeyPress('9')">9</button>
+      <button class="ref-kb-key" onclick="refKeyPress('0')">0</button>
+    </div>
+
+    <!-- ROW 2: QWERTY 1 -->
+    <div class="ref-kb-row">
+      <button class="ref-kb-key" data-letter="q" onclick="refKeyPress('q')">q</button>
+      <button class="ref-kb-key" data-letter="w" onclick="refKeyPress('w')">w</button>
+      <button class="ref-kb-key" data-letter="e" onclick="refKeyPress('e')">e</button>
+      <button class="ref-kb-key" data-letter="r" onclick="refKeyPress('r')">r</button>
+      <button class="ref-kb-key" data-letter="t" onclick="refKeyPress('t')">t</button>
+      <button class="ref-kb-key" data-letter="y" onclick="refKeyPress('y')">y</button>
+      <button class="ref-kb-key" data-letter="u" onclick="refKeyPress('u')">u</button>
+      <button class="ref-kb-key" data-letter="i" onclick="refKeyPress('i')">i</button>
+      <button class="ref-kb-key" data-letter="o" onclick="refKeyPress('o')">o</button>
+      <button class="ref-kb-key" data-letter="p" onclick="refKeyPress('p')">p</button>
+    </div>
+
+    <!-- ROW 3: QWERTY 2 -->
+    <div class="ref-kb-row">
+      <button class="ref-kb-key" data-letter="a" onclick="refKeyPress('a')">a</button>
+      <button class="ref-kb-key" data-letter="s" onclick="refKeyPress('s')">s</button>
+      <button class="ref-kb-key" data-letter="d" onclick="refKeyPress('d')">d</button>
+      <button class="ref-kb-key" data-letter="f" onclick="refKeyPress('f')">f</button>
+      <button class="ref-kb-key" data-letter="g" onclick="refKeyPress('g')">g</button>
+      <button class="ref-kb-key" data-letter="h" onclick="refKeyPress('h')">h</button>
+      <button class="ref-kb-key" data-letter="j" onclick="refKeyPress('j')">j</button>
+      <button class="ref-kb-key" data-letter="k" onclick="refKeyPress('k')">k</button>
+      <button class="ref-kb-key" data-letter="l" onclick="refKeyPress('l')">l</button>
+      <button class="ref-kb-key" onclick="refKeyPress('!')">!</button>
+    </div>
+
+    <!-- ROW 4: SHIFT + QWERTY 3 + BACKSPACE -->
+    <div class="ref-kb-row">
+      <button class="ref-kb-key key-wide" id="refKbShiftBtn" onclick="toggleRefShift()">⇧ Shift</button>
+      <button class="ref-kb-key" data-letter="z" onclick="refKeyPress('z')">z</button>
+      <button class="ref-kb-key" data-letter="x" onclick="refKeyPress('x')">x</button>
+      <button class="ref-kb-key" data-letter="c" onclick="refKeyPress('c')">c</button>
+      <button class="ref-kb-key" data-letter="v" onclick="refKeyPress('v')">v</button>
+      <button class="ref-kb-key" data-letter="b" onclick="refKeyPress('b')">b</button>
+      <button class="ref-kb-key" data-letter="n" onclick="refKeyPress('n')">n</button>
+      <button class="ref-kb-key" data-letter="m" onclick="refKeyPress('m')">m</button>
+      <button class="ref-kb-key key-wide" onclick="refKeyBackspace()">⌫ Hapus</button>
+    </div>
+
+    <!-- ROW 5: SPECIAL, SPACE & SELESAI -->
+    <div class="ref-kb-row">
+      <button class="ref-kb-key" onclick="refKeyPress(',')">,</button>
+      <button class="ref-kb-key" onclick="refKeyPress('.')">.</button>
+      <button class="ref-kb-key key-space" onclick="refKeySpace()">␣ Spasi</button>
+      <button class="ref-kb-key" onclick="refKeyPress('?')">?</button>
+      <button class="ref-kb-key" onclick="refKeyPress('❤️')">❤️</button>
+      <button class="ref-kb-key key-wide key-action" onclick="closeRefKeyboard()">Selesai ✔️</button>
+    </div>
+  </div>
+</div>
+
+<button class="send" id="send">Kirim ke papan</button>
+<p class="msg" id="msg" role="status"></p>
+</section>
+
+<section class="panel" aria-labelledby="h-out">
+<h2 id="h-out">2. Perasaan kelas hari ini</h2>
+<div class="stat" id="stat"></div>
+<p class="legend" id="legend"></p>
+<div class="wall" id="wall"></div>
+</section>
+</div>
+
+<div class="tools"><span id="count"></span><span><button id="fs">Layar penuh</button> <button id="reset">Kosongkan papan</button></span></div>
+<button id="fab-tuang" style="position:fixed;bottom:20px;right:20px;background:var(--ink);color:var(--bg);border:2px solid var(--line);border-radius:99px;padding:12px 20px;font-size:0.95rem;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.25);z-index:99;display:flex;align-items:center;gap:8px;" onclick="openRefKeyboard(document.getElementById('txt'));document.getElementById('txt').focus();document.querySelector('.panel.in').scrollIntoView({behavior:'smooth'});">
+  <span>✍️</span> Tuangkan Perasaan
+</button>
+</main>
+<script>
+var MOODS=[["🤩","Seru"],["😌","Lega"],["🤔","Mikir"],["😵","Pusing"],["😴","Capek"]];
+var S={items:[]},pick=null;
+try{var raw=localStorage.getItem("refleksi-v2");if(raw)S=JSON.parse(raw)}catch(e){}
+function save(){try{localStorage.setItem("refleksi-v2",JSON.stringify(S))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+
+function drawPick(){
+ var el=$("emojis");el.innerHTML="";
+ MOODS.forEach(function(m,i){
+  var b=document.createElement("button");b.className=pick===i?"on":"";
+  b.style.background=pick===i?"var(--m"+i+")":"";
+  b.innerHTML=m[0]+"<small>"+m[1]+"</small>";
+  b.setAttribute("aria-label",m[1]);b.setAttribute("aria-pressed",pick===i);
+  b.onclick=function(){pick=i;drawPick()};
+  el.appendChild(b)})}
+
+function drawWall(){
+ var n=S.items.length,cnt=MOODS.map(function(_,i){return S.items.filter(function(x){return x.m===i}).length});
+ var st=$("stat");st.innerHTML="";
+ cnt.forEach(function(v,i){if(v){var s=document.createElement("span");s.style.flex=v;s.style.background="var(--m"+i+")";st.appendChild(s)}});
+ $("legend").innerHTML=n?MOODS.map(function(m,i){return cnt[i]?"<span>"+m[0]+" "+m[1]+" "+cnt[i]+"</span>":""}).join(""):"";
+ var w=$("wall");w.innerHTML="";
+ if(!n){w.innerHTML='<div class="empty">Belum ada kiriman. Jadilah yang pertama menulis di sebelah kiri.</div>'}
+ S.items.forEach(function(x){
+  var d=document.createElement("div");d.className="card";d.style.background="var(--m"+x.m+")";
+  d.innerHTML='<div class="e">'+MOODS[x.m][0]+"</div><p>"+esc(x.text)+"</p><footer><span>"+esc(x.who)+'</span><button class="'+(x.liked?"liked":"")+'">'+(x.liked?"❤️":"🤍")+" "+x.likes+"</button></footer>";
+  d.querySelector("button").onclick=function(){x.liked=!x.liked;x.likes+=x.liked?1:-1;save();drawWall()};
+  w.appendChild(d)});
+ $("count").textContent=n+" kiriman dari kelas"}
+
+$("anon").onchange=function(){$("who").style.display=this.checked?"none":"block"};
+$("send").onclick=function(){
+ var t=$("txt").value.trim(),m=$("msg");
+ if(pick===null){m.textContent="Pilih satu emoji dulu.";return}
+ if(!t){m.textContent="Tulis satu kalimat dulu ya.";$("txt").focus();return}
+ var who=$("anon").checked||!$("who").value.trim()?"Anonim":$("who").value.trim();
+ S.items.unshift({m:pick,text:t,who:who,likes:0,liked:false});
+ save();$("txt").value="";$("who").value="";pick=null;
+ closeRefKeyboard();
+ m.textContent="Terkirim! Giliran teman berikutnya.";drawPick();drawWall()};
+$("fs").onclick=function(){try{if(document.fullscreenElement){document.exitFullscreen()}else{document.documentElement.requestFullscreen()}}catch(e){}};
+$("reset").onclick=function(){if(confirm("Hapus semua kiriman di papan ini?")){S={items:[]};save();drawWall()}};
+
+/* KEYBOARD VIRTUAL CONTROLLER */
+var activeRefInput = null;
+var isRefShift = false;
+var refAudioCtx = null;
+
+function playRefKeyTone(freq, type, duration, vol) {
+  try {
+    if (!refAudioCtx) {
+      var AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) refAudioCtx = new AudioContext();
+    }
+    if (!refAudioCtx) return;
+    if (refAudioCtx.state === 'suspended') refAudioCtx.resume();
+    var osc = refAudioCtx.createOscillator();
+    var gain = refAudioCtx.createGain();
+    osc.type = type || 'sine';
+    osc.frequency.setValueAtTime(freq, refAudioCtx.currentTime);
+    gain.gain.setValueAtTime(vol || 0.05, refAudioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, refAudioCtx.currentTime + (duration || 0.05));
+    osc.connect(gain);
+    gain.connect(refAudioCtx.destination);
+    osc.start();
+    osc.stop(refAudioCtx.currentTime + (duration || 0.05));
+  } catch(e) {}
+}
+
+function openRefKeyboard(targetEl) {
+  activeRefInput = targetEl || $("txt");
+  var dock = $("refKeyboardDock");
+  if (dock) {
+    dock.style.display = 'flex';
+  }
+  if (activeRefInput) {
+    activeRefInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  playRefKeyTone(500, 'sine', 0.05, 0.03);
+}
+
+function closeRefKeyboard() {
+  var dock = $("refKeyboardDock");
+  if (dock && dock.style.display !== 'none') {
+    dock.style.display = 'none';
+    playRefKeyTone(380, 'sine', 0.05, 0.03);
+  }
+}
+
+function refKeyPress(char) {
+  if (!activeRefInput) {
+    activeRefInput = $("txt");
+  }
+  if (!activeRefInput) return;
+
+  var currentVal = activeRefInput.value || '';
+  var max = parseInt(activeRefInput.getAttribute('maxlength') || '160', 10);
+
+  if (currentVal.length >= max) {
+    playRefKeyTone(250, 'sawtooth', 0.1, 0.05);
+    return;
+  }
+
+  playRefKeyTone(650 + Math.random() * 80, 'sine', 0.03, 0.04);
+
+  var start = activeRefInput.selectionStart != null ? activeRefInput.selectionStart : currentVal.length;
+  var end = activeRefInput.selectionEnd != null ? activeRefInput.selectionEnd : currentVal.length;
+
+  var actualChar = char;
+  if (char.length === 1 && char.match(/[a-z]/i)) {
+    actualChar = isRefShift ? char.toUpperCase() : char.toLowerCase();
+  }
+
+  var newVal = currentVal.substring(0, start) + actualChar + currentVal.substring(end);
+  if (newVal.length <= max) {
+    activeRefInput.value = newVal;
+    activeRefInput.selectionStart = activeRefInput.selectionEnd = start + actualChar.length;
+  }
+
+  if (isRefShift) {
+    toggleRefShift();
+  }
+
+  activeRefInput.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+function refKeyBackspace() {
+  if (!activeRefInput) return;
+  var currentVal = activeRefInput.value || '';
+  var start = activeRefInput.selectionStart != null ? activeRefInput.selectionStart : currentVal.length;
+  var end = activeRefInput.selectionEnd != null ? activeRefInput.selectionEnd : currentVal.length;
+
+  playRefKeyTone(320, 'sine', 0.04, 0.04);
+
+  if (start === end) {
+    if (start > 0) {
+      activeRefInput.value = currentVal.substring(0, start - 1) + currentVal.substring(end);
+      activeRefInput.selectionStart = activeRefInput.selectionEnd = start - 1;
+    }
+  } else {
+    activeRefInput.value = currentVal.substring(0, start) + currentVal.substring(end);
+    activeRefInput.selectionStart = activeRefInput.selectionEnd = start;
+  }
+  activeRefInput.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+function refKeySpace() {
+  refKeyPress(' ');
+}
+
+function refInsertPhrase(phrase) {
+  if (!activeRefInput) {
+    activeRefInput = $("txt");
+  }
+  if (!activeRefInput) return;
+
+  var currentVal = activeRefInput.value || '';
+  var max = parseInt(activeRefInput.getAttribute('maxlength') || '160', 10);
+
+  playRefKeyTone(550, 'triangle', 0.06, 0.05);
+
+  var spaceNeeded = (currentVal.length > 0 && !currentVal.endsWith(' ')) ? ' ' : '';
+  var toAdd = spaceNeeded + phrase;
+
+  if (currentVal.length + toAdd.length <= max) {
+    activeRefInput.value = currentVal + toAdd;
+  } else {
+    activeRefInput.value = (currentVal + toAdd).substring(0, max);
+  }
+  activeRefInput.selectionStart = activeRefInput.selectionEnd = activeRefInput.value.length;
+  activeRefInput.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+function toggleRefShift() {
+  isRefShift = !isRefShift;
+  playRefKeyTone(450, 'sine', 0.04, 0.03);
+  var keys = document.querySelectorAll('.ref-kb-key[data-letter]');
+  keys.forEach(function(k) {
+    var letter = k.getAttribute('data-letter');
+    k.textContent = isRefShift ? letter.toUpperCase() : letter.toLowerCase();
+  });
+  var shiftBtn = $("refKbShiftBtn");
+  if (shiftBtn) {
+    shiftBtn.style.background = isRefShift ? '#6366f1' : '#2a2a4e';
+    shiftBtn.style.color = isRefShift ? '#ffffff' : '#f1f1ff';
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeRefKeyboard();
+  }
+});
+
+drawPick();drawWall();
+</script>
+</body>
+</html>

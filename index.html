@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PETUALANGAN ZULOKS: Media Interaktif Penyetaraan & Reaksi Redoks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #4361ee;
@@ -1057,6 +1060,24 @@
       color: #ffffff;
     }
 
+    .nav-btn.nav-btn-tujuan {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+
+    .nav-btn.nav-btn-tujuan:hover {
+      background: #059669;
+      color: #ffffff;
+    }
+
+    .nav-btn.nav-btn-tujuan.active {
+      background: #059669;
+      color: #ffffff;
+      border-color: #047857;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+    }
+
     .hero-lkpd-btn {
       transition: all 0.2s ease;
     }
@@ -1229,6 +1250,881 @@
       from { transform: translateY(24px) scale(0.97); opacity: 0; }
       to { transform: translateY(0) scale(1); opacity: 1; }
     }
+
+    /* ========================================================
+       TAB REFLEKSI: PAPAN REFLEKSI INTERAKTIF
+       ======================================================== */
+    #tab-refleksi {
+      --ref-bg: #f3f5ff;
+      --ref-ink: #1b1b3a;
+      --ref-soft: #5b5b80;
+      --ref-card: #ffffff;
+      --ref-line: #d4d9f5;
+      --ref-m0: #9be8c4;
+      --ref-m1: #a9c4ff;
+      --ref-m2: #ffe07a;
+      --ref-m3: #ffa99b;
+      --ref-m4: #cdb8ff;
+      font-family: 'Bricolage Grotesque', var(--font), system-ui, sans-serif;
+    }
+
+    .ref-wrap {
+      background: var(--ref-bg);
+      border: 2px solid var(--ref-line);
+      border-radius: 24px;
+      padding: 24px 22px 32px;
+      margin-top: 20px;
+      box-shadow: 0 10px 30px rgba(27, 27, 58, 0.05);
+      position: relative;
+    }
+
+    .ref-header {
+      margin-bottom: 22px;
+    }
+
+    .ref-header h2 {
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      font-weight: 800;
+      color: var(--ref-ink);
+      margin: 0 0 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .ref-header p {
+      color: var(--ref-soft);
+      font-size: 0.98rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .ref-layout {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    @media (min-width: 920px) {
+      .ref-layout {
+        grid-template-columns: minmax(340px, 420px) 1fr;
+        gap: 22px;
+      }
+      .ref-panel.in {
+        position: sticky;
+        top: 85px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .ref-layout {
+        grid-template-columns: minmax(380px, 450px) 1fr;
+        gap: 26px;
+      }
+    }
+
+    .ref-panel {
+      background: var(--ref-card);
+      border: 2px solid var(--ref-line);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 4px 14px rgba(27, 27, 58, 0.04);
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .ref-panel h3 {
+      font-size: 1.18rem;
+      margin: 0 0 6px;
+      font-weight: 800;
+      color: var(--ref-ink);
+    }
+
+    .ref-hint {
+      color: var(--ref-soft);
+      font-size: 0.88rem;
+      margin: 0 0 14px;
+      line-height: 1.4;
+    }
+
+    .ref-emojis {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 5px;
+      margin-bottom: 14px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .ref-emojis button {
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+      font-size: 1.35rem;
+      background: var(--ref-bg);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 6px 1px 4px;
+      cursor: pointer;
+      color: var(--ref-ink);
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .ref-emojis button small {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--ref-soft);
+      font-family: inherit;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .ref-emojis button:hover {
+      transform: translateY(-1px);
+    }
+
+    .ref-emojis button:active {
+      transform: scale(0.95);
+    }
+
+    .ref-emojis button.on {
+      border-color: var(--ref-ink);
+      transform: scale(1.02);
+      box-shadow: 0 4px 10px rgba(27, 27, 58, 0.12);
+    }
+
+    .ref-emojis button.on small {
+      color: #1b1b3a;
+      font-weight: 800;
+    }
+
+    .ref-textarea, .ref-input {
+      width: 100%;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--ref-ink);
+      background: var(--ref-bg);
+      border: 2px solid var(--ref-line);
+      border-radius: 14px;
+      padding: 12px;
+      transition: all 0.15s ease;
+      box-sizing: border-box;
+    }
+
+    .ref-textarea {
+      resize: none;
+      height: 105px;
+      line-height: 1.45;
+    }
+
+    .ref-textarea:focus, .ref-input:focus, .ref-send:focus-visible {
+      outline: 3px solid var(--ref-m1);
+      outline-offset: 1px;
+      background: #ffffff;
+    }
+
+    .ref-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    .ref-row label {
+      font-size: 0.88rem;
+      color: var(--ref-soft);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      white-space: nowrap;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .ref-send {
+      width: 100%;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 1.05rem;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px;
+      background: var(--ref-ink);
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .ref-send:hover {
+      background: #2a2a56;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(27, 27, 58, 0.2);
+    }
+
+    .ref-send:active {
+      transform: scale(0.97);
+    }
+
+    .ref-msg {
+      min-height: 1.3em;
+      font-size: 0.88rem;
+      margin: 10px 0 0;
+      color: var(--ref-soft);
+      font-weight: 600;
+    }
+
+    .ref-stat {
+      display: flex;
+      height: 18px;
+      border-radius: 99px;
+      overflow: hidden;
+      background: var(--ref-line);
+      margin: 10px 0;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+    }
+
+    .ref-stat span {
+      transition: flex 0.4s ease;
+      height: 100%;
+    }
+
+    .ref-legend {
+      font-size: 0.9rem;
+      color: var(--ref-soft);
+      margin: 0 0 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-weight: 600;
+    }
+
+    .ref-legend span {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--ref-line);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+    }
+
+    .ref-wall {
+      columns: 2 240px;
+      column-gap: 16px;
+    }
+
+    @media (min-width: 1100px) {
+      .ref-wall {
+        columns: 3 290px;
+        column-gap: 18px;
+      }
+    }
+
+    /* SMART TV & PAPAN DIGITAL INTERAKTIF (FULL HD 1080p, 4K & FULLSCREEN) */
+    @media (min-width: 1400px), :fullscreen, :-webkit-full-screen {
+      .ref-wrap {
+        max-width: 1920px;
+        padding: 24px 32px;
+      }
+      .ref-layout {
+        grid-template-columns: minmax(460px, 520px) 1fr;
+        gap: 32px;
+      }
+      .ref-panel {
+        border-radius: 28px;
+        padding: 26px;
+        border-width: 2.5px;
+      }
+      .ref-panel h3 {
+        font-size: 1.35rem;
+      }
+      .ref-hint {
+        font-size: 0.98rem;
+      }
+      .ref-emojis {
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+      .ref-emojis button {
+        font-size: 1.75rem;
+        padding: 9px 2px 7px;
+        border-radius: 14px;
+      }
+      .ref-emojis button small {
+        font-size: 0.75rem;
+      }
+      .ref-textarea, .ref-input {
+        font-size: 1.15rem;
+        padding: 13px;
+        border-radius: 14px;
+      }
+      .ref-textarea {
+        height: 125px;
+      }
+      .ref-send {
+        font-size: 1.15rem;
+        padding: 15px;
+        border-radius: 16px;
+      }
+      .ref-stat {
+        height: 24px;
+        margin: 12px 0 8px;
+      }
+      .ref-legend {
+        font-size: 1.05rem;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .ref-wall {
+        columns: 3 340px;
+        column-gap: 22px;
+      }
+      .ref-note-card {
+        padding: 18px 22px;
+        border-radius: 14px 14px 28px 14px;
+        margin-bottom: 22px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      }
+      .ref-note-card .e {
+        font-size: 2.6rem;
+        margin-bottom: 4px;
+      }
+      .ref-note-card p {
+        font-size: 1.15rem;
+        line-height: 1.52;
+        margin: 10px 0 14px;
+      }
+      .ref-note-card footer {
+        font-size: 0.95rem;
+      }
+      .ref-note-card button {
+        font-size: 0.95rem;
+        padding: 5px 14px;
+      }
+      .ref-keyboard-dock {
+        padding: 10px 8px;
+        border-radius: 16px;
+        margin: 12px 0;
+      }
+      .ref-keyboard-dock .ref-kb-title {
+        font-size: 0.82rem;
+      }
+      .ref-keyboard-dock .ref-kb-close-btn {
+        font-size: 0.74rem;
+        padding: 3px 10px;
+      }
+      .ref-keyboard-dock .ref-kb-chip {
+        font-size: 0.76rem;
+        padding: 4px 10px;
+      }
+      .ref-keyboard-dock .ref-kb-key {
+        height: 38px;
+        font-size: 0.92rem;
+        border-radius: 6px;
+      }
+      .ref-keyboard-dock .ref-kb-key.key-wide {
+        font-size: 0.82rem;
+      }
+      .ref-keyboard-dock .ref-kb-key.key-space {
+        font-size: 0.85rem;
+      }
+    }
+
+    #refleksiWrap:fullscreen, #refleksiWrap:-webkit-full-screen {
+      background: var(--ref-bg, #eef1ff);
+      padding: 24px 36px;
+      height: 100vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+    .ref-note-card {
+      break-inside: avoid;
+      margin: 0 0 16px;
+      padding: 16px;
+      border-radius: 12px 12px 24px 12px;
+      color: #1b1b3a;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      animation: refPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease;
+    }
+
+    .ref-note-card:hover {
+      transform: translateY(-3px) rotate(-0.5deg);
+    }
+
+    .ref-note-card .e {
+      font-size: 2.2rem;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .ref-note-card p {
+      margin: 8px 0 12px;
+      font-weight: 600;
+      word-wrap: break-word;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    .ref-note-card footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .ref-note-card button {
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 99px;
+      padding: 4px 10px;
+      cursor: pointer;
+      color: #1b1b3a;
+      transition: all 0.15s ease;
+    }
+
+    .ref-note-card button:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: scale(1.05);
+    }
+
+    .ref-note-card button.liked {
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .ref-empty {
+      color: var(--ref-soft);
+      text-align: center;
+      padding: 42px 18px;
+      border: 2px dashed var(--ref-line);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.5);
+      font-weight: 600;
+    }
+
+    .ref-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: var(--ref-soft);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .ref-tools button {
+      font-family: inherit;
+      background: #ffffff;
+      border: 2px solid var(--ref-line);
+      color: var(--ref-soft);
+      border-radius: 99px;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.15s ease;
+    }
+
+    .ref-tools button:hover {
+      border-color: var(--ref-ink);
+      color: var(--ref-ink);
+    }
+
+    @keyframes refPop {
+      from { opacity: 0; transform: scale(0.85); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* TOMBOL PICU TUANGKAN PERASAAN & MODAL */
+    .ref-btn-tuang {
+      background: linear-gradient(135deg, #4338ca, #6366f1);
+      color: #ffffff;
+      border: none;
+      border-radius: 99px;
+      padding: 10px 20px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      font-family: inherit;
+    }
+
+    .ref-btn-tuang:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+    }
+
+    .ref-btn-tuang:active {
+      transform: scale(0.97);
+    }
+
+    .ref-callout-banner {
+      background: linear-gradient(to right, #eef2ff, #ffffff);
+      border: 1.5px solid #c7d2fe;
+      border-left: 6px solid #6366f1;
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
+    }
+
+    .ref-btn-tuang-pulse {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      color: white;
+      border: none;
+      border-radius: 99px;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.35);
+      transition: all 0.2s ease;
+      font-family: inherit;
+      animation: refPulse 2s infinite;
+    }
+
+    .ref-btn-tuang-pulse:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 22px rgba(236, 72, 153, 0.5);
+    }
+
+    @keyframes refPulse {
+      0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(236, 72, 153, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+    }
+
+    /* FLOATING ACTION BUTTON (FAB) */
+    .ref-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #4338ca 100%);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 99px;
+      padding: 13px 22px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 28px rgba(139, 92, 246, 0.5);
+      z-index: 1000;
+      font-family: inherit;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .ref-fab:hover {
+      transform: translateY(-4px) scale(1.06);
+      box-shadow: 0 14px 34px rgba(139, 92, 246, 0.65);
+    }
+
+    .ref-fab:active {
+      transform: scale(0.95);
+    }
+
+    .ref-fab-icon {
+      font-size: 1.3rem;
+      animation: refWiggle 2.5s infinite;
+    }
+
+    @keyframes refWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      20% { transform: rotate(-15deg); }
+      40% { transform: rotate(15deg); }
+      60% { transform: rotate(-8deg); }
+      80% { transform: rotate(8deg); }
+    }
+
+    /* MODAL POPUP DIALOG UNTUK TUANGKAN PERASAAN */
+    .ref-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      animation: refModalFadeIn 0.2s ease-out;
+    }
+
+    .ref-modal-dialog {
+      background: #ffffff;
+      border: 2px solid #d4d9f5;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 490px;
+      box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.4);
+      overflow: hidden;
+      animation: refModalScaleUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      flex-direction: column;
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    }
+
+    .ref-modal-header {
+      padding: 18px 22px;
+      background: #f8faff;
+      border-bottom: 1.5px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ref-modal-close {
+      background: #edf2f7;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .ref-modal-close:hover {
+      background: #fee2e2;
+      color: #ef4444;
+      border-color: #fca5a5;
+      transform: scale(1.08);
+    }
+
+    .ref-modal-body {
+      padding: 22px;
+      max-height: 82vh;
+      overflow-y: auto;
+    }
+
+    @keyframes refModalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes refModalScaleUp {
+      from { transform: scale(0.92) translateY(16px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    /* ========================================================
+       KEYBOARD VIRTUAL REFLEKSI SISWA
+       ======================================================== */
+    /* ========================================================
+       KEYBOARD VIRTUAL REFLEKSI SISWA (SEUKURAN KOTAK TUANGKAN PERASAAN)
+       ======================================================== */
+    .ref-keyboard-dock {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      background: #14142b;
+      border: 1.5px solid #6366f1;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+      display: none;
+      flex-direction: column;
+      padding: 8px 6px;
+      margin: 10px 0;
+      user-select: none;
+      animation: refKbFadeIn 0.2s ease-out;
+      font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+      overflow: hidden;
+    }
+
+    @keyframes refKbFadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .ref-kb-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 6px;
+      gap: 6px;
+    }
+
+    .ref-kb-title {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #cbd5e1;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .ref-kb-close-btn {
+      background: rgba(239, 68, 68, 0.18);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+
+    .ref-kb-close-btn:hover {
+      background: #ef4444;
+      color: white;
+    }
+
+    .ref-kb-chips {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding-bottom: 3px;
+      margin-bottom: 6px;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .ref-kb-chip {
+      background: rgba(99, 102, 241, 0.22);
+      border: 1px solid rgba(129, 140, 248, 0.4);
+      color: #e0e7ff;
+      border-radius: 12px;
+      padding: 2px 7px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.12s ease;
+      font-family: inherit;
+      flex-shrink: 0;
+    }
+
+    .ref-kb-chip:hover {
+      background: #4f46e5;
+      color: #ffffff;
+    }
+
+    .ref-kb-chip:active {
+      transform: scale(0.95);
+    }
+
+    .ref-kb-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .ref-kb-row {
+      display: flex;
+      gap: 2.5px;
+      justify-content: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .ref-kb-key {
+      flex: 1;
+      height: 31px;
+      min-width: 0;
+      background: #1f1f3d;
+      color: #f1f1ff;
+      border: 1px solid #334155;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      box-shadow: 0 1.5px 0 rgba(0, 0, 0, 0.35);
+      transition: all 0.08s ease;
+      font-family: inherit;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .ref-kb-key:hover {
+      background: #334155;
+      border-color: #64748b;
+    }
+
+    .ref-kb-key:active {
+      transform: translateY(1px);
+      box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.35);
+      background: #4f46e5;
+    }
+
+    .ref-kb-key.key-wide {
+      flex: 1.4;
+      font-size: 0.7rem;
+    }
+
+    .ref-kb-key.key-space {
+      flex: 3.2;
+      font-size: 0.72rem;
+    }
+
+    .ref-kb-key.key-action {
+      background: #4f46e5;
+      color: white;
+      border-color: #6366f1;
+      font-weight: 800;
+      font-size: 0.72rem;
+    }
+
+    .ref-kb-key.key-action:hover {
+      background: #4338ca;
+    }
+
+    @media (max-width: 600px) {
+      .ref-kb-key {
+        height: 29px;
+        font-size: 0.76rem;
+        border-radius: 4px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1245,6 +2141,9 @@
       </div>
 
       <nav>
+        <button class="nav-btn nav-btn-tujuan" onclick="switchTab('tujuan')">
+          <span>🎯</span> Tujuan Pembelajaran
+        </button>
         <button class="nav-btn active" onclick="switchTab('konsep')">
           <span>💡</span> Konsep Redoks SMA
         </button>
@@ -1259,6 +2158,9 @@
         </button>
         <button class="nav-btn" onclick="switchTab('kuis')">
           <span>📝</span> Bank Soal UTBK/HOTS
+        </button>
+        <button class="nav-btn nav-btn-refleksi" onclick="switchTab('refleksi')">
+          <span>💭</span> Refleksi
         </button>
         <button class="nav-btn nav-btn-lkpd" onclick="openLkpdModal()" title="Buka LKPD Interaktif (PETUALANGAN ZULOKS)">
           <span>📜</span> LKPD Interaktif
@@ -1280,6 +2182,376 @@
   <main>
 
     <!-- ============================================== -->
+    <!-- TAB 0: TUJUAN PEMBELAJARAN (FASE F KELAS 12)  -->
+    <!-- ============================================== -->
+    <div id="tab-tujuan" class="tab-content">
+      <!-- HERO BANNER TUJUAN PEMBELAJARAN -->
+      <div class="hero-banner" style="background: linear-gradient(135deg, #064e3b 0%, #047857 35%, #0284c7 75%, #3b82f6 100%);">
+        <div class="hero-text">
+          <span class="hero-badge" style="background: rgba(255, 255, 255, 0.22); color: white;">🎯 Kurikulum Merdeka & K13 &bull; Fase F Kelas 12 SMA</span>
+          <h2>Capaian & Tujuan Pembelajaran Reaksi Redoks</h2>
+          <p>
+            Media interaktif ini dirancang untuk membimbing peserta didik menguasai konsep Reaksi Reduksi-Oksidasi (Redoks) dan Penyetaraan Reaksi Berjenjang secara komprehensif, mulai dari pemahaman mikroskopis serah terima elektron hingga penyetaraan reaksi tingkat UTBK/Olimpiade.
+          </p>
+          <div class="hero-stats">
+            <div class="hero-stat-item">🎯 4 Tujuan Pembelajaran Utama</div>
+            <div class="hero-stat-item">📊 4 Level Scaffolding Penyetaraan</div>
+            <div class="hero-stat-item">🔬 Lab Simulasi Transfer Elektron</div>
+            <div class="hero-stat-item">🎮 Gamifikasi LKPD Papan Tulis 5 Layar</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1. TUJUAN PEMBELAJARAN -->
+      <div class="card" style="border: 2px solid #059669; box-shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.12);">
+        <div class="card-title" style="color: #065f46; font-size: 1.25rem;">
+          <span>🎯</span> 1. TUJUAN PEMBELAJARAN
+        </div>
+        <p class="card-subtitle">
+          Setelah mempelajari materi dan menyelesaikan rangkaian aktivitas interaktif pada media ini, peserta didik diharapkan mampu:
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 12px;">
+          <!-- ITEM 1 -->
+          <div style="background: linear-gradient(to right, #f0fdf4, #ffffff); border: 1.5px solid #86efac; border-left: 6px solid #10b981; border-radius: 14px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(16,185,129,0.06); display: flex; align-items: flex-start; gap: 16px;">
+            <div style="background: linear-gradient(135deg, #10b981, #059669); color: white; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(16,185,129,0.35);">
+              1
+            </div>
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                <span style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: #d1fae5; color: #047857; padding: 2px 10px; border-radius: 6px;">⚡ Konsep Oksidasi & Reduksi</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Tingkat Kognitif: C2 (Memahami)</span>
+              </div>
+              <p style="font-size: 1.02rem; color: #0f172a; font-weight: 700; line-height: 1.55; margin: 0 0 10px 0;">
+                Menjelaskan konsep oksidasi dan reduksi berdasarkan pengikatan/pelepasan oksigen serta pelepasan/penerimaan elektron.
+              </p>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="switchTab('konsep')" style="padding: 5px 12px; font-size: 0.8rem;">
+                  <span>📖</span> Pelajari Konsep Redoks &rarr;
+                </button>
+                <button class="btn btn-secondary" onclick="switchTab('simulasi')" style="padding: 5px 12px; font-size: 0.8rem;">
+                  <span>🔬</span> Lab Simulasi Transfer Elektron &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ITEM 2 -->
+          <div style="background: linear-gradient(to right, #eff6ff, #ffffff); border: 1.5px solid #93c5fd; border-left: 6px solid #2563eb; border-radius: 14px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(37,99,235,0.06); display: flex; align-items: flex-start; gap: 16px;">
+            <div style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(37,99,235,0.35);">
+              2
+            </div>
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                <span style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: #dbeafe; color: #1d4ed8; padding: 2px 10px; border-radius: 6px;">⚖️ Aturan Bilangan Oksidasi</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Tingkat Kognitif: C3 (Menerapkan)</span>
+              </div>
+              <p style="font-size: 1.02rem; color: #0f172a; font-weight: 700; line-height: 1.55; margin: 0 0 10px 0;">
+                Menentukan bilangan oksidasi (biloks) unsur dalam senyawa atau ion menggunakan aturan biloks.
+              </p>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="switchTab('biloks-calc')" style="padding: 5px 12px; font-size: 0.8rem;">
+                  <span>⚖️</span> Buka Kalkulator Biloks Mandiri &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ITEM 3 -->
+          <div style="background: linear-gradient(to right, #faf5ff, #ffffff); border: 1.5px solid #d8b4fe; border-left: 6px solid #9333ea; border-radius: 14px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(147,51,234,0.06); display: flex; align-items: flex-start; gap: 16px;">
+            <div style="background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(147,51,234,0.35);">
+              3
+            </div>
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                <span style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: #f3e8ff; color: #7e22ce; padding: 2px 10px; border-radius: 6px;">🔄 4 Komponen & Perubahan Biloks</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Tingkat Kognitif: C4 (Menganalisis)</span>
+              </div>
+              <p style="font-size: 1.02rem; color: #0f172a; font-weight: 700; line-height: 1.55; margin: 0 0 10px 0;">
+                Menganalisis perubahan biloks untuk menentukan oksidator, reduktor, hasil oksidasi, dan hasil reduksi.
+              </p>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="switchTab('konsep')" style="padding: 5px 12px; font-size: 0.8rem;">
+                  <span>🔄</span> Pelajari 4 Komponen Redoks &rarr;
+                </button>
+                <button class="btn btn-secondary" onclick="switchTab('kuis')" style="padding: 5px 12px; font-size: 0.8rem;">
+                  <span>📝</span> Kuis Analisis Peran Redoks &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ITEM 4 -->
+          <div style="background: linear-gradient(to right, #fffbeb, #ffffff); border: 1.5px solid #fde68a; border-left: 6px solid #d97706; border-radius: 14px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(217,119,6,0.06); display: flex; align-items: flex-start; gap: 16px;">
+            <div style="background: linear-gradient(135deg, #f59e0b, #b45309); color: white; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(217,119,6,0.35);">
+              4
+            </div>
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                <span style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: #fef3c7; color: #b45309; padding: 2px 10px; border-radius: 6px;">🛠️ Penyetaraan Metode PBO</span>
+                <span style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Tingkat Kognitif: C4 (Menyetarakan Reaksi)</span>
+              </div>
+              <p style="font-size: 1.02rem; color: #0f172a; font-weight: 700; line-height: 1.55; margin: 0 0 10px 0;">
+                Menyetarakan persamaan reaksi redoks sederhana dengan metode perubahan biloks.
+              </p>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="switchTab('penyetaraan')" style="padding: 5px 12px; font-size: 0.8rem;">
+                  <span>🛠️</span> Modul Penyetaraan Metode PBO &rarr;
+                </button>
+                <button class="btn btn-secondary" onclick="openLkpdModal()" style="padding: 5px 12px; font-size: 0.8rem; background: #e11d48; color: white; border-color: #be123c;">
+                  <span>📜</span> Tantangan Gamifikasi LKPD &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. CAPAIAN PEMBELAJARAN (CP) FASE F -->
+      <div class="card">
+        <div class="card-title">
+          <span>📜</span> 2. Capaian Pembelajaran (CP) Kimia Fase F (Kelas 12 SMA / MA)
+        </div>
+        <p class="card-subtitle">
+          Berdasarkan Standar Kurikulum Merdeka & K13 Revisi Kemendikbudristek untuk Elemen Pemahaman Kimia dan Keterampilan Proses Sains:
+        </p>
+
+        <div class="grid-2">
+          <!-- ELEMEN PEMAHAMAN KIMIA -->
+          <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 14px; padding: 20px; box-shadow: 0 4px 12px rgba(16,185,129,0.06);">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <span style="font-size: 32px;">🧪</span>
+              <div>
+                <h4 style="margin: 0; font-size: 1.12rem; color: #166534; font-weight: 800;">Elemen Pemahaman Kimia</h4>
+                <small style="color: #15803d; font-weight: 700;">Penguasaan Konsep & Teori Ilmiah</small>
+              </div>
+            </div>
+            <p style="font-size: 0.93rem; color: #14532d; line-height: 1.65; margin: 0;">
+              Peserta didik memiliki kemampuan memahami konsep <strong>reaksi reduksi dan oksidasi</strong> secara komprehensif (keterlibatan oksigen, perpindahan elektron, dan bilangan oksidasi); menganalisis <strong>4 komponen reaksi</strong> (reduktor, oksidator, hasil oksidasi, hasil reduksi); mengidentifikasi reaksi <strong>autoredoks (disproporsionasi)</strong> dan <strong>konproporsionasi</strong>; serta terampil <strong>menyetarakan persamaan reaksi redoks</strong> menggunakan <strong>Metode Perubahan Bilangan Oksidasi (PBO)</strong> dan <strong>Metode Setengah Reaksi (Ion-Elektron)</strong> pada berbagai kondisi suasana (asam dan basa).
+            </p>
+          </div>
+
+          <!-- ELEMEN KETERAMPILAN PROSES -->
+          <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 14px; padding: 20px; box-shadow: 0 4px 12px rgba(59,130,246,0.06);">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <span style="font-size: 32px;">🔬</span>
+              <div>
+                <h4 style="margin: 0; font-size: 1.12rem; color: #1e40af; font-weight: 800;">Elemen Keterampilan Proses</h4>
+                <small style="color: #1d4ed8; font-weight: 700;">Inkuiri, Pemodelan & Kolaborasi</small>
+              </div>
+            </div>
+            <p style="font-size: 0.93rem; color: #1e3a8a; line-height: 1.65; margin: 0;">
+              Peserta didik mampu <strong>mengamati fenomena mikroskopis</strong> serah terima elektron melalui simulasi interaktif; <strong>merumuskan hipotesis</strong> perubahan biloks; <strong>merancang tahapan penyetaraan</strong> reaksi secara sistematis (*computational & step-by-step thinking*); <strong>menganalisis data</strong> hasil kalkulasi biloks; serta <strong>berkolaborasi</strong> dalam memecahkan teka-teki redoks pada Lembar Kerja Peserta Didik (LKPD) multi-touch untuk membangun komunikasi ilmiah yang efektif.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. INDIKATOR KETERCAPAIAN & KRITERIA KETUNTASAN (KKTP) -->
+      <div class="card">
+        <div class="card-title">
+          <span>📊</span> 3. Indikator Ketercapaian Tujuan Pembelajaran (IKTP) & Rubrik Asesmen
+        </div>
+        <p class="card-subtitle">
+          Kriteria ketercapaian tujuan pembelajaran untuk asesmen formatif dan sumatif:
+        </p>
+
+        <div style="overflow-x: auto; margin-bottom: 16px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+            <thead>
+              <tr style="background: #0f172a; color: white;">
+                <th style="padding: 12px 14px; text-align: left; width: 22%;">Indikator Ketercapaian (IKTP)</th>
+                <th style="padding: 12px 14px; text-align: left; width: 18%; background: #991b1b; color: #fee2e2;">Perlu Bimbingan (&lt;70%)</th>
+                <th style="padding: 12px 14px; text-align: left; width: 20%; background: #b45309; color: #fef3c7;">Cukup (70 - 79%)</th>
+                <th style="padding: 12px 14px; text-align: left; width: 20%; background: #1e40af; color: #dbeafe;">Baik (80 - 89%)</th>
+                <th style="padding: 12px 14px; text-align: left; width: 20%; background: #065f46; color: #d1fae5;">Sangat Baik (90 - 100%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 12px 14px; font-weight: 700; color: #0f172a;">1. Konsep Redoks & 4 Peran Spesi</td>
+                <td style="padding: 12px 14px; color: #475569;">Belum mampu membedakan reduktor dan oksidator.</td>
+                <td style="padding: 12px 14px; color: #475569;">Mampu menentukan reduktor/oksidator pada reaksi sederhana.</td>
+                <td style="padding: 12px 14px; color: #475569;">Mampu menentukan 4 komponen reaksi dengan benar.</td>
+                <td style="padding: 12px 14px; color: #475569;">Mampu membedakan 4 komponen serta autoredoks/konproporsionasi secara mandiri.</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border); background: #f8fafc;">
+                <td style="padding: 12px 14px; font-weight: 700; color: #0f172a;">2. Penentuan Bilangan Oksidasi</td>
+                <td style="padding: 12px 14px; color: #475569;">Sering keliru menerapkan aturan biloks dasar.</td>
+                <td style="padding: 12px 14px; color: #475569;">Mampu menentukan biloks senyawa netral biner.</td>
+                <td style="padding: 12px 14px; color: #475569;">Mampu menentukan biloks ion poliatomik kompleks.</td>
+                <td style="padding: 12px 14px; color: #475569;">Menguasai biloks ion poliatomik dan aturan pengecualian (peroksida, superoksida).</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 12px 14px; font-weight: 700; color: #0f172a;">3. Penyetaraan Metode PBO</td>
+                <td style="padding: 12px 14px; color: #475569;">Belum memahami konsep garis jembatan dan KPK biloks.</td>
+                <td style="padding: 12px 14px; color: #475569;">Mampu menyetarakan reaksi Level 1 (tanpa indeks ganda).</td>
+                <td style="padding: 12px 14px; color: #475569;">Mampu menyetarakan reaksi Level 2 & 3 (indeks ganda & basa).</td>
+                <td style="padding: 12px 14px; color: #475569;">Mampu menyetarakan reaksi Level 4 HOTS/molekul secara cepat dan tepat.</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border); background: #f8fafc;">
+                <td style="padding: 12px 14px; font-weight: 700; color: #0f172a;">4. Penyetaraan Metode Setengah Reaksi</td>
+                <td style="padding: 12px 14px; color: #475569;">Keliru dalam penambahan atom O dan ion muatan.</td>
+                <td style="padding: 12px 14px; color: #475569;">Mampu menyetarakan setengah reaksi suasana asam sederhana.</td>
+                <td style="padding: 12px 14px; color: #475569;">Mampu menyetarakan reaksi suasana asam dan basa bertahap.</td>
+                <td style="padding: 12px 14px; color: #475569;">Menguasai penyetaraan suasana basa dan autoredoks ion klorin tanpa kesalahan.</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 14px; font-weight: 700; color: #0f172a;">5. Keterampilan Kolaboratif LKPD</td>
+                <td style="padding: 12px 14px; color: #475569;">Pasif dalam kelompok dan kesulitan memecahkan gembok.</td>
+                <td style="padding: 12px 14px; color: #475569;">Menyelesaikan Level 1 dan 2 dengan panduan teman.</td>
+                <td style="padding: 12px 14px; color: #475569;">Aktif berkontribusi menuntaskan seluruh 4 Level LKPD.</td>
+                <td style="padding: 12px 14px; color: #475569;">Memimpin kelompok, menemukan kode Peti Harta, dan mencetak laporan mandiri.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4. MATRIKS SCAFFOLDING 4 TINGKAT KESULITAN -->
+      <div class="card">
+        <div class="card-title">
+          <span>📊</span> 4. Matriks 4 Tingkat Kesulitan Berjenjang (Scaffolding Penyetaraan)
+        </div>
+        <p class="card-subtitle">
+          Tersedia dalam modul interaktif <strong>🛠️ Penyetaraan Reaksi</strong> untuk memandu siswa dari fondasi dasar hingga soal tingkat UTBK/Olimpiade:
+        </p>
+
+        <div class="grid-2">
+          <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 12px; padding: 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="background: #16a34a; color: white; padding: 3px 10px; border-radius: 20px; font-weight: 800; font-size: 0.78rem;">LEVEL 1: MUDAH (DASAR)</span>
+              <small style="color: #16a34a; font-weight: 700;">Fondasi Konseptual</small>
+            </div>
+            <p style="font-size: 0.9rem; color: #166534; margin-bottom: 8px;">
+              <strong>Reaksi:</strong> $\mathrm{MnO_4^- + Fe^{2+} \rightarrow Mn^{2+} + Fe^{3+}}$ *(Suasana Asam)*
+            </p>
+            <p style="font-size: 0.85rem; color: #334155; margin: 0;">
+              Tanpa indeks ganda. Memperkuat pemahaman cara menentukan biloks awal, menarik garis jembatan, menghitung selisih, dan menyetarakan muatan dengan ion $\mathrm{H^+}$.
+            </p>
+          </div>
+
+          <div style="background: #fefce8; border: 1.5px solid #fde047; border-radius: 12px; padding: 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="background: #ca8a04; color: white; padding: 3px 10px; border-radius: 20px; font-weight: 800; font-size: 0.78rem;">LEVEL 2: SEDANG (INDEKS GANDA)</span>
+              <small style="color: #ca8a04; font-weight: 700;">Penyetaraan Atom Utama</small>
+            </div>
+            <p style="font-size: 0.9rem; color: #854d0e; margin-bottom: 8px;">
+              <strong>Reaksi:</strong> $\mathrm{Cr_2O_7^{2-} + Fe^{2+} \rightarrow Cr^{3+} + Fe^{3+}}$ *(Suasana Asam)*
+            </p>
+            <p style="font-size: 0.85rem; color: #334155; margin: 0;">
+              Atom Cr memiliki indeks 2 ($\mathrm{Cr_2}$). Siswa dilatih menyetarakan koefisien atom utama terlebih dahulu ($2\mathrm{Cr^{3+}}$) sehingga total perubahan biloks adalah $6$ ($+12 \rightarrow +6$), bukan $3$.
+            </p>
+          </div>
+
+          <div style="background: #fff7ed; border: 1.5px solid #fdba74; border-radius: 12px; padding: 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="background: #ea580c; color: white; padding: 3px 10px; border-radius: 20px; font-weight: 800; font-size: 0.78rem;">LEVEL 3: SULIT (SUASANA BASA)</span>
+              <small style="color: #ea580c; font-weight: 700;">Aturan Suasana Basa</small>
+            </div>
+            <p style="font-size: 0.9rem; color: #9a3412; margin-bottom: 8px;">
+              <strong>Reaksi:</strong> $\mathrm{MnO_4^- + C_2O_4^{2-} \rightarrow MnO_2 + CO_2}$ *(Suasana Basa)*
+            </p>
+            <p style="font-size: 0.85rem; color: #334155; margin: 0;">
+              Menerapkan aturan suasana basa: penyetaraan muatan dengan ion $\mathrm{OH^-}$ dan penambahan $\mathrm{H_2O}$. Mangan tereduksi dari biloks $+7$ menjadi endapan coklat $+4$ ($\mathrm{MnO_2}$).
+            </p>
+          </div>
+
+          <div style="background: #fdf2f8; border: 1.5px solid #f472b6; border-radius: 12px; padding: 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="background: #db2777; color: white; padding: 3px 10px; border-radius: 20px; font-weight: 800; font-size: 0.78rem;">LEVEL 4: HOTS / SANGAT SULIT</span>
+              <small style="color: #db2777; font-weight: 700;">Tingkat UTBK / Olimpiade</small>
+            </div>
+            <p style="font-size: 0.9rem; color: #9d174d; margin-bottom: 8px;">
+              <strong>Reaksi:</strong> $\mathrm{Cu + HNO_3 \rightarrow Cu(NO_3)_2 + NO + H_2O}$ &bull; $\mathrm{Cl_2 \rightarrow Cl^- + ClO_3^-}$
+            </p>
+            <p style="font-size: 0.85rem; color: #334155; margin: 0;">
+              Melibatkan reaksi molekul kompleks (asam nitrat berperan ganda sebagai oksidator dan pembentuk garam nitrat) serta disproporsionasi gas klorin $\mathrm{Cl_2}$.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. DIMENSI PROFIL PELAJAR PANCASILA -->
+      <div class="card">
+        <div class="card-title">
+          <span>🌟</span> 5. Integrasi Profil Pelajar Pancasila (P3)
+        </div>
+        <p class="card-subtitle">
+          Karakter dan kompetensi holistik yang dibangun sepanjang proses pembelajaran kimia redoks:
+        </p>
+
+        <div class="grid-4">
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+            <div style="font-size: 32px; margin-bottom: 8px;">🧠</div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 6px; color: var(--dark);">Bernalar Kritis</h4>
+            <p style="font-size: 0.82rem; color: var(--gray); margin: 0;">
+              Menganalisis perubahan bilangan oksidasi, mengevaluasi bukti transfer elektron, dan memeriksa kesetaraan muatan secara logis.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+            <div style="font-size: 32px; margin-bottom: 8px;">🤝</div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 6px; color: var(--dark);">Bergotong Royong</h4>
+            <p style="font-size: 0.82rem; color: var(--gray); margin: 0;">
+              Bekerja sama secara aktif dan berbagi peran dalam menyelesaikan 4 level teka-teki kode LKPD interaktif multi-layar.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+            <div style="font-size: 32px; margin-bottom: 8px;">🚀</div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 6px; color: var(--dark);">Mandiri</h4>
+            <p style="font-size: 0.82rem; color: var(--gray); margin: 0;">
+              Mengambil inisiatif bereksplorasi di laboratorium transfer elektron dan menguji pemahaman pribadi melalui Bank Soal HOTS.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+            <div style="font-size: 32px; margin-bottom: 8px;">💡</div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 6px; color: var(--dark);">Kreatif</h4>
+            <p style="font-size: 0.82rem; color: var(--gray); margin: 0;">
+              Menemukan solusi efektif dalam menentukan KPK selisih biloks dan memecahkan petunjuk gembok Peti Harta Elektron.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. ALUR BELAJAR & TOMBOL AKSES CEPAT -->
+      <div class="card" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; border: none;">
+        <div class="card-title" style="color: white;">
+          <span>🚀</span> 6. Mulai Pembelajaran Interaktif
+        </div>
+        <p style="font-size: 0.92rem; opacity: 0.9; margin-bottom: 18px;">
+          Pilih modul di bawah ini untuk memulai tahapan belajar sesuai capaian tujuan pembelajaran:
+        </p>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button class="btn btn-primary" onclick="switchTab('konsep')">
+            <span>💡</span> 1. Eksplorasi Konsep Redoks
+          </button>
+          <button class="btn" onclick="switchTab('simulasi')" style="background: #0284c7; color: white;">
+            <span>🔬</span> 2. Lab Transfer Elektron
+          </button>
+          <button class="btn" onclick="switchTab('biloks-calc')" style="background: #7c3aed; color: white;">
+            <span>⚖️</span> 3. Penentuan Biloks
+          </button>
+          <button class="btn" onclick="switchTab('penyetaraan')" style="background: #059669; color: white;">
+            <span>🛠️</span> 4. Penyetaraan Reaksi (PBO & Ion)
+          </button>
+          <button class="btn" onclick="switchTab('kuis')" style="background: #d97706; color: white;">
+            <span>📝</span> 5. Bank Soal UTBK/HOTS
+          </button>
+          <button class="btn" onclick="switchTab('refleksi')" style="background: #4f46e5; color: white;">
+            <span>💭</span> 6. Papan Refleksi
+          </button>
+          <button class="btn" onclick="openLkpdModal()" style="background: #e11d48; color: white; font-weight: 800;">
+            <span>📜</span> 7. Kerjakan LKPD Interaktif 5 Layar &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
     <!-- TAB 1: KONSEP REDOKS SMA KELAS 12              -->
     <!-- ============================================== -->
     <div id="tab-konsep" class="tab-content active">
@@ -1291,6 +2563,9 @@
             Di Kelas 12 SMA, Reaksi Redoks dipelajari secara mendalam sebagai fondasi dari <strong>Elektrokimia (Sel Volta & Sel Elektrolisis)</strong>. Reaksi redoks melibatkan 4 komponen utama (Reduktor, Oksidator, Hasil Oksidasi, dan Hasil Reduksi) serta peristiwa khusus seperti <strong>Autoredoks (Disproporsionasi)</strong> dan <strong>Konproporsionasi</strong>.
           </p>
           <div class="hero-stats">
+            <button class="hero-stat-item" onclick="switchTab('tujuan')" style="border:none; cursor:pointer; background:rgba(16,185,129,0.3); color:white; display:inline-flex; align-items:center; gap:6px; font-weight:700;" title="Buka Capaian & Tujuan Pembelajaran">
+              <span>🎯</span> <strong>Tujuan Pembelajaran</strong> &rarr;
+            </button>
             <div class="hero-stat-item">🎯 4 Komponen Reaksi Redoks</div>
             <div class="hero-stat-item">🔄 Disproporsionasi & Konproporsionasi</div>
             <div class="hero-stat-item">⚖️ Aturan Biloks Poliatomik & Pengecualian</div>
@@ -2239,6 +3514,336 @@
       </div>
     </div>
 
+    <!-- ============================================== -->
+    <!-- TAB 6: PAPAN REFLEKSI PEMBELAJARAN             -->
+    <!-- ============================================== -->
+    <div id="tab-refleksi" class="tab-content">
+      <!-- HERO BANNER REFLEKSI -->
+      <div class="hero-banner" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 75%, #6366f1 100%);">
+        <div class="hero-text">
+          <span class="hero-badge" style="background: rgba(255, 255, 255, 0.22); color: white;">💭 Evaluasi Diri & Umpan Balik Belajar &bull; Fase F Kelas 12</span>
+          <h2>Papan Refleksi Pembelajaran Redoks</h2>
+          <p>
+            Pelajaran hari ini sudah selesai! Bagaimana perasaanmu setelah bereksplorasi konsep redoks, laboratorium transfer elektron, dan penyetaraan reaksi? Tuangkan perasaanmu, bagikan pengalamanmu, dan mari kita lihat peta perasaan seluruh kelas.
+          </p>
+          <div class="hero-stats">
+            <div class="hero-stat-item">🤩 5 Mood Ekspresif</div>
+            <div class="hero-stat-item">📊 Bar Statistik Kelas Real-Time</div>
+            <div class="hero-stat-item">🔒 Pilihan Nama / Anonim</div>
+            <div class="hero-stat-item">💖 Fitur Dukungan & Suka (Like)</div>
+          </div>
+          <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn" onclick="openRefModal()" style="background: linear-gradient(135deg, #ec4899, #8b5cf6); color: white; font-weight: 800; border: none; padding: 7px 18px; font-size: 0.88rem; box-shadow: 0 4px 15px rgba(236,72,153,0.4);">
+              <span>✍️</span> Tuangkan Perasaanmu Sekarang &rarr;
+            </button>
+            <button class="btn" onclick="toggleRefFullscreen()" style="background: rgba(255,255,255,0.22); color: white; border: 1px solid rgba(255,255,255,0.35); font-weight: 700; padding: 7px 15px; font-size: 0.85rem;">
+              <span>⛶</span> Layar Penuh Papan
+            </button>
+            <button class="btn" onclick="window.open('Papan Refleksi (1).html', '_blank')" style="background: #ffffff; color: #312e81; font-weight: 800; padding: 7px 15px; font-size: 0.85rem;">
+              <span>↗️</span> Buka Papan Refleksi (Tab Baru) &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAPAN REFLEKSI CONTAINER (DARI Papan Refleksi (1).html) -->
+      <div class="ref-wrap" id="refleksiWrap">
+        <div class="ref-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div>
+            <h2>Papan Refleksi</h2>
+            <p>Pelajaran hari ini sudah selesai. Maju bergantian, tuang perasaanmu, lalu lihat jawaban teman-teman.</p>
+          </div>
+          <button class="ref-btn-tuang-pulse" onclick="openRefModal()" title="Buka Formulir Tuangkan Perasaan">
+            <span>✍️</span> Tuangkan Perasaanmu
+          </button>
+        </div>
+
+        <div class="ref-layout">
+          <!-- PANEL INPUT LOKAL / INLINE -->
+          <section class="ref-panel in" aria-labelledby="ref-h-in">
+            <h3 id="ref-h-in">1. Tuangkan perasaanmu</h3>
+            <p class="ref-hint">Pilih emoji, lalu tulis satu atau dua kalimat alasannya.</p>
+            <div class="ref-emojis" id="ref-emojis"></div>
+            <textarea id="ref-txt" class="ref-textarea" maxlength="160" placeholder="Hari ini aku merasa ... karena ..." onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></textarea>
+            <div class="ref-row">
+              <label>
+                <input type="checkbox" id="ref-anon" checked onchange="toggleRefAnon(this.checked)"> Anonim
+              </label>
+              <input type="text" id="ref-who" class="ref-input" placeholder="Namamu" maxlength="20" style="display:none" onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)">
+            </div>
+
+            <!-- PAPAN KETIK PERASAAN SISWA (SEUKURAN KOTAK TUANGKAN PERASAAN) -->
+            <div id="refKeyboardDock" class="ref-keyboard-dock">
+              <div class="ref-kb-header">
+                <div class="ref-kb-title">
+                  <span>⌨️</span> <span>Papan Ketik Perasaan Siswa</span>
+                </div>
+                <button class="ref-kb-close-btn" onclick="closeRefKeyboard()" title="Sembunyikan Keyboard">
+                  ✕ Tutup Keyboard
+                </button>
+              </div>
+
+              <!-- QUICK PHRASE CHIPS -->
+              <div class="ref-kb-chips">
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena seru dan asyik! ')">✨ seru & asyik</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena sudah paham ')">💡 sudah paham</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena mudah dimengerti ')">👍 mudah dimengerti</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena banyak latihan ')">📝 banyak latihan</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena masih agak bingung di biloks ')">🤔 agak bingung</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena seru kerja bareng kelompok ')">🤝 kompak kelompok</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('senang belajar reaksi redoks! ')">🔥 senang redoks</button>
+              </div>
+
+              <!-- KEYBOARD GRID -->
+              <div class="ref-kb-grid">
+                <!-- ROW 1: NUMBERS -->
+                <div class="ref-kb-row">
+                  <button class="ref-kb-key" onclick="refKeyPress('1')">1</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('2')">2</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('3')">3</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('4')">4</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('5')">5</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('6')">6</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('7')">7</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('8')">8</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('9')">9</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('0')">0</button>
+                </div>
+
+                <!-- ROW 2: QWERTY 1 -->
+                <div class="ref-kb-row">
+                  <button class="ref-kb-key" data-letter="q" onclick="refKeyPress('q')">q</button>
+                  <button class="ref-kb-key" data-letter="w" onclick="refKeyPress('w')">w</button>
+                  <button class="ref-kb-key" data-letter="e" onclick="refKeyPress('e')">e</button>
+                  <button class="ref-kb-key" data-letter="r" onclick="refKeyPress('r')">r</button>
+                  <button class="ref-kb-key" data-letter="t" onclick="refKeyPress('t')">t</button>
+                  <button class="ref-kb-key" data-letter="y" onclick="refKeyPress('y')">y</button>
+                  <button class="ref-kb-key" data-letter="u" onclick="refKeyPress('u')">u</button>
+                  <button class="ref-kb-key" data-letter="i" onclick="refKeyPress('i')">i</button>
+                  <button class="ref-kb-key" data-letter="o" onclick="refKeyPress('o')">o</button>
+                  <button class="ref-kb-key" data-letter="p" onclick="refKeyPress('p')">p</button>
+                </div>
+
+                <!-- ROW 3: QWERTY 2 -->
+                <div class="ref-kb-row">
+                  <button class="ref-kb-key" data-letter="a" onclick="refKeyPress('a')">a</button>
+                  <button class="ref-kb-key" data-letter="s" onclick="refKeyPress('s')">s</button>
+                  <button class="ref-kb-key" data-letter="d" onclick="refKeyPress('d')">d</button>
+                  <button class="ref-kb-key" data-letter="f" onclick="refKeyPress('f')">f</button>
+                  <button class="ref-kb-key" data-letter="g" onclick="refKeyPress('g')">g</button>
+                  <button class="ref-kb-key" data-letter="h" onclick="refKeyPress('h')">h</button>
+                  <button class="ref-kb-key" data-letter="j" onclick="refKeyPress('j')">j</button>
+                  <button class="ref-kb-key" data-letter="k" onclick="refKeyPress('k')">k</button>
+                  <button class="ref-kb-key" data-letter="l" onclick="refKeyPress('l')">l</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('!')">!</button>
+                </div>
+
+                <!-- ROW 4: SHIFT + QWERTY 3 + BACKSPACE -->
+                <div class="ref-kb-row">
+                  <button class="ref-kb-key key-wide ref-kb-shift-btn" onclick="toggleRefShift()">⇧ Shift</button>
+                  <button class="ref-kb-key" data-letter="z" onclick="refKeyPress('z')">z</button>
+                  <button class="ref-kb-key" data-letter="x" onclick="refKeyPress('x')">x</button>
+                  <button class="ref-kb-key" data-letter="c" onclick="refKeyPress('c')">c</button>
+                  <button class="ref-kb-key" data-letter="v" onclick="refKeyPress('v')">v</button>
+                  <button class="ref-kb-key" data-letter="b" onclick="refKeyPress('b')">b</button>
+                  <button class="ref-kb-key" data-letter="n" onclick="refKeyPress('n')">n</button>
+                  <button class="ref-kb-key" data-letter="m" onclick="refKeyPress('m')">m</button>
+                  <button class="ref-kb-key key-wide" onclick="refKeyBackspace()">⌫ Hapus</button>
+                </div>
+
+                <!-- ROW 5: SPECIAL, SPACE & SELESAI -->
+                <div class="ref-kb-row">
+                  <button class="ref-kb-key" onclick="refKeyPress(',')">,</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('.')">.</button>
+                  <button class="ref-kb-key key-space" onclick="refKeySpace()">␣ Spasi</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('?')">?</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('❤️')">❤️</button>
+                  <button class="ref-kb-key key-wide key-action" onclick="closeRefKeyboard()">Selesai ✔️</button>
+                </div>
+              </div>
+            </div>
+
+            <button class="ref-send" id="ref-send" onclick="sendRefleksi()">
+              <span>🚀</span> Kirim ke papan
+            </button>
+            <p class="ref-msg" id="ref-msg" role="status"></p>
+          </section>
+
+          <!-- PANEL OUTPUT (DINDING REFLEKSI KELAS) -->
+          <section class="ref-panel" aria-labelledby="ref-h-out">
+            <div class="ref-callout-banner">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="font-size: 32px;">💭</span>
+                <div>
+                  <strong style="display: block; font-size: 1rem; color: #1e1b4b;">Bagikan apa yang kamu rasakan hari ini!</strong>
+                  <span style="font-size: 0.85rem; color: #4338ca;">Klik tombol ini untuk memberikan perasaan yang kamu rasakan.</span>
+                </div>
+              </div>
+              <button class="ref-btn-tuang" onclick="openRefModal()">
+                <span>✍️</span> Berikan Perasaan &rarr;
+              </button>
+            </div>
+
+            <h3 id="ref-h-out">2. Perasaan kelas hari ini</h3>
+            <div class="ref-stat" id="ref-stat"></div>
+            <p class="ref-legend" id="ref-legend"></p>
+            <div class="ref-wall" id="ref-wall"></div>
+          </section>
+        </div>
+
+        <!-- FOOTER TOOLS -->
+        <div class="ref-tools">
+          <span id="ref-count">0 kiriman dari kelas</span>
+          <span style="display: flex; gap: 8px;">
+            <button onclick="toggleRefFullscreen()">Layar penuh</button>
+            <button onclick="resetRefWall()">Kosongkan papan</button>
+          </span>
+        </div>
+      </div>
+
+      <!-- FLOATING ACTION BUTTON (FAB) UNTUK MENUANGKAN PERASAAN -->
+      <button class="ref-fab" id="refFabBtn" onclick="openRefModal()" title="Tuangkan Perasaanmu">
+        <span class="ref-fab-icon">✍️</span>
+        <span>Tuangkan Perasaan</span>
+      </button>
+
+      <!-- MODAL POPUP DIALOG TUANGKAN PERASAAN -->
+      <div id="refModalOverlay" class="ref-modal-overlay" style="display: none;" onclick="handleRefModalOverlayClick(event)">
+        <div class="ref-modal-dialog">
+          <div class="ref-modal-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 28px;">💭</span>
+              <div>
+                <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: #1b1b3a;">Tuangkan Perasaanmu</h3>
+                <p style="margin: 2px 0 0; font-size: 0.85rem; color: #5b5b80;">Bagikan perasaan dan pengalaman belajarmu hari ini</p>
+              </div>
+            </div>
+            <button class="ref-modal-close" onclick="closeRefModal()" title="Tutup">✕</button>
+          </div>
+
+          <div class="ref-modal-body">
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 0.92rem; font-weight: 700; color: #1b1b3a; margin-bottom: 8px;">
+                1. Bagaimana perasaanmu hari ini? (Pilih satu emoji):
+              </label>
+              <div class="ref-emojis" id="ref-modal-emojis"></div>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 0.92rem; font-weight: 700; color: #1b1b3a; margin-bottom: 6px;">
+                2. Ceritakan alasannya:
+              </label>
+              <textarea id="ref-modal-txt" class="ref-textarea" maxlength="160" placeholder="Hari ini aku merasa ... karena ..." onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)"></textarea>
+              <small style="color: #64748b; font-size: 0.78rem; display: block; text-align: right; margin-top: 4px;">Maksimal 160 karakter</small>
+            </div>
+
+            <div class="ref-row" style="margin-bottom: 18px;">
+              <label style="font-size: 0.9rem; color: #1b1b3a; font-weight: 700; cursor: pointer;">
+                <input type="checkbox" id="ref-modal-anon" checked onchange="toggleRefModalAnon(this.checked)"> Anonim
+              </label>
+              <input type="text" id="ref-modal-who" class="ref-input" placeholder="Tulis Namamu" maxlength="20" style="display: none; flex: 1;" onclick="openRefKeyboard(this)" onfocus="openRefKeyboard(this)">
+            </div>
+
+            <!-- PAPAN KETIK PERASAAN SISWA MODAL (SEUKURAN KOTAK TUANGKAN PERASAAN) -->
+            <div id="refModalKeyboardDock" class="ref-keyboard-dock">
+              <div class="ref-kb-header">
+                <div class="ref-kb-title">
+                  <span>⌨️</span> <span>Papan Ketik Perasaan Siswa</span>
+                </div>
+                <button class="ref-kb-close-btn" onclick="closeRefKeyboard()" title="Sembunyikan Keyboard">
+                  ✕ Tutup Keyboard
+                </button>
+              </div>
+
+              <!-- QUICK PHRASE CHIPS -->
+              <div class="ref-kb-chips">
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena seru dan asyik! ')">✨ seru & asyik</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena sudah paham ')">💡 sudah paham</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena mudah dimengerti ')">👍 mudah dimengerti</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena banyak latihan ')">📝 banyak latihan</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena masih agak bingung di biloks ')">🤔 agak bingung</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('karena seru kerja bareng kelompok ')">🤝 kompak kelompok</button>
+                <button class="ref-kb-chip" onclick="refInsertPhrase('senang belajar reaksi redoks! ')">🔥 senang redoks</button>
+              </div>
+
+              <!-- KEYBOARD GRID -->
+              <div class="ref-kb-grid">
+                <!-- ROW 1: NUMBERS -->
+                <div class="ref-kb-row">
+                  <button class="ref-kb-key" onclick="refKeyPress('1')">1</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('2')">2</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('3')">3</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('4')">4</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('5')">5</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('6')">6</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('7')">7</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('8')">8</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('9')">9</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('0')">0</button>
+                </div>
+
+                <!-- ROW 2: QWERTY 1 -->
+                <div class="ref-kb-row">
+                  <button class="ref-kb-key" data-letter="q" onclick="refKeyPress('q')">q</button>
+                  <button class="ref-kb-key" data-letter="w" onclick="refKeyPress('w')">w</button>
+                  <button class="ref-kb-key" data-letter="e" onclick="refKeyPress('e')">e</button>
+                  <button class="ref-kb-key" data-letter="r" onclick="refKeyPress('r')">r</button>
+                  <button class="ref-kb-key" data-letter="t" onclick="refKeyPress('t')">t</button>
+                  <button class="ref-kb-key" data-letter="y" onclick="refKeyPress('y')">y</button>
+                  <button class="ref-kb-key" data-letter="u" onclick="refKeyPress('u')">u</button>
+                  <button class="ref-kb-key" data-letter="i" onclick="refKeyPress('i')">i</button>
+                  <button class="ref-kb-key" data-letter="o" onclick="refKeyPress('o')">o</button>
+                  <button class="ref-kb-key" data-letter="p" onclick="refKeyPress('p')">p</button>
+                </div>
+
+                <!-- ROW 3: QWERTY 2 -->
+                <div class="ref-kb-row">
+                  <button class="ref-kb-key" data-letter="a" onclick="refKeyPress('a')">a</button>
+                  <button class="ref-kb-key" data-letter="s" onclick="refKeyPress('s')">s</button>
+                  <button class="ref-kb-key" data-letter="d" onclick="refKeyPress('d')">d</button>
+                  <button class="ref-kb-key" data-letter="f" onclick="refKeyPress('f')">f</button>
+                  <button class="ref-kb-key" data-letter="g" onclick="refKeyPress('g')">g</button>
+                  <button class="ref-kb-key" data-letter="h" onclick="refKeyPress('h')">h</button>
+                  <button class="ref-kb-key" data-letter="j" onclick="refKeyPress('j')">j</button>
+                  <button class="ref-kb-key" data-letter="k" onclick="refKeyPress('k')">k</button>
+                  <button class="ref-kb-key" data-letter="l" onclick="refKeyPress('l')">l</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('!')">!</button>
+                </div>
+
+                <!-- ROW 4: SHIFT + QWERTY 3 + BACKSPACE -->
+                <div class="ref-kb-row">
+                  <button class="ref-kb-key key-wide ref-kb-shift-btn" onclick="toggleRefShift()">⇧ Shift</button>
+                  <button class="ref-kb-key" data-letter="z" onclick="refKeyPress('z')">z</button>
+                  <button class="ref-kb-key" data-letter="x" onclick="refKeyPress('x')">x</button>
+                  <button class="ref-kb-key" data-letter="c" onclick="refKeyPress('c')">c</button>
+                  <button class="ref-kb-key" data-letter="v" onclick="refKeyPress('v')">v</button>
+                  <button class="ref-kb-key" data-letter="b" onclick="refKeyPress('b')">b</button>
+                  <button class="ref-kb-key" data-letter="n" onclick="refKeyPress('n')">n</button>
+                  <button class="ref-kb-key" data-letter="m" onclick="refKeyPress('m')">m</button>
+                  <button class="ref-kb-key key-wide" onclick="refKeyBackspace()">⌫ Hapus</button>
+                </div>
+
+                <!-- ROW 5: SPECIAL, SPACE & SELESAI -->
+                <div class="ref-kb-row">
+                  <button class="ref-kb-key" onclick="refKeyPress(',')">,</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('.')">.</button>
+                  <button class="ref-kb-key key-space" onclick="refKeySpace()">␣ Spasi</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('?')">?</button>
+                  <button class="ref-kb-key" onclick="refKeyPress('❤️')">❤️</button>
+                  <button class="ref-kb-key key-wide key-action" onclick="closeRefKeyboard()">Selesai ✔️</button>
+                </div>
+              </div>
+            </div>
+
+            <button class="ref-send" onclick="sendRefleksiModal()" style="background: linear-gradient(135deg, #4338ca, #6366f1); font-size: 1.05rem; padding: 14px;">
+              <span>🚀</span> Kirim ke Papan Refleksi
+            </button>
+            <p class="ref-msg" id="ref-modal-msg" role="status" style="text-align: center; margin-top: 10px;"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- FOOTER -->
@@ -2367,6 +3972,14 @@
       } else if (tabId === 'penyetaraan') {
         resizePboCanvas();
         resizeIonCanvas();
+      } else if (tabId === 'refleksi') {
+        drawRefWall();
+        drawRefPick();
+      }
+
+      const refFab = document.getElementById('refFabBtn');
+      if (refFab) {
+        refFab.style.display = (tabId === 'refleksi') ? 'flex' : 'none';
       }
     }
 
@@ -3918,6 +5531,8 @@
       renderPboStep();
       renderIonStep();
       renderQuestion();
+      drawRefPick();
+      drawRefWall();
 
       function ambientLoop() {
         if (pboCanvas && document.getElementById('tab-penyetaraan').classList.contains('active')) {
@@ -3976,8 +5591,426 @@
         if (modal && modal.style.display !== 'none') {
           closeLkpdModal();
         }
+        const refModal = document.getElementById('refModalOverlay');
+        if (refModal && refModal.style.display !== 'none') {
+          closeRefModal();
+        }
+        closeRefKeyboard();
       }
     });
+
+    /* ========================================================
+       12. PAPAN REFLEKSI INTERAKTIF (Papan Refleksi (1).html)
+       ======================================================== */
+    var REF_MOODS = [["🤩", "Seru"], ["😌", "Lega"], ["🤔", "Mikir"], ["😵", "Pusing"], ["😴", "Capek"]];
+    var REF_STATE = { items: [] };
+    var refPick = null;
+
+    try {
+      var rawRef = localStorage.getItem("refleksi-v2");
+      if (rawRef) REF_STATE = JSON.parse(rawRef);
+    } catch(e) {}
+
+    function saveRefleksi() {
+      try {
+        localStorage.setItem("refleksi-v2", JSON.stringify(REF_STATE));
+      } catch(e) {}
+    }
+
+    function escRef(s) {
+      var d = document.createElement("div");
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function drawRefPick() {
+      var el = document.getElementById("ref-emojis");
+      if (!el) return;
+      el.innerHTML = "";
+      REF_MOODS.forEach(function(m, i) {
+        var b = document.createElement("button");
+        b.className = refPick === i ? "on" : "";
+        b.style.background = refPick === i ? "var(--ref-m" + i + ")" : "";
+        b.innerHTML = m[0] + "<small>" + m[1] + "</small>";
+        b.setAttribute("aria-label", m[1]);
+        b.setAttribute("aria-pressed", refPick === i);
+        b.onclick = function() {
+          playTone(480 + (i * 60), 'sine', 0.08, 0.06);
+          refPick = i;
+          drawRefPick();
+        };
+        el.appendChild(b);
+      });
+    }
+
+    function drawRefWall() {
+      var n = (REF_STATE && REF_STATE.items) ? REF_STATE.items.length : 0;
+      var cnt = REF_MOODS.map(function(_, i) {
+        return (REF_STATE && REF_STATE.items) ? REF_STATE.items.filter(function(x) { return x.m === i; }).length : 0;
+      });
+
+      var st = document.getElementById("ref-stat");
+      if (st) {
+        st.innerHTML = "";
+        cnt.forEach(function(v, i) {
+          if (v) {
+            var s = document.createElement("span");
+            s.style.flex = v;
+            s.style.background = "var(--ref-m" + i + ")";
+            st.appendChild(s);
+          }
+        });
+      }
+
+      var leg = document.getElementById("ref-legend");
+      if (leg) {
+        leg.innerHTML = n ? REF_MOODS.map(function(m, i) {
+          return cnt[i] ? "<span>" + m[0] + " " + m[1] + " " + cnt[i] + "</span>" : "";
+        }).join("") : "";
+      }
+
+      var w = document.getElementById("ref-wall");
+      if (w) {
+        w.innerHTML = "";
+        if (!n) {
+          w.innerHTML = '<div class="ref-empty">Belum ada kiriman. Jadilah yang pertama menulis di sebelah kiri.</div>';
+        } else {
+          REF_STATE.items.forEach(function(x, idx) {
+            var d = document.createElement("div");
+            d.className = "ref-note-card";
+            d.style.background = "var(--ref-m" + x.m + ")";
+            var moodEmoji = (REF_MOODS[x.m] ? REF_MOODS[x.m][0] : "💭");
+            d.innerHTML = '<div class="e">' + moodEmoji + '</div><p>' + escRef(x.text) + '</p><footer><span>' + escRef(x.who) + '</span><button class="' + (x.liked ? 'liked' : '') + '">' + (x.liked ? '❤️' : '🤍') + ' ' + (x.likes || 0) + '</button></footer>';
+            var btn = d.querySelector("button");
+            if (btn) {
+              btn.onclick = function() {
+                playTone(x.liked ? 350 : 650, 'sine', 0.06, 0.05);
+                x.liked = !x.liked;
+                x.likes = (x.likes || 0) + (x.liked ? 1 : -1);
+                saveRefleksi();
+                drawRefWall();
+              };
+            }
+            w.appendChild(d);
+          });
+        }
+      }
+
+      var cEl = document.getElementById("ref-count");
+      if (cEl) {
+        cEl.textContent = n + " kiriman dari kelas";
+      }
+    }
+
+    function toggleRefAnon(checked) {
+      var whoInput = document.getElementById("ref-who");
+      if (whoInput) {
+        whoInput.style.display = checked ? "none" : "block";
+        if (!checked) whoInput.focus();
+      }
+    }
+
+    function sendRefleksi() {
+      var txtEl = document.getElementById("ref-txt");
+      var msgEl = document.getElementById("ref-msg");
+      var whoEl = document.getElementById("ref-who");
+      var anonEl = document.getElementById("ref-anon");
+
+      var t = txtEl ? txtEl.value.trim() : "";
+      if (refPick === null) {
+        playTone(300, 'sawtooth', 0.15, 0.08);
+        if (msgEl) msgEl.textContent = "Pilih satu emoji dulu.";
+        return;
+      }
+      if (!t) {
+        playTone(300, 'sawtooth', 0.15, 0.08);
+        if (msgEl) {
+          msgEl.textContent = "Tulis satu kalimat dulu ya.";
+          txtEl.focus();
+        }
+        return;
+      }
+
+      var who = (anonEl && anonEl.checked) || (!whoEl || !whoEl.value.trim()) ? "Anonim" : whoEl.value.trim();
+      REF_STATE.items.unshift({ m: refPick, text: t, who: who, likes: 0, liked: false });
+      saveRefleksi();
+
+      playTone(523.25, 'triangle', 0.12, 0.08);
+      setTimeout(function() { playTone(659.25, 'triangle', 0.12, 0.08); }, 100);
+      setTimeout(function() { playTone(783.99, 'triangle', 0.18, 0.08); }, 200);
+
+      if (txtEl) txtEl.value = "";
+      if (whoEl) whoEl.value = "";
+      refPick = null;
+
+      if (msgEl) msgEl.textContent = "Terkirim! Giliran teman berikutnya.";
+      drawRefPick();
+      drawRefWall();
+    }
+
+    function toggleRefFullscreen() {
+      var wrap = document.getElementById("refleksiWrap") || document.documentElement;
+      try {
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        } else {
+          wrap.requestFullscreen();
+        }
+      } catch(e) {}
+    }
+
+    function resetRefWall() {
+      if (confirm("Hapus semua kiriman di papan ini?")) {
+        REF_STATE = { items: [] };
+        saveRefleksi();
+        playTone(350, 'sine', 0.1, 0.05);
+        drawRefWall();
+      }
+    }
+
+    /* ========================================================
+       MODAL CONTROLLERS UNTUK TUANGKAN PERASAAN
+       ======================================================== */
+    var refModalPick = null;
+
+    function openRefModal() {
+      playTone(550, 'sine', 0.1, 0.06);
+      refModalPick = null;
+      var overlay = document.getElementById("refModalOverlay");
+      if (overlay) overlay.style.display = "flex";
+      
+      var txtEl = document.getElementById("ref-modal-txt");
+      if (txtEl) txtEl.value = "";
+      
+      var whoEl = document.getElementById("ref-modal-who");
+      if (whoEl) whoEl.value = "";
+      
+      var anonEl = document.getElementById("ref-modal-anon");
+      if (anonEl) {
+        anonEl.checked = true;
+        if (whoEl) whoEl.style.display = "none";
+      }
+      
+      var msgEl = document.getElementById("ref-modal-msg");
+      if (msgEl) msgEl.textContent = "";
+      
+      drawRefModalPick();
+    }
+
+    function closeRefModal() {
+      playTone(380, 'sine', 0.08, 0.05);
+      var overlay = document.getElementById("refModalOverlay");
+      if (overlay) overlay.style.display = "none";
+      closeRefKeyboard();
+    }
+
+    function handleRefModalOverlayClick(event) {
+      if (event.target && event.target.id === "refModalOverlay") {
+        closeRefModal();
+      }
+    }
+
+    function drawRefModalPick() {
+      var el = document.getElementById("ref-modal-emojis");
+      if (!el) return;
+      el.innerHTML = "";
+      REF_MOODS.forEach(function(m, i) {
+        var b = document.createElement("button");
+        b.className = refModalPick === i ? "on" : "";
+        b.style.background = refModalPick === i ? "var(--ref-m" + i + ")" : "";
+        b.innerHTML = m[0] + "<small>" + m[1] + "</small>";
+        b.setAttribute("aria-label", m[1]);
+        b.setAttribute("aria-pressed", refModalPick === i);
+        b.onclick = function() {
+          playTone(480 + (i * 60), 'sine', 0.08, 0.06);
+          refModalPick = i;
+          drawRefModalPick();
+        };
+        el.appendChild(b);
+      });
+    }
+
+    function toggleRefModalAnon(checked) {
+      var whoInput = document.getElementById("ref-modal-who");
+      if (whoInput) {
+        whoInput.style.display = checked ? "none" : "block";
+        if (!checked) whoInput.focus();
+      }
+    }
+
+    function sendRefleksiModal() {
+      var txtEl = document.getElementById("ref-modal-txt");
+      var msgEl = document.getElementById("ref-modal-msg");
+      var whoEl = document.getElementById("ref-modal-who");
+      var anonEl = document.getElementById("ref-modal-anon");
+
+      var t = txtEl ? txtEl.value.trim() : "";
+      if (refModalPick === null) {
+        playTone(300, 'sawtooth', 0.15, 0.08);
+        if (msgEl) msgEl.textContent = "Pilih satu emoji dulu ya.";
+        return;
+      }
+      if (!t) {
+        playTone(300, 'sawtooth', 0.15, 0.08);
+        if (msgEl) {
+          msgEl.textContent = "Tuliskan satu kalimat alasanmu ya.";
+          txtEl.focus();
+        }
+        return;
+      }
+
+      var who = (anonEl && anonEl.checked) || (!whoEl || !whoEl.value.trim()) ? "Anonim" : whoEl.value.trim();
+      REF_STATE.items.unshift({ m: refModalPick, text: t, who: who, likes: 0, liked: false });
+      saveRefleksi();
+
+      playTone(523.25, 'triangle', 0.12, 0.08);
+      setTimeout(function() { playTone(659.25, 'triangle', 0.12, 0.08); }, 100);
+      setTimeout(function() { playTone(783.99, 'triangle', 0.18, 0.08); }, 200);
+
+      if (msgEl) msgEl.textContent = "🎉 Berhasil terkirim ke papan kelas!";
+      
+      drawRefWall();
+      drawRefPick();
+
+      setTimeout(function() {
+        closeRefModal();
+      }, 700);
+    }
+
+    /* ========================================================
+       13. CONTROLLER KEYBOARD VIRTUAL REFLEKSI SISWA
+       ======================================================== */
+    var activeRefInput = null;
+    var isRefShift = false;
+
+    function openRefKeyboard(targetEl) {
+      activeRefInput = targetEl || document.getElementById('ref-modal-txt') || document.getElementById('ref-txt');
+      var isModal = activeRefInput && (activeRefInput.id === 'ref-modal-txt' || activeRefInput.id === 'ref-modal-who');
+      var dock = document.getElementById(isModal ? 'refModalKeyboardDock' : 'refKeyboardDock');
+      var otherDock = document.getElementById(isModal ? 'refKeyboardDock' : 'refModalKeyboardDock');
+      if (otherDock) otherDock.style.display = 'none';
+      if (dock) {
+        dock.style.display = 'flex';
+      }
+      if (activeRefInput) {
+        activeRefInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      playTone(500, 'sine', 0.05, 0.03);
+    }
+
+    function closeRefKeyboard() {
+      var dock1 = document.getElementById('refKeyboardDock');
+      var dock2 = document.getElementById('refModalKeyboardDock');
+      var wasOpen = false;
+      if (dock1 && dock1.style.display !== 'none') {
+        dock1.style.display = 'none';
+        wasOpen = true;
+      }
+      if (dock2 && dock2.style.display !== 'none') {
+        dock2.style.display = 'none';
+        wasOpen = true;
+      }
+      if (wasOpen) playTone(380, 'sine', 0.05, 0.03);
+    }
+
+    function refKeyPress(char) {
+      if (!activeRefInput) {
+        activeRefInput = document.getElementById('ref-modal-txt') || document.getElementById('ref-txt');
+      }
+      if (!activeRefInput) return;
+
+      var currentVal = activeRefInput.value || '';
+      var max = parseInt(activeRefInput.getAttribute('maxlength') || '160', 10);
+
+      if (currentVal.length >= max) {
+        playTone(250, 'sawtooth', 0.1, 0.05);
+        return;
+      }
+
+      playTone(650 + Math.random() * 80, 'sine', 0.03, 0.04);
+
+      var start = activeRefInput.selectionStart != null ? activeRefInput.selectionStart : currentVal.length;
+      var end = activeRefInput.selectionEnd != null ? activeRefInput.selectionEnd : currentVal.length;
+
+      var actualChar = char;
+      if (char.length === 1 && char.match(/[a-z]/i)) {
+        actualChar = isRefShift ? char.toUpperCase() : char.toLowerCase();
+      }
+
+      var newVal = currentVal.substring(0, start) + actualChar + currentVal.substring(end);
+      if (newVal.length <= max) {
+        activeRefInput.value = newVal;
+        activeRefInput.selectionStart = activeRefInput.selectionEnd = start + actualChar.length;
+      }
+
+      if (isRefShift) {
+        toggleRefShift();
+      }
+
+      activeRefInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+
+    function refKeyBackspace() {
+      if (!activeRefInput) return;
+      var currentVal = activeRefInput.value || '';
+      var start = activeRefInput.selectionStart != null ? activeRefInput.selectionStart : currentVal.length;
+      var end = activeRefInput.selectionEnd != null ? activeRefInput.selectionEnd : currentVal.length;
+
+      playTone(320, 'sine', 0.04, 0.04);
+
+      if (start === end) {
+        if (start > 0) {
+          activeRefInput.value = currentVal.substring(0, start - 1) + currentVal.substring(end);
+          activeRefInput.selectionStart = activeRefInput.selectionEnd = start - 1;
+        }
+      } else {
+        activeRefInput.value = currentVal.substring(0, start) + currentVal.substring(end);
+        activeRefInput.selectionStart = activeRefInput.selectionEnd = start;
+      }
+      activeRefInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+
+    function refKeySpace() {
+      refKeyPress(' ');
+    }
+
+    function refInsertPhrase(phrase) {
+      if (!activeRefInput) {
+        activeRefInput = document.getElementById('ref-modal-txt') || document.getElementById('ref-txt');
+      }
+      if (!activeRefInput) return;
+
+      var currentVal = activeRefInput.value || '';
+      var max = parseInt(activeRefInput.getAttribute('maxlength') || '160', 10);
+
+      playTone(550, 'triangle', 0.06, 0.05);
+
+      var spaceNeeded = (currentVal.length > 0 && !currentVal.endsWith(' ')) ? ' ' : '';
+      var toAdd = spaceNeeded + phrase;
+
+      if (currentVal.length + toAdd.length <= max) {
+        activeRefInput.value = currentVal + toAdd;
+      } else {
+        activeRefInput.value = (currentVal + toAdd).substring(0, max);
+      }
+      activeRefInput.selectionStart = activeRefInput.selectionEnd = activeRefInput.value.length;
+      activeRefInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+
+    function toggleRefShift() {
+      isRefShift = !isRefShift;
+      playTone(450, 'sine', 0.04, 0.03);
+      var keys = document.querySelectorAll('.ref-kb-key[data-letter]');
+      keys.forEach(function(k) {
+        var letter = k.getAttribute('data-letter');
+        k.textContent = isRefShift ? letter.toUpperCase() : letter.toLowerCase();
+      });
+      var shiftBtns = document.querySelectorAll('.ref-kb-shift-btn');
+      shiftBtns.forEach(function(shiftBtn) {
+        shiftBtn.style.background = isRefShift ? '#6366f1' : '#334155';
+        shiftBtn.style.color = isRefShift ? '#ffffff' : '#f8fafc';
+      });
+    }
   </script>
 </body>
 </html>

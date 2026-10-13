@@ -1014,6 +1014,12 @@
       </div>
 
       <!-- Aksi Papan Tulis -->
+      <button class="master-action-btn" onclick="openTujuanModal()" title="Lihat Capaian & Tujuan Pembelajaran LKPD" style="background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4);">
+        <span>🎯</span> <span>Tujuan</span>
+      </button>
+      <button class="master-action-btn" onclick="window.open('Papan Refleksi (1).html', '_blank')" title="Buka Papan Refleksi Pembelajaran" style="background: rgba(99, 102, 241, 0.2); border-color: rgba(99, 102, 241, 0.4);">
+        <span>💭</span> <span>Refleksi</span>
+      </button>
       <button class="master-action-btn" onclick="toggleAllKeyboards()" title="Munculkan/Sembunyikan Semua Keyboard">
         <span>⌨️</span> <span>Keyboard</span>
       </button>
@@ -1033,6 +1039,12 @@
   <!-- BAR NAVIGASI KELOMPOK (TAMPILAN HP / MOBILE)   -->
   <!-- ============================================== -->
   <nav id="mobile-group-bar">
+    <button class="mobile-group-btn" onclick="openTujuanModal()" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: #059669; font-weight: 800;">
+      <span>🎯</span> Tujuan
+    </button>
+    <button class="mobile-group-btn" onclick="window.open('Papan Refleksi (1).html', '_blank')" style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border-color: #6366f1; font-weight: 800;">
+      <span>💭</span> Refleksi
+    </button>
     <button class="mobile-group-btn" onclick="openMobileGroupModal()" style="background: #2563eb; color: #ffffff; border-color: #3b82f6; font-weight: 800;">
       <span>📱</span> Menu Kelompok
     </button>
@@ -1099,6 +1111,87 @@
             <div class="g-name" id="modal-gname-4">Kelompok 5</div>
           </div>
           <div class="g-badge">Isi LKPD ➔</div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL TUJUAN PEMBELAJARAN (LKPD INTERAKTIF)    -->
+  <!-- ============================================== -->
+  <div id="tujuan-modal" class="mobile-modal-overlay">
+    <div class="mobile-modal-card" style="max-width: 640px; text-align: left; padding: 22px 24px; border-color: #10b981;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 12px; margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 32px;">🎯</span>
+          <div>
+            <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #34d399;">Capaian & Tujuan Pembelajaran LKPD</h3>
+            <small style="color: #94a3b8; font-weight: 600;">PETUALANGAN ZULOKS &bull; Fase F Kelas 12 SMA</small>
+          </div>
+        </div>
+        <button onclick="closeTujuanModal()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; width: 34px; height: 34px; border-radius: 8px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
+      </div>
+
+      <div style="max-height: 68vh; overflow-y: auto; padding-right: 6px; font-size: 13px; line-height: 1.6; color: #cbd5e1;">
+        <!-- 4 TUJUAN PEMBELAJARAN UTAMA -->
+        <div style="background: rgba(16, 185, 129, 0.12); border: 1.5px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px;">
+          <strong style="color: #34d399; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
+            <span>🎯</span> TUJUAN PEMBELAJARAN:
+          </strong>
+          <ol style="margin: 8px 0 0 20px; padding: 0; line-height: 1.6; font-size: 12.5px; color: #f1f5f9;">
+            <li>Menjelaskan konsep oksidasi dan reduksi berdasarkan pengikatan/pelepasan oksigen serta pelepasan/penerimaan elektron.</li>
+            <li>Menentukan bilangan oksidasi (biloks) unsur dalam senyawa atau ion menggunakan aturan biloks.</li>
+            <li>Menganalisis perubahan biloks untuk menentukan oksidator, reduktor, hasil oksidasi, dan hasil reduksi.</li>
+            <li>Menyetarakan persamaan reaksi redoks sederhana dengan metode perubahan biloks.</li>
+          </ol>
+        </div>
+
+        <p style="margin-top: 0; color: #f1f5f9; font-weight: 600;">
+          Melalui LKPD Interaktif <strong>PETUALANGAN ZULOKS</strong> berbasis gamifikasi kolaboratif 5 kelompok, peserta didik diharapkan mampu:
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+          <div style="background: rgba(46, 117, 182, 0.18); border-left: 4px solid #2E75B6; padding: 10px 14px; border-radius: 8px;">
+            <strong style="color: #38bdf8;">🚪 Level 1 · Gerbang Konsep</strong>
+            <div style="font-size: 12px; margin-top: 2px;">
+              Memecahkan teka-teki konsep dasar transfer elektron, menganalisis nomor golongan logam, dan menyetarakan reaksi kimia nyala api.
+            </div>
+          </div>
+
+          <div style="background: rgba(112, 48, 160, 0.18); border-left: 4px solid #7030A0; padding: 10px 14px; border-radius: 8px;">
+            <strong style="color: #c084fc;">🌌 Level 2 · Lorong Bilangan Oksidasi</strong>
+            <div style="font-size: 12px; margin-top: 2px;">
+              Menentukan bilangan oksidasi berbagai spesies mangan (KMnO₄, MnO₂, MnSO₄, K₂MnO₄), tangga klorin, dan menganalisis reduksi ion permanganat.
+            </div>
+          </div>
+
+          <div style="background: rgba(197, 90, 17, 0.18); border-left: 4px solid #C55A11; padding: 10px 14px; border-radius: 8px;">
+            <strong style="color: #fb923c;">🌉 Level 3 · Jembatan Pelaku</strong>
+            <div style="font-size: 12px; margin-top: 2px;">
+              Menganalisis 4 komponen reaksi redoks (Reduktor, Oksidator, Hasil Oksidasi, Hasil Reduksi) dan menghitung kenaikan/penurunan biloks pada garis jembatan.
+            </div>
+          </div>
+
+          <div style="background: rgba(84, 130, 53, 0.18); border-left: 4px solid #548235; padding: 10px 14px; border-radius: 8px;">
+            <strong style="color: #4ade80;">⚗️ Level 4 · Laboratorium Rahasia</strong>
+            <div style="font-size: 12px; margin-top: 2px;">
+              Menyetarakan persamaan reaksi redoks kompleks (reaksi termit & reduksi Fe₂O₃ oleh CO) serta menuntaskan kode rahasia pembuka Peti Harta Karun Elektron.
+            </div>
+          </div>
+        </div>
+
+        <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 10px; padding: 12px; font-size: 12px;">
+          <strong style="color: #f8fafc;">🤝 Dimensi Profil Pelajar Pancasila:</strong>
+          <ul style="margin: 6px 0 0 18px; padding: 0;">
+            <li><strong>Bernalar Kritis:</strong> Menganalisis perubahan biloks dan menghitung digit kunci jawaban dengan cermat.</li>
+            <li><strong>Bergotong Royong:</strong> Berbagi strategi dan berkolaborasi dalam kelompok di papan tulis digital multi-touch.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="text-align: right; margin-top: 16px; border-top: 1px solid #334155; padding-top: 12px;">
+        <button class="btn" onclick="closeTujuanModal()" style="background: #10b981; color: white; padding: 8px 18px; font-size: 12px; border-radius: 8px; font-weight: 700;">
+          Mengerti & Lanjutkan Pengerjaan ➔
         </button>
       </div>
     </div>
@@ -1964,6 +2057,21 @@
 
     function closeMobileGroupModal() {
       const modal = document.getElementById('mobile-group-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    /* ========================================================
+       MODAL TUJUAN PEMBELAJARAN LKPD
+       ======================================================== */
+    function openTujuanModal() {
+      playBeep(700, 0.08);
+      const modal = document.getElementById('tujuan-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeTujuanModal() {
+      playBeep(450, 0.06);
+      const modal = document.getElementById('tujuan-modal');
       if (modal) modal.style.display = 'none';
     }
 
