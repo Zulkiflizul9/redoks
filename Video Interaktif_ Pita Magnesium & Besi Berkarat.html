@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Video Interaktif: Pita Magnesium & Besi Berkarat</title>
+<style>
+:root{--bg:#f3f5f7;--card:#fff;--ink:#1c2630;--mute:#5d6b78;--line:#d5dce2;--mg:#1f6feb;--fe:#b5521b;--ok:#1c8a4b;--bad:#c23b3b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171e;--card:#18222c;--ink:#e8eef3;--mute:#9aabb9;--line:#2c3a47;--mg:#6aa6ff;--fe:#e08a55;--ok:#4cc884;--bad:#ef7676}}
+:root[data-theme="dark"]{--bg:#10171e;--card:#18222c;--ink:#e8eef3;--mute:#9aabb9;--line:#2c3a47;--mg:#6aa6ff;--fe:#e08a55;--ok:#4cc884;--bad:#ef7676}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",Verdana,sans-serif;line-height:1.5}
+main{max-width:720px;margin:0 auto;padding:14px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--mg);transition:width .4s}
+h1{font-size:1.15rem;margin:10px 0 2px}
+h2{font-size:1.1rem;margin:0 0 8px}
+.sub{color:var(--mute);font-size:.88rem;margin:0 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.row{grid-template-columns:1fr}}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:8px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--mg);outline-offset:2px}
+button.p{background:var(--mg);border-color:var(--mg);color:#fff}
+[data-theme] button.p{color:#fff}
+button.opt{display:block;width:100%;text-align:left;margin:6px 0}
+button.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--card))}
+button.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 18%,var(--card))}
+.nav{display:flex;justify-content:space-between;gap:8px;margin-top:6px}
+svg{width:100%;height:auto;display:block}
+.fb{margin-top:8px;font-size:.92rem;min-height:1.4em}
+.eq{font-size:1.02rem;text-align:center;padding:8px;background:var(--bg);border-radius:8px;margin:8px 0}
+.tabs{display:flex;gap:8px;margin-bottom:8px}
+.tabs button[aria-pressed="true"]{background:var(--mg);color:#fff;border-color:var(--mg)}
+.flare{transition:opacity .5s}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.e{transition:transform 1.6s ease-in-out}
+@keyframes fl{0%,100%{opacity:.85}50%{opacity:1}}
+.on .flame{animation:fl .25s infinite}
+.hide{display:none}
+.hero{position:relative;border-radius:12px;padding:16px 14px;margin:10px 0 6px;color:#fff;background:linear-gradient(120deg,#0e2a47,#6b2412,#0e2a47);background-size:220% 100%;animation:hs 10s ease-in-out infinite alternate;overflow:hidden}
+@keyframes hs{to{background-position:100% 0}}
+.hero h1{margin:0;font-size:1.2rem;padding-right:96px}
+.hero p{margin:4px 0 0;font-size:.82rem;opacity:.85;padding-right:96px}
+#mus{position:absolute;top:10px;right:10px;padding:6px 10px;font-size:.82rem;background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.4)}
+#mgsvg,#atoms{background:radial-gradient(circle at 50% 60%,#31506f,#0a121a);border-radius:8px}
+#s0 .row>div:nth-child(2) svg{background:radial-gradient(circle at 50% 30%,#4d3d34,#120e0c);border-radius:8px}
+#s0 svg>rect:first-child,#atoms>rect:first-child{fill:transparent}
+#flare{filter:drop-shadow(0 0 14px #fff)}
+#els circle{filter:drop-shadow(0 0 5px #ffd23f)}
+.card{box-shadow:0 6px 18px rgba(0,0,0,.12)}
+@keyframes dr{0%{transform:translateY(0);opacity:1}100%{transform:translateY(34px);opacity:0}}
+.dp{animation:dr 2.2s infinite}
+</style>
+</head>
+<body>
+<main>
+<div class="bar" role="progressbar" aria-label="Kemajuan"><i id="pg"></i></div>
+<div class="hero"><h1>Pita Magnesium Menyala &amp; Besi Berkarat</h1><p>Ketuk layar untuk memulai musik latar</p><button id="mus" aria-pressed="true">🔊 Musik</button></div>
+<p class="sub" id="step"></p>
+
+<!-- Scene 0 -->
+<section id="s0">
+  <div class="card">
+    <h2>Amati dua peristiwa</h2>
+    <div class="row">
+      <div>
+        <svg viewBox="0 0 200 150" id="mgsvg" aria-label="Pita magnesium">
+          <rect width="200" height="150" rx="8" fill="#22303c"/>
+          <g class="flame flare" id="flare" style="opacity:0">
+            <circle cx="100" cy="85" r="60" fill="#fff" opacity=".25"/>
+            <circle cx="100" cy="85" r="38" fill="#fff" opacity=".6"/>
+            <circle cx="100" cy="85" r="20" fill="#fff"/>
+          </g>
+          <path d="M40 100 Q70 80 100 90 T165 82" stroke="#c9d1d8" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path id="ash" d="M60 98 Q80 88 100 90" stroke="#eee" stroke-width="7" fill="none" opacity="0" stroke-linecap="round"/><g id="sparks"></g><g fill="#ff8a8a" opacity=".6"><circle cx="20" cy="30" r="3"/><circle cx="180" cy="45" r="3"/><circle cx="30" cy="125" r="3"/><circle cx="175" cy="125" r="3"/></g>
+        </svg>
+        <button class="p" id="burn">Nyalakan pita Mg</button>
+        <div class="fb" id="mgfb">Mg + O₂ → MgO (cahaya putih sangat terang)</div>
+      </div>
+      <div>
+        <svg viewBox="0 0 200 150" aria-label="Paku besi berkarat">
+          <rect width="200" height="150" rx="8" fill="#22303c"/>
+          <rect x="30" y="68" width="140" height="14" rx="4" id="nail" fill="#9aa3ab"/>
+          <rect x="22" y="62" width="10" height="26" rx="3" id="nailhead" fill="#9aa3ab"/>
+          <circle cx="60" cy="40" r="3" fill="#6aa6ff" id="drop" class="dp"/><circle cx="110" cy="30" r="3" fill="#6aa6ff" class="dp" style="animation-delay:.7s"/><circle cx="150" cy="38" r="3" fill="#6aa6ff" class="dp" style="animation-delay:1.4s"/><g id="rust"></g>
+        </svg>
+        <label for="days" style="font-size:.88rem">Waktu terkena udara lembap: <b id="dlab">hari 0</b></label>
+        <input type="range" id="days" min="0" max="30" value="0" style="width:100%">
+        <div class="fb" id="fefb">Fe + O₂ + H₂O → karat (Fe₂O₃·nH₂O)</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Pertanyaan pemantik</h2>
+    <p style="margin:0 0 6px">Apa kesamaan kedua peristiwa ini?</p>
+    <div id="q0"></div>
+    <div class="fb" id="q0fb"></div>
+  </div>
+</section>
+
+<!-- Scene 1 -->
+<section id="s1" class="hide">
+  <div class="card">
+    <h2>Apa yang terjadi pada elektronnya?</h2>
+    <div class="tabs">
+      <button aria-pressed="true" id="tMg">Magnesium</button>
+      <button aria-pressed="false" id="tFe">Besi</button>
+    </div>
+    <svg viewBox="0 0 400 190" id="atoms" aria-label="Perpindahan elektron dari logam ke oksigen">
+      <rect width="400" height="190" rx="8" fill="#22303c"/>
+      <circle cx="90" cy="95" r="52" fill="#3a4f63" stroke="#8fb4d6" stroke-width="2"/>
+      <circle cx="310" cy="95" r="52" fill="#4a3338" stroke="#e59a9a" stroke-width="2"/>
+      <text x="90" y="100" text-anchor="middle" fill="#fff" font-size="22" id="mlab">Mg</text>
+      <text x="310" y="100" text-anchor="middle" fill="#fff" font-size="22" id="olab">O</text>
+      <text x="90" y="178" text-anchor="middle" fill="#cfd8df" font-size="13" id="mchg">atom netral</text>
+      <text x="310" y="178" text-anchor="middle" fill="#cfd8df" font-size="13" id="ochg">atom netral</text>
+      <g id="els"></g>
+    </svg>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="p" id="go">Lepaskan elektron</button>
+      <button id="reset">Ulangi</button>
+    </div>
+    <div class="eq" id="eq"></div>
+    <div class="fb" id="exp"></div>
+  </div>
+</section>
+
+<!-- Scene 2 -->
+<section id="s2" class="hide">
+  <div class="card">
+    <h2>Uji pemahaman</h2>
+    <div id="quiz"></div>
+  </div>
+</section>
+
+<!-- Scene 3 -->
+<section id="s3" class="hide">
+  <div class="card">
+    <h2>Kesimpulan</h2>
+    <p>Kedua peristiwa adalah <b>reaksi redoks</b> dengan oksigen. Logam (Mg atau Fe) <b>melepaskan elektron</b> dan oksigen <b>menerima elektron</b>.</p>
+    <p><b>Oksidasi:</b> logam melepas elektron, muatannya naik (Mg → Mg²⁺, Fe → Fe³⁺).<br>
+    <b>Reduksi:</b> oksigen menerima elektron, muatannya turun (O → O²⁻).</p>
+    <p>Bedanya hanya kecepatan: Mg bereaksi cepat dan melepas energi sebagai cahaya terang, sedangkan besi berkarat lambat karena perlu air dan udara.</p>
+    <button class="p" id="again">Ulangi dari awal</button>
+  </div>
+</section>
+
+<div class="nav">
+  <button id="prev">Sebelumnya</button>
+  <button class="p" id="next">Lanjut</button>
+</div>
+</main>
+<script>
+(function(){
+var cur=0,N=4,$=function(i){return document.getElementById(i)};
+var titles=["Amati dan jawab","Zoom ke tingkat atom","Kuis singkat","Kesimpulan"];
+var solved0=false;
+function show(i){
+  cur=i;
+  for(var k=0;k<N;k++)$("s"+k).classList.toggle("hide",k!==i);
+  $("pg").style.width=((i+1)/N*100)+"%";
+  $("step").textContent="Bagian "+(i+1)+" dari "+N+": "+titles[i];
+  $("prev").disabled=i===0;
+  $("next").style.visibility=i===N-1?"hidden":"visible";
+  window.scrollTo(0,0);
+}
+$("prev").onclick=function(){show(cur-1)};
+$("next").onclick=function(){show(cur+1)};
+$("again").onclick=function(){show(0)};
+
+/* Scene 0 */
+var burned=false;
+$("burn").onclick=function(){
+  burned=!burned;
+  $("flare").style.opacity=burned?1:0;
+  $("flare").parentNode.classList.toggle("on",burned);
+  $("ash").style.opacity=burned?1:0;
+  $("burn").textContent=burned?"Padamkan":"Nyalakan pita Mg";
+  $("mgfb").textContent=burned?"Menyala terang! Mg berubah menjadi serbuk putih MgO.":"Mg + O₂ → MgO (cahaya putih sangat terang)";
+};
+function mix(a,b,t){return Math.round(a+(b-a)*t)}
+$("days").oninput=function(){
+  var d=+this.value,t=d/30,c="rgb("+mix(154,168,t)+","+mix(163,78,t)+","+mix(171,24,t)+")";
+  $("nail").setAttribute("fill",c);$("nailhead").setAttribute("fill",c);
+  $("dlab").textContent="hari "+d;
+  $("fefb").textContent=t<.2?"Besi masih mengilap.":t<.7?"Mulai muncul bercak cokelat kemerahan.":"Karat tebal: besi telah teroksidasi oleh O₂ dan H₂O.";
+};
+var opts=[["Keduanya hanya perubahan wujud",0,"Bukan. Zat baru terbentuk (MgO dan karat), jadi ini perubahan kimia."],
+["Keduanya adalah reaksi logam dengan oksigen yang melibatkan perpindahan elektron",1,"Tepat! Keduanya reaksi redoks: logam melepas elektron, oksigen menerimanya."],
+["Keduanya hanya terjadi jika ada api",0,"Bukan. Besi berkarat tanpa api, hanya butuh udara dan air."]];
+opts.forEach(function(o){
+  var b=document.createElement("button");b.className="opt";b.textContent=o[0];
+  b.onclick=function(){
+    b.classList.add(o[1]?"ok":"no");$("q0fb").textContent=o[2];
+    if(o[1]){solved0=true;$("q0fb").textContent+=" Tekan Lanjut untuk melihat elektronnya."}
+  };
+  $("q0").appendChild(b);
+});
+
+/* Scene 1 */
+var M={Mg:{n:2,sym:"Mg",ion:"Mg²⁺",eq:"2Mg + O₂ → 2MgO<br>Mg → Mg²⁺ + 2e⁻ &nbsp;|&nbsp; O + 2e⁻ → O²⁻",ex:"Setiap atom Mg melepas 2 elektron. Atom O menerima elektron itu."},
+Fe:{n:3,sym:"Fe",ion:"Fe³⁺",eq:"4Fe + 3O₂ → 2Fe₂O₃<br>Fe → Fe³⁺ + 3e⁻ &nbsp;|&nbsp; O + 2e⁻ → O²⁻",ex:"Setiap atom Fe melepas 3 elektron, diterima oleh atom oksigen (karat adalah oksida besi)."}};
+var mode="Mg",moved=false,ns="http://www.w3.org/2000/svg";
+function build(){
+  moved=false;var m=M[mode];
+  $("mlab").textContent=m.sym;$("mchg").textContent="atom netral";$("ochg").textContent="atom netral";$("olab").textContent="O";
+  $("eq").innerHTML=m.eq;$("exp").textContent="Tekan \"Lepaskan elektron\" untuk melihat apa yang terjadi.";
+  var g=$("els");g.innerHTML="";
+  for(var i=0;i<m.n;i++){
+    var c=document.createElementNS(ns,"circle");
+    var a=i/m.n*Math.PI*2;
+    c.setAttribute("cx",90+Math.cos(a)*36);c.setAttribute("cy",95+Math.sin(a)*36);
+    c.setAttribute("r",6);c.setAttribute("fill","#ffd23f");c.setAttribute("class","e");
+    c.dataset.dx=310-90-Math.cos(a)*36-40;c.dataset.dy=(95+(i-(m.n-1)/2)*16)-(95+Math.sin(a)*36);
+    g.appendChild(c);
+  }
+  $("tMg").setAttribute("aria-pressed",mode==="Mg");$("tFe").setAttribute("aria-pressed",mode==="Fe");
+}
+$("go").onclick=function(){
+  if(moved)return;moved=true;var m=M[mode];
+  var cs=$("els").children;
+  for(var i=0;i<cs.length;i++)cs[i].style.transform="translate("+cs[i].dataset.dx+"px,"+cs[i].dataset.dy+"px)";
+  setTimeout(function(){
+    $("mlab").textContent=m.ion;$("mchg").textContent="kehilangan elektron: teroksidasi";
+    $("olab").textContent="O²⁻";$("ochg").textContent="menerima elektron: tereduksi";
+    $("exp").textContent=m.ex;
+  },1700);
+};
+$("reset").onclick=build;
+$("tMg").onclick=function(){mode="Mg";build()};
+$("tFe").onclick=function(){mode="Fe";build()};
+build();
+
+/* Scene 2 */
+var Q=[
+["Dalam karat besi, apa yang dilakukan atom Fe terhadap elektron?",["Melepaskan elektron","Menerima elektron","Tidak berubah"],0,"Fe melepas elektron menjadi Fe³⁺ (oksidasi)."],
+["Pada pembakaran pita Mg, zat apa yang mengalami reduksi?",["Magnesium","Oksigen","Cahaya"],1,"Oksigen menerima elektron dari Mg sehingga tereduksi menjadi O²⁻."]];
+Q.forEach(function(q,qi){
+  var d=document.createElement("div");d.style.marginBottom="14px";
+  d.innerHTML="<p style='margin:0 0 4px'><b>"+(qi+1)+". "+q[0]+"</b></p>";
+  var f=document.createElement("div");f.className="fb";
+  q[1].forEach(function(t,ti){
+    var b=document.createElement("button");b.className="opt";b.textContent=t;
+    b.onclick=function(){
+      var ok=ti===q[2];b.classList.add(ok?"ok":"no");
+      f.textContent=ok?"Benar! "+q[3]:"Belum tepat, coba pilihan lain.";
+    };
+    d.appendChild(b);
+  });
+  d.appendChild(f);$("quiz").appendChild(d);
+});
+show(0);
+})();
+</script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},ns='http://www.w3.org/2000/svg';
+var AC=window.AudioContext||window.webkitAudioContext,ac,master,musicBus,sfxBus,on=true,go=false,nextT=0,beat=0,tm;
+var CH=[[220,261.63,329.63],[174.61,220,261.63],[261.63,329.63,392],[196,246.94,293.66]];
+function note(f,t,d,ty,v,bus){var o=ac.createOscillator(),g=ac.createGain();o.type=ty;o.frequency.value=f;g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(v,t+.04);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(bus);o.start(t);o.stop(t+d+.05)}
+function sched(){while(nextT<ac.currentTime+1){var st=beat%8,c=CH[Math.floor(beat/8)%4];if(st===0){c.forEach(function(f){note(f,nextT,3.8,'sine',.22,musicBus)});note(c[0]/2,nextT,3.6,'sine',.35,musicBus)}
+note(c[[0,1,2,1,2,1,2,1][st]]*2,nextT,.9,'triangle',.25,musicBus);nextT+=.5;beat++}}
+function init(){if(!AC)return;if(!ac){ac=new AC();master=ac.createGain();master.gain.value=on?1.0:0;master.connect(ac.destination);musicBus=ac.createGain();musicBus.gain.value=1.0;musicBus.connect(master);sfxBus=ac.createGain();sfxBus.gain.value=1.0;sfxBus.connect(master)}
+if(ac.state==='suspended')ac.resume();if(!go){go=true;nextT=ac.currentTime+.1;sched();tm=setInterval(sched,250)}}
+function zap(d){if(!ac)return;var t=ac.currentTime+(d||0),o=ac.createOscillator(),g=ac.createGain();o.type='sawtooth';o.frequency.setValueAtTime(1400,t);o.frequency.exponentialRampToValueAtTime(220,t+.35);g.gain.setValueAtTime(.4,t);g.gain.exponentialRampToValueAtTime(.001,t+.4);o.connect(g);g.connect(sfxBus);o.start(t);o.stop(t+.45)}
+function chime(){if(!ac)return;var t=ac.currentTime;[659.25,880,1318.5].forEach(function(f,i){note(f,t+i*.12,.9,'sine',.35,sfxBus)})}
+function buzz(){if(!ac)return;note(130,ac.currentTime,.3,'square',.25,sfxBus)}
+function tick(){if(!ac)return;note(900,ac.currentTime,.08,'sine',.22,sfxBus)}
+function fan(){if(!ac)return;var t=ac.currentTime;[523.25,659.25,783.99,1046.5].forEach(function(f,i){note(f,t+i*.15,1.2,'triangle',.35,sfxBus)})}
+function crackle(){if(!ac)return;var n=ac.sampleRate*1.4,b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);for(var i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,2)*(Math.random()<.35?1:.2);var s=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();s.buffer=b;f.type='highpass';f.frequency.value=1800;g.gain.value=.6;s.connect(f);f.connect(g);g.connect(sfxBus);s.start()}
+var spT;
+function spark(){var g=$('sparks'),c=document.createElementNS(ns,'circle'),a=Math.random()*6.28,r=30+Math.random()*40;c.setAttribute('cx',100);c.setAttribute('cy',85);c.setAttribute('r',1.5+Math.random()*1.5);c.setAttribute('fill',Math.random()<.5?'#fff':'#bfe0ff');c.style.transition='transform .9s ease-out,opacity .9s';g.appendChild(c);requestAnimationFrame(function(){requestAnimationFrame(function(){c.style.transform='translate('+Math.cos(a)*r+'px,'+Math.sin(a)*r+'px)';c.style.opacity=0})});setTimeout(function(){c.remove()},1000)}
+var seeds=[];for(var i=0;i<30;i++)seeds.push([34+Math.random()*132,69+Math.random()*12,1+Math.random()*2.2]);
+$('days').addEventListener('input',function(){var n=Math.round(this.value/30*30),g=$('rust');g.innerHTML='';for(var i=0;i<n;i++){var s=seeds[i],c=document.createElementNS(ns,'circle');c.setAttribute('cx',s[0]);c.setAttribute('cy',s[1]);c.setAttribute('r',s[2]);c.setAttribute('fill',i%2?'#8a3a12':'#c4601f');g.appendChild(c)}});
+var og=document.createElementNS(ns,'g');og.innerHTML='<circle cx="90" cy="95" r="66" fill="none" stroke="#8fb4d6" stroke-width="1" stroke-dasharray="3 6"><animateTransform attributeName="transform" type="rotate" from="0 90 95" to="360 90 95" dur="14s" repeatCount="indefinite"/></circle><circle cx="310" cy="95" r="66" fill="none" stroke="#e59a9a" stroke-width="1" stroke-dasharray="3 6"><animateTransform attributeName="transform" type="rotate" from="360 310 95" to="0 310 95" dur="14s" repeatCount="indefinite"/></circle>';
+$('atoms').insertBefore(og,$('els'));
+document.addEventListener('click',function(e){init();var b=e.target.closest('button');if(!b)return;var id=b.id;
+if(id==='mus'){on=!on;if(master)master.gain.value=on?1.0:0;b.textContent=on?'🔊 Musik':'🔇 Musik';b.setAttribute('aria-pressed',on);return}
+if(id==='burn'){setTimeout(function(){clearInterval(spT);if($('flare').style.opacity==='1'){crackle();spT=setInterval(spark,70)}},0);return}
+if(id==='go'){var n=$('tFe').getAttribute('aria-pressed')==='true'?3:2;for(var i=0;i<n;i++)zap(i*.18);setTimeout(chime,1700);return}
+if(id==='next'||id==='prev'||id==='again'){tick();setTimeout(function(){if(/Kesimpulan/.test($('step').textContent))fan()},50);return}
+if(b.classList.contains('opt'))setTimeout(function(){if(b.classList.contains('ok'))chime();else if(b.classList.contains('no'))buzz()},0)});
+})();
+</script>
+</body>
+</html>

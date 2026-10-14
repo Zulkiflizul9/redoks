@@ -2118,12 +2118,290 @@
       background: #4338ca;
     }
 
-    @media (max-width: 600px) {
-      .ref-kb-key {
-        height: 29px;
-        font-size: 0.76rem;
-        border-radius: 4px;
-      }
+    /* ========================================================
+       MENU PEMANTIK (Video Interaktif: Pita Mg & Besi Berkarat)
+       ======================================================== */
+    .pmk-container {
+      --pmk-bg: #f8fafc;
+      --pmk-card: #ffffff;
+      --pmk-ink: #1e293b;
+      --pmk-mute: #64748b;
+      --pmk-line: #cbd5e1;
+      --pmk-mg: #2563eb;
+      --pmk-fe: #c2410c;
+      --pmk-ok: #16a34a;
+      --pmk-bad: #dc2626;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .pmk-bar {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .pmk-bar i {
+      display: block;
+      height: 100%;
+      width: 25%;
+      background: linear-gradient(90deg, #2563eb, #38bdf8);
+      transition: width .4s ease;
+    }
+
+    .pmk-hero {
+      position: relative;
+      border-radius: 16px;
+      padding: 20px 22px;
+      margin: 0 0 16px;
+      color: #fff;
+      background: linear-gradient(120deg, #0e2a47, #7c2d12, #0e2a47);
+      background-size: 220% 100%;
+      animation: pmkHs 10s ease-in-out infinite alternate;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25);
+    }
+
+    @keyframes pmkHs {
+      to { background-position: 100% 0; }
+    }
+
+    .pmk-hero h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 800;
+      padding-right: 120px;
+      color: #ffffff;
+    }
+
+    .pmk-hero p {
+      margin: 6px 0 0;
+      font-size: 0.88rem;
+      opacity: 0.9;
+      padding-right: 120px;
+    }
+
+    .pmk-mus-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      padding: 8px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(4px);
+    }
+
+    .pmk-mus-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.04);
+    }
+
+    .pmk-step-sub {
+      color: #64748b;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 0 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pmk-card {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+    }
+
+    .pmk-card h3 {
+      font-size: 1.18rem;
+      font-weight: 800;
+      margin: 0 0 12px;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pmk-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 650px) {
+      .pmk-row { grid-template-columns: 1fr; }
+      .pmk-hero h2, .pmk-hero p { padding-right: 0; }
+      .pmk-mus-btn { position: static; margin-top: 10px; }
+    }
+
+    .pmk-btn {
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      padding: 10px 16px;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .pmk-btn:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .pmk-btn.pmk-btn-primary {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .pmk-btn.pmk-btn-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    .pmk-opt-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 8px 0;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #1e293b;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .pmk-opt-btn:hover {
+      border-color: #2563eb;
+      background: #eff6ff;
+      transform: translateX(4px);
+    }
+
+    .pmk-opt-btn.ok {
+      border-color: #16a34a !important;
+      background: #dcfce7 !important;
+      color: #14532d !important;
+      font-weight: 700;
+    }
+
+    .pmk-opt-btn.no {
+      border-color: #dc2626 !important;
+      background: #fee2e2 !important;
+      color: #7f1d1d !important;
+    }
+
+    .pmk-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .pmk-fb {
+      margin-top: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      min-height: 1.5em;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #f8fafc;
+      color: #334155;
+      border-left: 3px solid #2563eb;
+    }
+
+    .pmk-eq {
+      font-size: 1.05rem;
+      text-align: center;
+      padding: 12px;
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      font-weight: 700;
+      border-radius: 10px;
+      margin: 12px 0;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .pmk-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .pmk-tabs button {
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .pmk-tabs button[aria-pressed="true"] {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+    }
+
+    .pmk-hide {
+      display: none !important;
+    }
+
+    #pmk-mgsvg, #pmk-atoms {
+      background: radial-gradient(circle at 50% 60%, #31506f, #0a121a);
+      border-radius: 12px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    #pmk-s0 .pmk-row > div:nth-child(2) svg {
+      background: radial-gradient(circle at 50% 30%, #4d3d34, #120e0c);
+      border-radius: 12px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    #pmk-flare {
+      filter: drop-shadow(0 0 16px #ffffff);
+      transition: opacity .5s;
+    }
+
+    #pmk-els circle {
+      filter: drop-shadow(0 0 6px #ffd23f);
+      transition: transform 1.6s ease-in-out;
+    }
+
+    .pmk-on .flame {
+      animation: fl .25s infinite;
     }
   </style>
 </head>
@@ -2143,6 +2421,9 @@
       <nav>
         <button class="nav-btn nav-btn-tujuan" onclick="switchTab('tujuan')">
           <span>🎯</span> Tujuan Pembelajaran
+        </button>
+        <button class="nav-btn nav-btn-pemantik" onclick="switchTab('pemantik')">
+          <span>🎬</span> Pemantik
         </button>
         <button class="nav-btn active" onclick="switchTab('konsep')">
           <span>💡</span> Konsep Redoks SMA
@@ -2526,26 +2807,231 @@
         </p>
 
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button class="btn" onclick="switchTab('pemantik')" style="background: linear-gradient(135deg, #f97316, #ea580c); color: white; font-weight: 800; box-shadow: 0 4px 12px rgba(234,88,12,0.35);">
+            <span>🎬</span> 1. Pertanyaan Pemantik (Pita Mg & Karat)
+          </button>
           <button class="btn btn-primary" onclick="switchTab('konsep')">
-            <span>💡</span> 1. Eksplorasi Konsep Redoks
+            <span>💡</span> 2. Eksplorasi Konsep Redoks
           </button>
           <button class="btn" onclick="switchTab('simulasi')" style="background: #0284c7; color: white;">
-            <span>🔬</span> 2. Lab Transfer Elektron
+            <span>🔬</span> 3. Lab Transfer Elektron
           </button>
           <button class="btn" onclick="switchTab('biloks-calc')" style="background: #7c3aed; color: white;">
-            <span>⚖️</span> 3. Penentuan Biloks
+            <span>⚖️</span> 4. Penentuan Biloks
           </button>
           <button class="btn" onclick="switchTab('penyetaraan')" style="background: #059669; color: white;">
-            <span>🛠️</span> 4. Penyetaraan Reaksi (PBO & Ion)
+            <span>🛠️</span> 5. Penyetaraan Reaksi (PBO & Ion)
           </button>
           <button class="btn" onclick="switchTab('kuis')" style="background: #d97706; color: white;">
-            <span>📝</span> 5. Bank Soal UTBK/HOTS
+            <span>📝</span> 6. Bank Soal UTBK/HOTS
           </button>
           <button class="btn" onclick="switchTab('refleksi')" style="background: #4f46e5; color: white;">
-            <span>💭</span> 6. Papan Refleksi
+            <span>💭</span> 7. Papan Refleksi
           </button>
           <button class="btn" onclick="openLkpdModal()" style="background: #e11d48; color: white; font-weight: 800;">
-            <span>📜</span> 7. Kerjakan LKPD Interaktif 5 Layar &rarr;
+            <span>📜</span> 8. Kerjakan LKPD Interaktif 5 Layar &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TAB PEMANTIK: VIDEO INTERAKTIF (PITA MG & BESI)-->
+    <!-- ============================================== -->
+    <div id="tab-pemantik" class="tab-content">
+      <!-- HERO BANNER PEMANTIK -->
+      <div class="hero-banner" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 35%, #7c2d12 75%, #ea580c 100%);">
+        <div class="hero-text">
+          <span class="hero-badge" style="background: rgba(255, 255, 255, 0.22); color: white;">🎬 Apersepsi & Fenomena Kimia Nyata &bull; Media Pembelajaran Interaktif</span>
+          <h2>Pertanyaan Pemantik: Pita Magnesium & Besi Berkarat</h2>
+          <p>
+            Amati dua peristiwa nyata dalam kehidupan sehari-hari: pita magnesium yang menyala benderang menghasilkan cahaya putih menyilaukan dan paku besi yang berkarat perlahan. Apa kesamaan mendasar dari kedua reaksi kimia ini jika kita telusuri hingga ke tingkat atom?
+          </p>
+          <div class="hero-stats">
+            <div class="hero-stat-item">✨ Nyala Terang Mg & O₂</div>
+            <div class="hero-stat-item">🌧️ Slider Korosi Besi (Hari 0-30)</div>
+            <div class="hero-stat-item">⚛️ Simulasi Aliran Elektron di Tingkat Atom</div>
+            <div class="hero-stat-item">❓ Pertanyaan & Kuis Pemantik Langsung</div>
+          </div>
+          <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn" onclick="document.querySelector('#tab-pemantik .pmk-container').scrollIntoView({behavior:'smooth'})" style="background: linear-gradient(135deg, #f97316, #ea580c); color: white; font-weight: 800; border: none; padding: 7px 18px; font-size: 0.88rem; box-shadow: 0 4px 15px rgba(234,88,12,0.4);">
+              <span>🔥</span> Eksplorasi Fenomena Sekarang &darr;
+            </button>
+            <button class="btn" onclick="window.open('Video Interaktif_ Pita Magnesium & Besi Berkarat.html', '_blank')" style="background: #ffffff; color: #7c2d12; font-weight: 800; padding: 7px 15px; font-size: 0.85rem;">
+              <span>↗️</span> Buka di Tab Baru &rarr;
+            </button>
+            <button class="btn" onclick="switchTab('konsep')" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.35); font-weight: 700; padding: 7px 15px; font-size: 0.85rem;">
+              <span>💡</span> Lanjut ke Teori Konsep Redoks &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIMULASI PEMANTIK CONTAINER -->
+      <div class="pmk-container">
+        <!-- PROGRESS BAR -->
+        <div class="pmk-bar" role="progressbar" aria-label="Kemajuan Eksplorasi"><i id="pmk-pg"></i></div>
+
+        <!-- HERO HEADER INTERNAL -->
+        <div class="pmk-hero">
+          <h2>Pita Magnesium Menyala &amp; Besi Berkarat</h2>
+          <p>Ketuk tombol di bawah atau interaksi layar untuk memulai musik latar &amp; efek suara</p>
+          <button id="pmk-mus" class="pmk-mus-btn" aria-pressed="true" title="Hidupkan/Matikan Musik Latar">
+            <span>🔊</span> Musik
+          </button>
+        </div>
+
+        <!-- SUBTITLE LANGKAH -->
+        <p class="pmk-step-sub" id="pmk-step"></p>
+
+        <!-- SCENE 0: AMATI DUA PERISTIWA -->
+        <section id="pmk-s0">
+          <div class="pmk-card">
+            <h3><span>🔬</span> Amati Dua Peristiwa di Bawah Ini</h3>
+            <div class="pmk-row">
+              <!-- PERISTIWA 1: PITA MG -->
+              <div>
+                <svg viewBox="0 0 200 150" id="pmk-mgsvg" aria-label="Pita magnesium">
+                  <rect width="200" height="150" rx="8" fill="#22303c"/>
+                  <g class="flame flare" id="pmk-flare" style="opacity:0">
+                    <circle cx="100" cy="85" r="60" fill="#fff" opacity=".25"/>
+                    <circle cx="100" cy="85" r="38" fill="#fff" opacity=".6"/>
+                    <circle cx="100" cy="85" r="20" fill="#fff"/>
+                  </g>
+                  <path d="M40 100 Q70 80 100 90 T165 82" stroke="#c9d1d8" stroke-width="6" fill="none" stroke-linecap="round"/>
+                  <path id="pmk-ash" d="M60 98 Q80 88 100 90" stroke="#eee" stroke-width="7" fill="none" opacity="0" stroke-linecap="round"/>
+                  <g id="pmk-sparks"></g>
+                  <g fill="#ff8a8a" opacity=".6">
+                    <circle cx="20" cy="30" r="3"/><circle cx="180" cy="45" r="3"/>
+                    <circle cx="30" cy="125" r="3"/><circle cx="175" cy="125" r="3"/>
+                  </g>
+                </svg>
+                <div style="margin-top: 10px;">
+                  <button class="pmk-btn pmk-btn-primary" id="pmk-burn" style="width: 100%;">
+                    <span>🔥</span> Nyalakan pita Mg
+                  </button>
+                </div>
+                <div class="pmk-fb" id="pmk-mgfb">Mg + O₂ → MgO (cahaya putih sangat terang)</div>
+              </div>
+
+              <!-- PERISTIWA 2: PAKU BESI BERKARAT -->
+              <div>
+                <svg viewBox="0 0 200 150" aria-label="Paku besi berkarat">
+                  <rect width="200" height="150" rx="8" fill="#22303c"/>
+                  <rect x="30" y="68" width="140" height="14" rx="4" id="pmk-nail" fill="#9aa3ab"/>
+                  <rect x="22" y="62" width="10" height="26" rx="3" id="pmk-nailhead" fill="#9aa3ab"/>
+                  <circle cx="60" cy="40" r="3" fill="#6aa6ff" id="pmk-drop" class="pmk-dp"/>
+                  <circle cx="110" cy="30" r="3" fill="#6aa6ff" class="pmk-dp" style="animation-delay:.7s"/>
+                  <circle cx="150" cy="38" r="3" fill="#6aa6ff" class="pmk-dp" style="animation-delay:1.4s"/>
+                  <g id="pmk-rust"></g>
+                </svg>
+                <div style="margin-top: 10px;">
+                  <label for="pmk-days" style="font-size:.88rem; font-weight:700; color:#334155; display:flex; justify-content:space-between;">
+                    <span>Waktu terkena udara lembap:</span>
+                    <b id="pmk-dlab" style="color:#c2410c;">hari 0</b>
+                  </label>
+                  <input type="range" id="pmk-days" min="0" max="30" value="0" style="width:100%; cursor:pointer; accent-color:#c2410c; margin-top:6px;">
+                </div>
+                <div class="pmk-fb" id="pmk-fefb">Fe + O₂ + H₂O → karat (Fe₂O₃·nH₂O)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PERTANYAAN PEMANTIK UTAMA -->
+          <div class="pmk-card">
+            <h3><span>❓</span> Pertanyaan Pemantik</h3>
+            <p style="margin:0 0 8px; font-weight:700; color:#1e293b; font-size:1.02rem;">
+              Apa kesamaan dari kedua peristiwa kimia di atas?
+            </p>
+            <div id="pmk-q0"></div>
+            <div class="pmk-fb" id="pmk-q0fb">Pilih salah satu jawaban di atas untuk melihat pembahasannya.</div>
+          </div>
+        </section>
+
+        <!-- SCENE 1: TINGKAT ATOM & TRANSFER ELEKTRON -->
+        <section id="pmk-s1" class="pmk-hide">
+          <div class="pmk-card">
+            <h3><span>⚛️</span> Apa yang Terjadi pada Elektronnya? (Level Submikroskopis)</h3>
+            <p style="font-size:0.92rem; color:#64748b; margin:0 0 12px;">
+              Pilih logam yang ingin diamati, lalu lepaskan elektronnya untuk melihat perpindahan partikel subatomik:
+            </p>
+            <div class="pmk-tabs">
+              <button aria-pressed="true" id="pmk-tMg">Magnesium (Mg)</button>
+              <button aria-pressed="false" id="pmk-tFe">Besi (Fe)</button>
+            </div>
+            <svg viewBox="0 0 400 190" id="pmk-atoms" aria-label="Perpindahan elektron dari logam ke oksigen">
+              <rect width="400" height="190" rx="8" fill="#22303c"/>
+              <circle cx="90" cy="95" r="52" fill="#3a4f63" stroke="#8fb4d6" stroke-width="2"/>
+              <circle cx="310" cy="95" r="52" fill="#4a3338" stroke="#e59a9a" stroke-width="2"/>
+              <text x="90" y="100" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold" id="pmk-mlab">Mg</text>
+              <text x="310" y="100" text-anchor="middle" fill="#fff" font-size="22" font-weight="bold" id="pmk-olab">O</text>
+              <text x="90" y="178" text-anchor="middle" fill="#cfd8df" font-size="13" font-weight="600" id="pmk-mchg">atom netral</text>
+              <text x="310" y="178" text-anchor="middle" fill="#cfd8df" font-size="13" font-weight="600" id="pmk-ochg">atom netral</text>
+              <g id="pmk-els"></g>
+            </svg>
+            <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+              <button class="pmk-btn pmk-btn-primary" id="pmk-go">
+                <span>⚡</span> Lepaskan elektron
+              </button>
+              <button class="pmk-btn" id="pmk-reset">
+                <span>🔄</span> Ulangi
+              </button>
+            </div>
+            <div class="pmk-eq" id="pmk-eq"></div>
+            <div class="pmk-fb" id="pmk-exp"></div>
+          </div>
+        </section>
+
+        <!-- SCENE 2: UJI PEMAHAMAN CEPAT -->
+        <section id="pmk-s2" class="pmk-hide">
+          <div class="pmk-card">
+            <h3><span>📝</span> Uji Pemahaman Cepat</h3>
+            <p style="font-size:0.92rem; color:#64748b; margin:0 0 14px;">
+              Jawab pertanyaan berikut untuk mengecek pemahamanmu tentang perpindahan elektron pada reaksi redoks:
+            </p>
+            <div id="pmk-quiz"></div>
+          </div>
+        </section>
+
+        <!-- SCENE 3: KESIMPULAN & REFLEKSI KONSEPTUAL -->
+        <section id="pmk-s3" class="pmk-hide">
+          <div class="pmk-card">
+            <h3><span>🎯</span> Kesimpulan &amp; Refleksi Konseptual</h3>
+            <div style="font-size:0.95rem; line-height:1.65; color:#1e293b; margin-bottom:18px;">
+              <p>
+                Kedua peristiwa di atas adalah contoh nyata dari <b>Reaksi Reduksi-Oksidasi (Redoks)</b> dengan gas oksigen di atmosfer. Logam (Mg atau Fe) bertindak mendonorkan/<b>melepaskan elektron</b>, sedangkan oksigen bertindak menerima/<b>menangkap elektron</b>:
+              </p>
+              <div style="background:#eff6ff; border-left:4px solid #2563eb; padding:12px 16px; border-radius:8px; margin:12px 0;">
+                <p style="margin:0 0 6px;"><b>🔴 Oksidasi:</b> Logam melepas elektron &rarr; muatan / bilangan oksidasi <b>naik</b> (Mg &rarr; Mg²⁺ + 2e⁻, Fe &rarr; Fe³⁺ + 3e⁻).</p>
+                <p style="margin:0;"><b>🔵 Reduksi:</b> Oksigen menerima elektron &rarr; muatan / bilangan oksidasi <b>turun</b> (O + 2e⁻ &rarr; O²⁻).</p>
+              </div>
+              <p>
+                <b>Mengapa kecepatannya berbeda?</b><br>
+                Perbedaannya terletak pada <i>laju reaksi</i>: Magnesium bereaksi sangat cepat dan melepaskan energi seketika dalam bentuk panas dan cahaya putih yang menyilaukan, sedangkan besi berkarat secara perlahan selama berhari-hari karena memerlukan kontak simultan antara air dan oksigen.
+              </p>
+            </div>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <button class="pmk-btn" id="pmk-again">
+                <span>🔄</span> Ulangi dari Awal
+              </button>
+              <button class="pmk-btn pmk-btn-primary" onclick="switchTab('konsep')">
+                <span>💡</span> Lanjut ke Tab Konsep Redoks SMA &rarr;
+              </button>
+              <button class="pmk-btn" onclick="switchTab('simulasi')" style="background:#0284c7; border-color:#0284c7; color:white;">
+                <span>🔬</span> Eksplorasi Lab Transfer Elektron &rarr;
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- NAVIGASI BAWAH: SEBELUMNYA / LANJUT -->
+        <div class="pmk-nav">
+          <button class="pmk-btn" id="pmk-prev">
+            <span>&larr;</span> Sebelumnya
+          </button>
+          <button class="pmk-btn pmk-btn-primary" id="pmk-next">
+            Lanjut <span>&rarr;</span>
           </button>
         </div>
       </div>
@@ -3975,6 +4461,10 @@
       } else if (tabId === 'refleksi') {
         drawRefWall();
         drawRefPick();
+      }
+
+      if (tabId !== 'pemantik' && typeof pausePmkMusic === 'function') {
+        pausePmkMusic();
       }
 
       const refFab = document.getElementById('refFabBtn');
@@ -6046,6 +6536,420 @@
     } else {
       initRefKeyboardSuppression();
     }
+
+    /* ========================================================
+       14. CONTROLLER & LOGIKA INTERAKTIF: MENU PEMANTIK
+       (Video Interaktif: Pita Magnesium & Besi Berkarat)
+       ======================================================== */
+    (function() {
+      var cur = 0, N = 4;
+      var $pmk = function(i) { return document.getElementById("pmk-" + i); };
+      var titles = ["Amati dan jawab", "Zoom ke tingkat atom", "Kuis singkat", "Kesimpulan"];
+      var solved0 = false;
+
+      function showPmk(i) {
+        cur = i;
+        for (var k = 0; k < N; k++) {
+          var el = $pmk("s" + k);
+          if (el) el.classList.toggle("pmk-hide", k !== i);
+        }
+        var pg = $pmk("pg");
+        if (pg) pg.style.width = ((i + 1) / N * 100) + "%";
+        var step = $pmk("step");
+        if (step) step.innerHTML = "<span>📌</span> Bagian " + (i + 1) + " dari " + N + ": <strong>" + titles[i] + "</strong>";
+        var prevBtn = $pmk("prev");
+        if (prevBtn) prevBtn.disabled = (i === 0);
+        var nextBtn = $pmk("next");
+        if (nextBtn) nextBtn.style.visibility = (i === N - 1) ? "hidden" : "visible";
+      }
+
+      window.showPmkScene = showPmk;
+
+      var prevBtn = $pmk("prev");
+      if (prevBtn) prevBtn.onclick = function() { showPmk(cur - 1); };
+      var nextBtn = $pmk("next");
+      if (nextBtn) nextBtn.onclick = function() { showPmk(cur + 1); };
+      var againBtn = $pmk("again");
+      if (againBtn) againBtn.onclick = function() { showPmk(0); };
+
+      /* Scene 0: Nyala Pita Mg & Karat Besi */
+      var burned = false;
+      var burnBtn = $pmk("burn");
+      if (burnBtn) {
+        burnBtn.onclick = function() {
+          burned = !burned;
+          var flare = $pmk("flare");
+          if (flare) {
+            flare.style.opacity = burned ? 1 : 0;
+            flare.parentNode.classList.toggle("pmk-on", burned);
+          }
+          var ash = $pmk("ash");
+          if (ash) ash.style.opacity = burned ? 1 : 0;
+          burnBtn.textContent = burned ? "Padamkan Api" : "Nyalakan pita Mg";
+          burnBtn.classList.toggle("pmk-btn-primary", !burned);
+          var mgfb = $pmk("mgfb");
+          if (mgfb) mgfb.textContent = burned ? "🔥 Menyala sangat terang! Pita Mg terbakar melepaskan elektron menghasilkan serbuk putih magnesium oksida (MgO)." : "Mg + O₂ → MgO (cahaya putih sangat terang)";
+        };
+      }
+
+      function mix(a, b, t) { return Math.round(a + (b - a) * t); }
+      var daysSlider = $pmk("days");
+      if (daysSlider) {
+        daysSlider.oninput = function() {
+          var d = +this.value, t = d / 30, c = "rgb(" + mix(154, 168, t) + "," + mix(163, 78, t) + "," + mix(171, 24, t) + ")";
+          var nail = $pmk("nail"); if (nail) nail.setAttribute("fill", c);
+          var nailhead = $pmk("nailhead"); if (nailhead) nailhead.setAttribute("fill", c);
+          var dlab = $pmk("dlab"); if (dlab) dlab.textContent = "hari " + d;
+          var fefb = $pmk("fefb");
+          if (fefb) fefb.textContent = t < .2 ? "Besi masih mengilap (belum teroksidasi signifikan)." : t < .7 ? "Mulai muncul bercak cokelat kemerahan karat besi." : "Karat tebal: besi telah teroksidasi oleh O₂ dan H₂O (Fe₂O₃·nH₂O).";
+        };
+      }
+
+      var opts = [
+        ["Keduanya hanya perubahan wujud fisika", 0, "Bukan. Zat baru terbentuk (serbuk putih MgO dan karat besi), jadi ini perubahan kimia."],
+        ["Keduanya adalah reaksi logam dengan oksigen yang melibatkan perpindahan elektron", 1, "Tepat! Keduanya reaksi redoks: logam melepas elektron, oksigen menerimanya."],
+        ["Keduanya hanya bisa terjadi jika ada nyala api", 0, "Bukan. Besi berkarat tanpa api sama sekali, hanya memerlukan udara dan kelembapan air."]
+      ];
+      var q0Container = $pmk("q0");
+      if (q0Container) {
+        q0Container.innerHTML = "";
+        opts.forEach(function(o) {
+          var b = document.createElement("button");
+          b.className = "pmk-opt-btn";
+          b.textContent = o[0];
+          b.onclick = function() {
+            b.classList.add(o[1] ? "ok" : "no");
+            var q0fb = $pmk("q0fb");
+            if (q0fb) {
+              q0fb.textContent = o[2];
+              if (o[1]) {
+                solved0 = true;
+                q0fb.textContent += " Silakan tekan tombol 'Lanjut' di bawah untuk melihat transfer elektronnya.";
+              }
+            }
+          };
+          q0Container.appendChild(b);
+        });
+      }
+
+      /* Scene 1: Tingkat Atom & Animasi Elektron */
+      var M = {
+        Mg: { n: 2, sym: "Mg", ion: "Mg²⁺", eq: "2Mg + O₂ → 2MgO<br>Mg → Mg²⁺ + 2e⁻ &nbsp;|&nbsp; O + 2e⁻ → O²⁻", ex: "Setiap atom Mg melepas 2 elektron valensi. Atom O menerima elektron tersebut membentuk ikatan ionik." },
+        Fe: { n: 3, sym: "Fe", ion: "Fe³⁺", eq: "4Fe + 3O₂ → 2Fe₂O₃<br>Fe → Fe³⁺ + 3e⁻ &nbsp;|&nbsp; O + 2e⁻ → O²⁻", ex: "Setiap atom Fe melepas 3 elektron, diterima oleh atom oksigen (karat adalah oksida besi Fe₂O₃·nH₂O)." }
+      };
+      var mode = "Mg", moved = false, ns = "http://www.w3.org/2000/svg";
+
+      function buildAtoms() {
+        moved = false;
+        var m = M[mode];
+        if ($pmk("mlab")) $pmk("mlab").textContent = m.sym;
+        if ($pmk("mchg")) $pmk("mchg").textContent = "atom netral (muatan 0)";
+        if ($pmk("ochg")) $pmk("ochg").textContent = "atom netral (muatan 0)";
+        if ($pmk("olab")) $pmk("olab").textContent = "O";
+        if ($pmk("eq")) $pmk("eq").innerHTML = m.eq;
+        if ($pmk("exp")) $pmk("exp").textContent = "Tekan tombol \"Lepaskan elektron\" untuk melihat animasi perpindahan elektronnya.";
+        var g = $pmk("els");
+        if (g) {
+          g.innerHTML = "";
+          for (var i = 0; i < m.n; i++) {
+            var c = document.createElementNS(ns, "circle");
+            var a = i / m.n * Math.PI * 2;
+            c.setAttribute("cx", 90 + Math.cos(a) * 36);
+            c.setAttribute("cy", 95 + Math.sin(a) * 36);
+            c.setAttribute("r", 6);
+            c.setAttribute("fill", "#ffd23f");
+            c.setAttribute("class", "e");
+            c.dataset.dx = 310 - 90 - Math.cos(a) * 36 - 40;
+            c.dataset.dy = (95 + (i - (m.n - 1) / 2) * 16) - (95 + Math.sin(a) * 36);
+            g.appendChild(c);
+          }
+        }
+        if ($pmk("tMg")) $pmk("tMg").setAttribute("aria-pressed", mode === "Mg");
+        if ($pmk("tFe")) $pmk("tFe").setAttribute("aria-pressed", mode === "Fe");
+      }
+
+      var goBtn = $pmk("go");
+      if (goBtn) {
+        goBtn.onclick = function() {
+          if (moved) return;
+          moved = true;
+          var m = M[mode];
+          var els = $pmk("els");
+          if (els) {
+            var cs = els.children;
+            for (var i = 0; i < cs.length; i++) {
+              cs[i].style.transform = "translate(" + cs[i].dataset.dx + "px," + cs[i].dataset.dy + "px)";
+            }
+          }
+          setTimeout(function() {
+            if ($pmk("mlab")) $pmk("mlab").textContent = m.ion;
+            if ($pmk("mchg")) $pmk("mchg").textContent = "kehilangan elektron: teroksidasi";
+            if ($pmk("olab")) $pmk("olab").textContent = "O²⁻";
+            if ($pmk("ochg")) $pmk("ochg").textContent = "menerima elektron: tereduksi";
+            if ($pmk("exp")) $pmk("exp").textContent = m.ex;
+          }, 1700);
+        };
+      }
+
+      var resetBtn = $pmk("reset");
+      if (resetBtn) resetBtn.onclick = buildAtoms;
+      var tMgBtn = $pmk("tMg");
+      if (tMgBtn) tMgBtn.onclick = function() { mode = "Mg"; buildAtoms(); };
+      var tFeBtn = $pmk("tFe");
+      if (tFeBtn) tFeBtn.onclick = function() { mode = "Fe"; buildAtoms(); };
+      buildAtoms();
+
+      /* Scene 2: Kuis Singkat */
+      var Q = [
+        ["Dalam karat besi, apa yang dilakukan atom Fe terhadap elektron?", ["Melepaskan elektron", "Menerima elektron", "Tidak berubah"], 0, "Fe melepas elektron menjadi Fe³⁺ (mengalami oksidasi)."],
+        ["Pada pembakaran pita Mg, zat apa yang mengalami reduksi?", ["Magnesium", "Oksigen", "Cahaya"], 1, "Oksigen menerima 2 elektron dari Mg sehingga tereduksi menjadi O²⁻."]
+      ];
+      var quizContainer = $pmk("quiz");
+      if (quizContainer) {
+        quizContainer.innerHTML = "";
+        Q.forEach(function(q, qi) {
+          var d = document.createElement("div");
+          d.style.marginBottom = "18px";
+          d.innerHTML = "<p style='margin:0 0 6px; font-weight:700; color:#0f172a;'><b>" + (qi + 1) + ". " + q[0] + "</b></p>";
+          var f = document.createElement("div");
+          f.className = "pmk-fb";
+          f.style.display = "none";
+          q[1].forEach(function(t, ti) {
+            var b = document.createElement("button");
+            b.className = "pmk-opt-btn";
+            b.textContent = t;
+            b.onclick = function() {
+              var ok = ti === q[2];
+              b.classList.add(ok ? "ok" : "no");
+              f.style.display = "block";
+              f.textContent = ok ? "✅ Benar! " + q[3] : "❌ Belum tepat, coba pilihan lain.";
+              f.style.borderLeftColor = ok ? "#16a34a" : "#dc2626";
+            };
+            d.appendChild(b);
+          });
+          d.appendChild(f);
+          quizContainer.appendChild(d);
+        });
+      }
+
+      showPmk(0);
+    })();
+
+    /* ========================================================
+       15. AUDIO SYNTHESIZER UNTUK MENU PEMANTIK
+       ======================================================== */
+    (function() {
+      var $pmk = function(i) { return document.getElementById("pmk-" + i); };
+      var ns = 'http://www.w3.org/2000/svg';
+      var AC = window.AudioContext || window.webkitAudioContext, ac, master, musicBus, sfxBus, on = true, go = false, nextT = 0, beat = 0, tm;
+      var CH = [[220, 261.63, 329.63], [174.61, 220, 261.63], [261.63, 329.63, 392], [196, 246.94, 293.66]];
+
+      function note(f, t, d, ty, v, bus) {
+        if (!ac) return;
+        var o = ac.createOscillator(), g = ac.createGain();
+        o.type = ty;
+        o.frequency.value = f;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.linearRampToValueAtTime(v, t + .04);
+        g.gain.exponentialRampToValueAtTime(.0001, t + d);
+        o.connect(g);
+        g.connect(bus);
+        o.start(t);
+        o.stop(t + d + .05);
+      }
+
+      function sched() {
+        if (!ac) return;
+        while (nextT < ac.currentTime + 1) {
+          var st = beat % 8, c = CH[Math.floor(beat / 8) % 4];
+          if (st === 0) {
+            c.forEach(function(f) { note(f, nextT, 3.8, 'sine', .22, musicBus); });
+            note(c[0] / 2, nextT, 3.6, 'sine', .35, musicBus);
+          }
+          note(c[[0, 1, 2, 1, 2, 1, 2, 1][st]] * 2, nextT, .9, 'triangle', .25, musicBus);
+          nextT += .5;
+          beat++;
+        }
+      }
+
+      function initPmkAudio() {
+        if (!AC) return;
+        if (!ac) {
+          ac = new AC();
+          master = ac.createGain();
+          master.gain.value = on ? 1.0 : 0;
+          master.connect(ac.destination);
+          musicBus = ac.createGain();
+          musicBus.gain.value = 1.0;
+          musicBus.connect(master);
+          sfxBus = ac.createGain();
+          sfxBus.gain.value = 1.0;
+          sfxBus.connect(master);
+        }
+        if (ac.state === 'suspended') ac.resume();
+        if (!go) {
+          go = true;
+          nextT = ac.currentTime + .1;
+          sched();
+          tm = setInterval(sched, 250);
+        }
+      }
+
+      window.pausePmkMusic = function() {
+        if (master) master.gain.value = 0;
+      };
+
+      window.resumePmkMusic = function() {
+        if (master && on) master.gain.value = 1.0;
+      };
+
+      function zap(d) {
+        if (!ac) return;
+        var t = ac.currentTime + (d || 0), o = ac.createOscillator(), g = ac.createGain();
+        o.type = 'sawtooth';
+        o.frequency.setValueAtTime(1400, t);
+        o.frequency.exponentialRampToValueAtTime(220, t + .35);
+        g.gain.setValueAtTime(.4, t);
+        g.gain.exponentialRampToValueAtTime(.001, t + .4);
+        o.connect(g);
+        g.connect(sfxBus);
+        o.start(t);
+        o.stop(t + .45);
+      }
+
+      function chime() {
+        if (!ac) return;
+        var t = ac.currentTime;
+        [659.25, 880, 1318.5].forEach(function(f, i) { note(f, t + i * .12, .9, 'sine', .35, sfxBus); });
+      }
+
+      function buzz() {
+        if (!ac) return;
+        note(130, ac.currentTime, .3, 'square', .25, sfxBus);
+      }
+
+      function tick() {
+        if (!ac) return;
+        note(900, ac.currentTime, .08, 'sine', .22, sfxBus);
+      }
+
+      function fan() {
+        if (!ac) return;
+        var t = ac.currentTime;
+        [523.25, 659.25, 783.99, 1046.5].forEach(function(f, i) { note(f, t + i * .15, 1.2, 'triangle', .35, sfxBus); });
+      }
+
+      function crackle() {
+        if (!ac) return;
+        var n = ac.sampleRate * 1.4, b = ac.createBuffer(1, n, ac.sampleRate), d = b.getChannelData(0);
+        for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2) * (Math.random() < .35 ? 1 : .2);
+        var s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
+        s.buffer = b;
+        f.type = 'highpass';
+        f.frequency.value = 1800;
+        g.gain.value = .6;
+        s.connect(f);
+        f.connect(g);
+        g.connect(sfxBus);
+        s.start();
+      }
+
+      var spT;
+      function spark() {
+        var g = $pmk('sparks');
+        if (!g) return;
+        var c = document.createElementNS(ns, 'circle'), a = Math.random() * 6.28, r = 30 + Math.random() * 40;
+        c.setAttribute('cx', 100);
+        c.setAttribute('cy', 85);
+        c.setAttribute('r', 1.5 + Math.random() * 1.5);
+        c.setAttribute('fill', Math.random() < .5 ? '#fff' : '#bfe0ff');
+        c.style.transition = 'transform .9s ease-out,opacity .9s';
+        g.appendChild(c);
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            c.style.transform = 'translate(' + Math.cos(a) * r + 'px,' + Math.sin(a) * r + 'px)';
+            c.style.opacity = 0;
+          });
+        });
+        setTimeout(function() { c.remove(); }, 1000);
+      }
+
+      var seeds = [];
+      for (var i = 0; i < 30; i++) seeds.push([34 + Math.random() * 132, 69 + Math.random() * 12, 1 + Math.random() * 2.2]);
+      var daysEl = $pmk('days');
+      if (daysEl) {
+        daysEl.addEventListener('input', function() {
+          var n = Math.round(this.value / 30 * 30), g = $pmk('rust');
+          if (!g) return;
+          g.innerHTML = '';
+          for (var i = 0; i < n; i++) {
+            var s = seeds[i], c = document.createElementNS(ns, 'circle');
+            c.setAttribute('cx', s[0]);
+            c.setAttribute('cy', s[1]);
+            c.setAttribute('r', s[2]);
+            c.setAttribute('fill', i % 2 ? '#8a3a12' : '#c4601f');
+            g.appendChild(c);
+          }
+        });
+      }
+
+      var atomsEl = $pmk('atoms');
+      var elsEl = $pmk('els');
+      if (atomsEl && elsEl) {
+        var og = document.createElementNS(ns, 'g');
+        og.innerHTML = '<circle cx="90" cy="95" r="66" fill="none" stroke="#8fb4d6" stroke-width="1" stroke-dasharray="3 6"><animateTransform attributeName="transform" type="rotate" from="0 90 95" to="360 90 95" dur="14s" repeatCount="indefinite"/></circle><circle cx="310" cy="95" r="66" fill="none" stroke="#e59a9a" stroke-width="1" stroke-dasharray="3 6"><animateTransform attributeName="transform" type="rotate" from="360 310 95" to="0 310 95" dur="14s" repeatCount="indefinite"/></circle>';
+        atomsEl.insertBefore(og, elsEl);
+      }
+
+      var tabPmk = document.getElementById('tab-pemantik');
+      if (tabPmk) {
+        tabPmk.addEventListener('click', function(e) {
+          initPmkAudio();
+          var b = e.target.closest('button');
+          if (!b) return;
+          var id = b.id;
+          if (id === 'pmk-mus') {
+            on = !on;
+            if (master) master.gain.value = on ? 1.0 : 0;
+            b.textContent = on ? '🔊 Musik' : '🔇 Musik';
+            b.setAttribute('aria-pressed', on);
+            return;
+          }
+          if (id === 'pmk-burn') {
+            setTimeout(function() {
+              clearInterval(spT);
+              var flare = $pmk('flare');
+              if (flare && flare.style.opacity === '1') {
+                crackle();
+                spT = setInterval(spark, 70);
+              }
+            }, 0);
+            return;
+          }
+          if (id === 'pmk-go') {
+            var tFe = $pmk('tFe');
+            var n = tFe && tFe.getAttribute('aria-pressed') === 'true' ? 3 : 2;
+            for (var i = 0; i < n; i++) zap(i * .18);
+            setTimeout(chime, 1700);
+            return;
+          }
+          if (id === 'pmk-next' || id === 'pmk-prev' || id === 'pmk-again') {
+            tick();
+            setTimeout(function() {
+              var stepEl = $pmk('step');
+              if (stepEl && /Kesimpulan/.test(stepEl.textContent)) fan();
+            }, 50);
+            return;
+          }
+          if (b.classList.contains('pmk-opt-btn')) {
+            setTimeout(function() {
+              if (b.classList.contains('ok')) chime();
+              else if (b.classList.contains('no')) buzz();
+            }, 0);
+          }
+        });
+      }
+    })();
   </script>
 </body>
 </html>
