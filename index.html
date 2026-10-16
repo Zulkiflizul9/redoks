@@ -4137,8 +4137,11 @@
             <h2 style="font-size: 1.25rem; color: var(--dark); margin: 0 0 4px;">Soal Kuis Individu</h2>
             <p style="font-size: 0.85rem; color: var(--gray); margin: 0;">Uji Pemahaman Mandiri &bull; Materi Reaksi Redoks & Penyetaraan &bull; Kelas 12 SMA</p>
           </div>
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <button class="btn btn-outline-dark" onclick="switchTab('guru')" style="padding: 6px 12px; font-size: 0.8rem; font-weight: 700; border-radius: 8px;" title="Buka Rekapitulasi Nilai Siswa (Menu Guru)">
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <button class="btn" onclick="openStudentHpQuizModal()" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 7px 14px; font-size: 0.82rem; font-weight: 800; border-radius: 8px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35); border: none;" title="Tampilkan QR Code agar siswa bisa mengerjakan kuis lewat HP masing-masing">
+              <span>📱</span> Kerjakan Lewat HP Siswa
+            </button>
+            <button class="btn btn-outline-dark" onclick="switchTab('guru')" style="padding: 7px 12px; font-size: 0.8rem; font-weight: 700; border-radius: 8px;" title="Buka Rekapitulasi Nilai Siswa (Menu Guru)">
               <span>👨‍🏫</span> Rekap Guru
             </button>
             <div style="text-align: right; display: none;" id="quizStatsHeader">
@@ -4155,7 +4158,9 @@
               📝
             </div>
             <h3 style="font-size: 1.35rem; font-weight: 800; color: #1e1b4b; margin: 0 0 6px;">Identitas Peserta Kuis Individu</h3>
-            <p style="font-size: 0.88rem; color: #64748b; margin: 0;">Silakan isi Nama dan Kelas terlebih dahulu untuk mencatat rekapan pengerjaan kuis:</p>
+            <p style="font-size: 0.88rem; color: #64748b; margin: 0;">
+              Silakan isi Nama dan Kelas untuk mengerjakan di layar ini, atau <a href="javascript:void(0)" onclick="openStudentHpQuizModal()" style="color: #4338ca; font-weight: 800; text-decoration: underline;">kerjakan melalui HP masing-masing siswa (Scan QR)</a>:
+            </p>
           </div>
 
           <div style="max-width: 460px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px;">
@@ -4342,6 +4347,41 @@
         </div>
       </div>
 
+      <!-- KARTU PUSAT SINKRONISASI HP SISWA KE REKAPAN GURU -->
+      <div class="card" style="padding: 18px 24px; margin-bottom: 20px; background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border: 1.5px solid #a7f3d0; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 48px; height: 48px; border-radius: 14px; background: #059669; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.3);">
+              📱
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <h3 style="font-size: 1.15rem; font-weight: 800; color: #065f46; margin: 0;">Pengerjaan Kuis via HP Siswa &bull; Sinkronisasi Real-Time</h3>
+                <span id="teacherCloudLiveBadge" style="background: #10b981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px;">
+                  ● LIVE SINKRONISASI
+                </span>
+              </div>
+              <p style="font-size: 0.85rem; color: #047857; margin: 2px 0 0;">
+                Siswa dapat mengerjakan kuis dari HP masing-masing. Hasil nilai &amp; rincian jawaban akan <strong>otomatis langsung masuk</strong> ke tabel rekap guru.
+              </p>
+            </div>
+          </div>
+
+          <!-- Tombol-tombol Aksi HP -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn" onclick="openStudentHpQuizModal()" style="background: linear-gradient(135deg, #1e1b4b, #4338ca); color: white; font-weight: 800; padding: 9px 16px; font-size: 0.86rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(67, 56, 202, 0.25);">
+              <span>📱</span> Tampilkan QR Code &amp; Sesi Kuis HP
+            </button>
+            <button class="btn" onclick="openCameraScannerModal()" style="background: #059669; color: white; font-weight: 800; padding: 9px 15px; font-size: 0.86rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);">
+              <span>📷</span> Scan QR HP Siswa (Offline)
+            </button>
+            <button class="btn btn-outline-dark" onclick="openPasteTokenModal()" style="padding: 9px 14px; font-size: 0.85rem; font-weight: 700; background: white;">
+              <span>📋</span> Tempel Token
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- KARTU PENGATURAN, FILTER & AKSI GURU -->
       <div class="card" style="padding: 20px 24px; margin-bottom: 20px;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 16px;">
@@ -4455,6 +4495,172 @@
           <!-- Diisi otomatis oleh JS -->
         </div>
       </div>
+    </div>
+
+    <!-- MODAL 1: TAMPILKAN QR CODE & KODE SESI KUIS HP SISWA (UNTUK SMART TV / LCD) -->
+    <div id="hpQuizConnectModalOverlay" class="lkpd-modal-overlay" style="display: none;" onclick="handleHpConnectModalOverlayClick(event)">
+      <div class="lkpd-modal-dialog" style="max-width: 820px; max-height: 92vh; display: flex; flex-direction: column;">
+        <div class="lkpd-modal-header" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #4338ca 100%);">
+          <div class="lkpd-modal-title" style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 24px;">📱</span>
+            <div>
+              <div style="font-weight: 800; font-size: 1.15rem;">Pengerjaan Kuis Individu via HP Siswa</div>
+              <div style="font-size: 0.78rem; opacity: 0.85; font-weight: normal;">Siswa scan QR Code di bawah dengan kamera HP / Google Lens</div>
+            </div>
+          </div>
+          <div class="lkpd-modal-controls">
+            <button class="lkpd-close-btn" onclick="closeStudentHpQuizModal()" title="Tutup Modal">&times;</button>
+          </div>
+        </div>
+
+        <div style="flex: 1; overflow-y: auto; padding: 24px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: start;">
+            <!-- Kolom Kiri: QR Code Besar -->
+            <div style="text-align: center; background: #f8fafc; border: 2px dashed #c7d2fe; border-radius: 16px; padding: 20px;">
+              <div style="font-size: 0.85rem; font-weight: 800; color: #4338ca; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">
+                Scan QR Code ini dari HP Siswa:
+              </div>
+              <div id="teacherScreenQrHolder" style="display: inline-flex; justify-content: center; background: white; padding: 14px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 12px;">
+                <!-- QR Code di-generate JS -->
+              </div>
+              <div style="background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 10px; padding: 10px 14px; margin-top: 6px;">
+                <span style="font-size: 0.76rem; color: #475569; font-weight: 700; text-transform: uppercase;">Kode Sesi / Ruang Kelas:</span>
+                <div style="font-size: 1.7rem; font-weight: 900; color: #312e81; letter-spacing: 2px;" id="teacherDisplayRoomCode">REDOKS12</div>
+              </div>
+            </div>
+
+            <!-- Kolom Kanan: Pengaturan & Tautan -->
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div style="background: #f0fdf4; border: 1.5px solid #a7f3d0; border-radius: 12px; padding: 14px;">
+                <div style="display: flex; align-items: center; gap: 8px; font-weight: 800; color: #065f46; font-size: 0.92rem; margin-bottom: 4px;">
+                  <span id="teacherMqttDot" style="width: 10px; height: 10px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+                  <span id="teacherMqttStatusText">Sinkronisasi Cloud Real-Time Aktif</span>
+                </div>
+                <p style="font-size: 0.82rem; color: #047857; line-height: 1.4; margin: 0;">
+                  Setiap kali siswa menekan "Kirim &amp; Lihat Hasil Akhir" di HP mereka, data nilai dan jawaban akan langsung terkirim dan masuk otomatis ke tabel rekap guru.
+                </p>
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #1e293b; margin-bottom: 4px;">
+                  Ubah Kode Sesi Kelas:
+                </label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="teacherRoomInput" value="REDOKS12" class="quiz-id-input" style="padding: 8px 12px; font-weight: 800; text-transform: uppercase;">
+                  <button class="btn btn-primary" onclick="applyNewTeacherRoomCode()" style="padding: 8px 14px; font-size: 0.85rem; font-weight: 700;">
+                    Terapkan
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #1e293b; margin-bottom: 4px;">
+                  Tautan URL Kuis Siswa:
+                </label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="teacherQuizUrlInput" class="quiz-id-input" style="padding: 8px 12px; font-size: 0.82rem; flex: 1;" readonly>
+                  <button class="btn btn-outline-dark" onclick="copyTeacherQuizUrl()" style="padding: 8px 12px; font-size: 0.82rem; font-weight: 700;">
+                    📋 Salin
+                  </button>
+                </div>
+                <div style="margin-top: 6px; display: flex; gap: 8px;">
+                  <button class="btn btn-outline-dark" onclick="openStudentHpQuizNewTab()" style="padding: 6px 12px; font-size: 0.78rem; font-weight: 700; color: #4338ca;">
+                    ↗️ Buka Lembar Kuis HP (Tab Baru)
+                  </button>
+                </div>
+              </div>
+
+              <!-- Live Feed Masuknya Siswa -->
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; max-height: 160px; overflow-y: auto;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <span style="font-size: 0.8rem; font-weight: 800; color: #1e1b4b;">Daftar Siswa Masuk Sesi Ini:</span>
+                  <span id="liveFeedCounter" style="font-size: 0.75rem; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 10px; font-weight: 800;">0 Siswa</span>
+                </div>
+                <div id="liveFeedList" style="font-size: 0.8rem; color: #64748b; line-height: 1.5;">
+                  <em>Menunggu siswa menyelesaikan kuis dari HP...</em>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lkpd-modal-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div style="font-size: 0.82rem; color: #64748b;">
+            💡 Tetap buka jendela ini di layar proyektor/Smart TV agar siswa leluasa melihat QR Code.
+          </div>
+          <button class="btn btn-primary" onclick="closeStudentHpQuizModal()" style="padding: 8px 18px; font-weight: 700;">
+            Selesai / Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 2: SCANNER KAMERA GURU UNTUK QR CODE HASIL HP SISWA (OFFLINE) -->
+    <div id="cameraScannerModalOverlay" class="lkpd-modal-overlay" style="display: none;" onclick="handleCameraScannerOverlayClick(event)">
+      <div class="lkpd-modal-dialog" style="max-width: 600px; max-height: 90vh; display: flex; flex-direction: column;">
+        <div class="lkpd-modal-header" style="background: linear-gradient(135deg, #065f46 0%, #059669 100%);">
+          <div class="lkpd-modal-title" style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 24px;">📷</span>
+            <div>
+              <div style="font-weight: 800; font-size: 1.15rem;">Scanner Kamera &bull; QR Code HP Siswa</div>
+              <div style="font-size: 0.78rem; opacity: 0.85;">Arahkan kamera ke layar HP siswa untuk merekam nilai tanpa internet</div>
+            </div>
+          </div>
+          <div class="lkpd-modal-controls">
+            <button class="lkpd-close-btn" onclick="closeCameraScannerModal()" title="Tutup Modal">&times;</button>
+          </div>
+        </div>
+
+        <div style="flex: 1; overflow-y: auto; padding: 20px; text-align: center;">
+          <div id="cameraScannerView" style="width: 100%; max-width: 440px; margin: 0 auto; border-radius: 14px; overflow: hidden; background: #0f172a; min-height: 280px; display: flex; align-items: center; justify-content: center; color: white;">
+            <span style="font-size: 0.88rem; opacity: 0.8;">Mengaktifkan kamera...</span>
+          </div>
+
+          <div id="scannerFeedbackMsg" style="margin-top: 14px; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; font-weight: 700; display: none;"></div>
+
+          <p style="font-size: 0.82rem; color: #64748b; margin-top: 12px;">
+            Pastikan siswa membuka tampilan <strong>QR Code Hasil</strong> di akhir kuis, lalu dekatkan ke kamera. Data akan langsung terekam tanpa menutup kamera.
+          </p>
+        </div>
+
+        <div class="lkpd-modal-footer" style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button class="btn btn-outline-dark" onclick="closeCameraScannerModal()" style="padding: 8px 16px; font-weight: 700;">
+            Selesai Scan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 3: TEMPEL TOKEN SISWA (MANUAL IMPORT) -->
+    <div id="pasteTokenModalOverlay" class="lkpd-modal-overlay" style="display: none;" onclick="handlePasteTokenOverlayClick(event)">
+      <div class="lkpd-modal-dialog" style="max-width: 540px; max-height: 90vh; display: flex; flex-direction: column;">
+        <div class="lkpd-modal-header" style="background: linear-gradient(135deg, #1e1b4b, #312e81);">
+          <div class="lkpd-modal-title">
+            <span>📋</span> Tempel Token Hasil Pengerjaan Siswa
+          </div>
+          <div class="lkpd-modal-controls">
+            <button class="lkpd-close-btn" onclick="closePasteTokenModal()" title="Tutup">&times;</button>
+          </div>
+        </div>
+        <div style="flex: 1; overflow-y: auto; padding: 20px;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #1e293b; margin-bottom: 6px;">
+            Tempelkan Kode Token (Dari Salin Token / WhatsApp Siswa):
+          </label>
+          <textarea id="pasteTokenInput" class="form-input" rows="5" placeholder="Tempel kode berawalan ZULOKS:... di sini" style="width: 100%; font-family: monospace; font-size: 0.82rem; padding: 10px; border-radius: 8px; border: 1.5px solid #cbd5e1;"></textarea>
+          <div id="pasteTokenError" style="display: none; margin-top: 8px; padding: 8px 12px; background: #fee2e2; color: #991b1b; border-radius: 6px; font-size: 0.82rem; font-weight: 600;">
+            ⚠️ Format token tidak valid! Pastikan menyalin seluruh kode token.
+          </div>
+        </div>
+        <div class="lkpd-modal-footer" style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button class="btn btn-outline-dark" onclick="closePasteTokenModal()" style="padding: 8px 14px; font-weight: 700;">Batal</button>
+          <button class="btn btn-primary" onclick="processPastedToken()" style="padding: 8px 18px; font-weight: 700;">Simpan Hasil ke Rekapan</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST NOTIFIKASI REALTIME REKAP GURU -->
+    <div id="teacherLiveToast" style="position: fixed; top: 20px; right: 20px; z-index: 99999; background: #1e1b4b; color: white; padding: 14px 18px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-left: 5px solid #10b981; max-width: 360px; font-size: 0.88rem; line-height: 1.45; transform: translateY(-120px); opacity: 0; transition: all 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28); pointer-events: none;">
+      <div id="teacherLiveToastContent">📥 Hasil baru diterima!</div>
     </div>
 
     <!-- ============================================== -->
@@ -4831,6 +5037,32 @@
       </div>
     </div>
   </div>
+
+  <!-- VENDOR LIBRARIES (OFFLINE LOCAL WITH CDN FALLBACK) -->
+  <script src="qrcode.min.js"></script>
+  <script>
+    if (typeof QRCode === 'undefined') {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+      document.head.appendChild(s);
+    }
+  </script>
+  <script src="mqtt.min.js"></script>
+  <script>
+    if (typeof mqtt === 'undefined') {
+      const s = document.createElement('script');
+      s.src = 'https://unpkg.com/mqtt/dist/mqtt.min.js';
+      document.head.appendChild(s);
+    }
+  </script>
+  <script src="html5-qrcode.min.js"></script>
+  <script>
+    if (typeof Html5Qrcode === 'undefined') {
+      const s = document.createElement('script');
+      s.src = 'https://unpkg.com/html5-qrcode';
+      document.head.appendChild(s);
+    }
+  </script>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
@@ -7885,6 +8117,539 @@
 
 
     /* ========================================================
+       14. INTEGRASI PENGERJAAN KUIS HP SISWA & SINKRONISASI REAL-TIME
+       ======================================================== */
+    let activeTeacherRoom = 'REDOKS12';
+    let teacherMqttClient = null;
+    let html5QrScannerInstance = null;
+    let recentHpSubmissions = [];
+
+    function getTeacherQuizUrl() {
+      try {
+        const room = encodeURIComponent(activeTeacherRoom || 'REDOKS12');
+        if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+          const basePath = window.location.pathname.replace(/[^/]*$/, '');
+          return `${window.location.origin}${basePath}kuis_hp.html?room=${room}`;
+        }
+      } catch (e) {}
+      return `kuis_hp.html?room=${encodeURIComponent(activeTeacherRoom || 'REDOKS12')}`;
+    }
+
+    function openStudentHpQuizModal() {
+      const modal = document.getElementById('hpQuizConnectModalOverlay');
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      const roomInput = document.getElementById('teacherRoomInput');
+      const roomDisplay = document.getElementById('teacherDisplayRoomCode');
+      const urlInput = document.getElementById('teacherQuizUrlInput');
+
+      if (roomInput) roomInput.value = activeTeacherRoom;
+      if (roomDisplay) roomDisplay.innerText = activeTeacherRoom;
+
+      const quizUrl = getTeacherQuizUrl();
+      if (urlInput) urlInput.value = quizUrl;
+
+      // Render QR Code untuk HP Siswa
+      generateTeacherScreenQr(quizUrl);
+
+      // Render daftar siswa sesi ini
+      updateTeacherLiveFeedUI();
+    }
+
+    function closeStudentHpQuizModal() {
+      const modal = document.getElementById('hpQuizConnectModalOverlay');
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleHpConnectModalOverlayClick(e) {
+      if (e.target && e.target.id === 'hpQuizConnectModalOverlay') {
+        closeStudentHpQuizModal();
+      }
+    }
+
+    function generateTeacherScreenQr(url) {
+      const holder = document.getElementById('teacherScreenQrHolder');
+      if (!holder) return;
+      holder.innerHTML = '';
+
+      try {
+        if (typeof QRCode !== 'undefined') {
+          new QRCode(holder, {
+            text: url,
+            width: 200,
+            height: 200,
+            colorDark: '#1e1b4b',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+        } else {
+          const img = document.createElement('img');
+          img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
+          img.alt = 'QR Code Kuis HP';
+          img.style.maxWidth = '200px';
+          holder.appendChild(img);
+        }
+      } catch (err) {
+        holder.innerHTML = `<small style="color:#ef4444;">Gunakan tautan: ${escapeHtml(url)}</small>`;
+      }
+    }
+
+    function applyNewTeacherRoomCode() {
+      const input = document.getElementById('teacherRoomInput');
+      if (!input) return;
+      const val = input.value.trim().toUpperCase();
+      if (!val) {
+        alert('Harap masukkan kode sesi kelas!');
+        return;
+      }
+
+      activeTeacherRoom = val;
+      const roomDisplay = document.getElementById('teacherDisplayRoomCode');
+      if (roomDisplay) roomDisplay.innerText = activeTeacherRoom;
+
+      const quizUrl = getTeacherQuizUrl();
+      const urlInput = document.getElementById('teacherQuizUrlInput');
+      if (urlInput) urlInput.value = quizUrl;
+
+      // Re-generate QR
+      generateTeacherScreenQr(quizUrl);
+
+      // Re-subscribe MQTT
+      subscribeTeacherRoom(activeTeacherRoom);
+
+      showTeacherLiveToast(`🔑 Kode sesi diubah ke: <strong>${escapeHtml(activeTeacherRoom)}</strong>`);
+    }
+
+    function copyTeacherQuizUrl() {
+      const input = document.getElementById('teacherQuizUrlInput');
+      const url = input ? input.value : getTeacherQuizUrl();
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          showTeacherLiveToast('📋 Tautan kuis HP berhasil disalin ke clipboard!');
+        }).catch(() => {
+          prompt('Salin tautan kuis HP berikut:', url);
+        });
+      } else {
+        prompt('Salin tautan kuis HP berikut:', url);
+      }
+    }
+
+    function openStudentHpQuizNewTab() {
+      const url = getTeacherQuizUrl();
+      window.open(url, '_blank');
+    }
+
+    /* MQTT Real-time Listener untuk Guru */
+    function initTeacherMqtt() {
+      if (typeof mqtt === 'undefined') {
+        updateTeacherMqttStatus(false, 'Mode Offline (Scanner Kamera Siap)');
+        return;
+      }
+
+      const BROKERS = [
+        'wss://broker.hivemq.com:8884/mqtt',
+        'wss://broker.emqx.io:8084/mqtt'
+      ];
+
+      updateTeacherMqttStatus(false, 'Menghubungkan ke Cloud Relay...');
+
+      try {
+        const broker = BROKERS[0];
+        const clientId = 'zuloks_guru_' + Math.random().toString(16).substring(2, 10);
+
+        teacherMqttClient = mqtt.connect(broker, {
+          clientId: clientId,
+          clean: true,
+          connectTimeout: 7000,
+          reconnectPeriod: 5000
+        });
+
+        teacherMqttClient.on('connect', () => {
+          subscribeTeacherRoom(activeTeacherRoom);
+          updateTeacherMqttStatus(true, 'Sinkronisasi Cloud Real-Time Aktif');
+        });
+
+        teacherMqttClient.on('message', (topic, message) => {
+          try {
+            const payload = JSON.parse(message.toString());
+            if (payload && payload.type === 'quiz_submit') {
+              handleIncomingStudentSubmission(payload);
+            }
+          } catch (e) {
+            console.warn('Gagal memproses kiriman siswa:', e);
+          }
+        });
+
+        teacherMqttClient.on('error', (err) => {
+          updateTeacherMqttStatus(false, 'Koneksi Cloud Terputus (Gunakan Scan QR)');
+        });
+
+        teacherMqttClient.on('close', () => {
+          updateTeacherMqttStatus(false, 'Terputus dari Broker');
+        });
+      } catch (err) {
+        updateTeacherMqttStatus(false, 'Mode Offline');
+      }
+    }
+
+    function subscribeTeacherRoom(room) {
+      if (!teacherMqttClient || !teacherMqttClient.connected) return;
+      const topic = `zuloks/quiz/${(room || 'REDOKS12').toLowerCase()}`;
+      teacherMqttClient.subscribe(topic, { qos: 1 });
+    }
+
+    function updateTeacherMqttStatus(isOnline, text) {
+      const dot = document.getElementById('teacherMqttDot');
+      const statusText = document.getElementById('teacherMqttStatusText');
+      const liveBadge = document.getElementById('teacherCloudLiveBadge');
+
+      if (dot) dot.style.background = isOnline ? '#10b981' : '#f59e0b';
+      if (statusText) statusText.innerText = text;
+      if (liveBadge) {
+        liveBadge.style.background = isOnline ? '#10b981' : '#d97706';
+        liveBadge.innerText = isOnline ? '● LIVE SINKRONISASI' : '○ MODE OFFLINE';
+      }
+    }
+
+    function handleIncomingStudentSubmission(payload) {
+      // Siapkan objek data lengkap siswa
+      const entry = {
+        id: payload.id || 'std_' + Date.now(),
+        name: payload.name || 'Siswa',
+        studentClass: payload.studentClass || 'XII',
+        absen: payload.absen || '-',
+        dateStr: payload.dateStr || new Date().toLocaleDateString('id-ID', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        }),
+        score: Number(payload.score) || 0,
+        correctCount: Number(payload.correctCount) || 0,
+        incorrectCount: Number(payload.incorrectCount) || 0,
+        totalQuestions: Number(payload.totalQuestions) || quizData.length,
+        statusKetuntasan: payload.statusKetuntasan || (payload.score >= 75 ? 'TUNTAS SEMPURNA' : 'REMEDIAL'),
+        predikat: payload.predikat || (payload.score >= 75 ? 'BAIK (B)' : 'CUKUP (C)'),
+        answers: Array.isArray(payload.answers) ? payload.answers : []
+      };
+
+      // Simpan ke database guru
+      saveQuizResultToTeacherDatabase(entry);
+
+      // Render ulang statistik & tabel rekapan secara instan
+      renderTeacherDashboard();
+
+      // Putar audio notifikasi berhasil
+      playSuccessSound();
+
+      // Tambahkan ke riwayat feed
+      recentHpSubmissions.unshift(entry);
+      updateTeacherLiveFeedUI();
+
+      // Tampilkan toast notifikasi di layar
+      showTeacherLiveToast(`🎉 <strong>Hasil Masuk dari HP:</strong><br>${escapeHtml(entry.name)} (${escapeHtml(entry.studentClass)}) &bull; Skor: <strong>${entry.score}</strong>`);
+    }
+
+    function updateTeacherLiveFeedUI() {
+      const counter = document.getElementById('liveFeedCounter');
+      const list = document.getElementById('liveFeedList');
+      if (counter) counter.innerText = `${recentHpSubmissions.length} Siswa`;
+
+      if (!list) return;
+      if (recentHpSubmissions.length === 0) {
+        list.innerHTML = '<em>Menunggu siswa menyelesaikan kuis dari HP...</em>';
+        return;
+      }
+
+      let html = '<div style="display:flex; flex-direction:column; gap:6px;">';
+      recentHpSubmissions.slice(0, 8).forEach(s => {
+        html += `
+          <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="color: #1e1b4b;">${escapeHtml(s.name)}</strong>
+              <small style="color: #64748b; margin-left: 6px;">(${escapeHtml(s.studentClass)})</small>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; color: ${s.score >= 75 ? '#059669' : '#dc2626'}; font-size: 0.95rem;">${s.score}</span>
+              <span style="font-size: 0.72rem; background: #e0f2fe; color: #0369a1; padding: 2px 6px; border-radius: 4px;">✓ Masuk</span>
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+      list.innerHTML = html;
+    }
+
+    let toastTimer = null;
+    function showTeacherLiveToast(htmlContent) {
+      const toast = document.getElementById('teacherLiveToast');
+      const content = document.getElementById('teacherLiveToastContent');
+      if (!toast || !content) return;
+
+      content.innerHTML = htmlContent;
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.style.transform = 'translateY(-120px)';
+        toast.style.opacity = '0';
+      }, 4500);
+    }
+
+    /* SCANNER KAMERA UNTUK QR CODE HP SISWA (OFFLINE) */
+    function openCameraScannerModal() {
+      const modal = document.getElementById('cameraScannerModalOverlay');
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      const fb = document.getElementById('scannerFeedbackMsg');
+      if (fb) fb.style.display = 'none';
+
+      startCameraScanner();
+    }
+
+    function closeCameraScannerModal() {
+      stopCameraScanner();
+      const modal = document.getElementById('cameraScannerModalOverlay');
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleCameraScannerOverlayClick(e) {
+      if (e.target && e.target.id === 'cameraScannerModalOverlay') {
+        closeCameraScannerModal();
+      }
+    }
+
+    function startCameraScanner() {
+      if (typeof Html5Qrcode === 'undefined') {
+        alert('Pustaka pemindai kamera belum siap. Pastikan browser mendukung kamera.');
+        return;
+      }
+
+      const viewId = 'cameraScannerView';
+      try {
+        html5QrScannerInstance = new Html5Qrcode(viewId);
+        html5QrScannerInstance.start(
+          { facingMode: 'environment' },
+          {
+            fps: 10,
+            qrbox: { width: 250, height: 250 }
+          },
+          (decodedText) => {
+            handleScannedStudentQr(decodedText);
+          },
+          () => {} // abaikan frame tanpa QR
+        ).catch(err => {
+          const viewEl = document.getElementById(viewId);
+          if (viewEl) {
+            viewEl.innerHTML = `
+              <div style="padding: 20px; text-align: center;">
+                <div style="font-size: 32px; margin-bottom: 8px;">📷❌</div>
+                <div style="font-weight: 700; margin-bottom: 6px;">Tidak dapat mengakses kamera</div>
+                <small style="opacity: 0.8;">Izinkan akses kamera di peramban Anda, atau gunakan tombol 'Tempel Token'.</small>
+              </div>
+            `;
+          }
+        });
+      } catch (e) {
+        console.warn('Gagal menginisialisasi kamera:', e);
+      }
+    }
+
+    function stopCameraScanner() {
+      if (html5QrScannerInstance) {
+        try {
+          html5QrScannerInstance.stop().then(() => {
+            html5QrScannerInstance.clear();
+            html5QrScannerInstance = null;
+          }).catch(() => {
+            html5QrScannerInstance = null;
+          });
+        } catch (e) {
+          html5QrScannerInstance = null;
+        }
+      }
+    }
+
+    let lastScannedId = '';
+    let lastScanTime = 0;
+
+    function handleScannedStudentQr(decodedText) {
+      const now = Date.now();
+      if (now - lastScanTime < 2500) return; // Debounce scan berturut-turut
+
+      let rawJson = decodedText.trim();
+      if (rawJson.startsWith('ZULOKS:')) {
+        rawJson = rawJson.substring(7);
+      }
+
+      try {
+        const p = JSON.parse(rawJson);
+        if (p.id && p.id === lastScannedId && now - lastScanTime < 6000) return;
+        lastScannedId = p.id;
+        lastScanTime = now;
+
+        // Rekonstruksi rincian jawaban
+        const studentAnswers = (p.ans || []).map((selectedIdx, qIdx) => {
+          const q = quizData[qIdx] || {};
+          const isCorrect = (selectedIdx === q.correct);
+          return {
+            questionIdx: qIdx,
+            question: q.question || '',
+            options: q.options || [],
+            selectedIdx: selectedIdx,
+            selectedText: q.options ? q.options[selectedIdx] : '-',
+            correctIdx: q.correct,
+            correctText: q.options ? q.options[q.correct] : '-',
+            isCorrect: isCorrect,
+            explanation: q.explanation || ''
+          };
+        });
+
+        const entry = {
+          id: p.id || 'std_' + Date.now(),
+          name: p.n || 'Siswa',
+          studentClass: p.c || 'XII',
+          absen: p.a || '-',
+          dateStr: new Date().toLocaleDateString('id-ID', {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+          }),
+          score: Number(p.s) || 0,
+          correctCount: Number(p.ok) || 0,
+          incorrectCount: (p.tot || 8) - (p.ok || 0),
+          totalQuestions: p.tot || 8,
+          statusKetuntasan: (p.s >= 75) ? 'TUNTAS SEMPURNA' : 'REMEDIAL',
+          predikat: (p.s >= 85) ? 'SANGAT BAIK (A)' : ((p.s >= 75) ? 'BAIK (B)' : 'CUKUP (C)'),
+          answers: studentAnswers
+        };
+
+        saveQuizResultToTeacherDatabase(entry);
+        renderTeacherDashboard();
+        playSuccessSound();
+
+        const fb = document.getElementById('scannerFeedbackMsg');
+        if (fb) {
+          fb.style.display = 'block';
+          fb.style.background = '#d1fae5';
+          fb.style.color = '#065f46';
+          fb.style.border = '1.5px solid #a7f3d0';
+          fb.innerHTML = `✅ <strong>Berhasil Disimpan:</strong> ${escapeHtml(entry.name)} (${escapeHtml(entry.studentClass)}) &bull; Skor: <strong>${entry.score}</strong>`;
+        }
+
+        showTeacherLiveToast(`📷 <strong>Hasil QR Disimpan:</strong><br>${escapeHtml(entry.name)} (${escapeHtml(entry.studentClass)}) &bull; Skor: <strong>${entry.score}</strong>`);
+      } catch (err) {
+        console.warn('Format QR siswa tidak dikenali:', err);
+      }
+    }
+
+    /* MODAL TEMPEL TOKEN HASIL SISWA */
+    function openPasteTokenModal() {
+      const modal = document.getElementById('pasteTokenModalOverlay');
+      const input = document.getElementById('pasteTokenInput');
+      const err = document.getElementById('pasteTokenError');
+      if (input) input.value = '';
+      if (err) err.style.display = 'none';
+
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closePasteTokenModal() {
+      const modal = document.getElementById('pasteTokenModalOverlay');
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handlePasteTokenOverlayClick(e) {
+      if (e.target && e.target.id === 'pasteTokenModalOverlay') {
+        closePasteTokenModal();
+      }
+    }
+
+    function processPastedToken() {
+      const input = document.getElementById('pasteTokenInput');
+      const err = document.getElementById('pasteTokenError');
+      if (!input) return;
+
+      let val = input.value.trim();
+      if (val.startsWith('ZULOKS:')) {
+        val = val.substring(7);
+      }
+
+      try {
+        const p = JSON.parse(val);
+        if (!p.n && !p.name) {
+          if (err) err.style.display = 'block';
+          return;
+        }
+
+        const name = p.n || p.name;
+        const sClass = p.c || p.studentClass || 'XII';
+        const absen = p.a || p.absen || '-';
+        const score = Number(p.s !== undefined ? p.s : p.score) || 0;
+        const ok = Number(p.ok !== undefined ? p.ok : p.correctCount) || 0;
+        const tot = Number(p.tot !== undefined ? p.tot : p.totalQuestions) || 8;
+
+        const studentAnswers = (p.ans || p.answers || []).map((ansItem, qIdx) => {
+          const q = quizData[qIdx] || {};
+          const selectedIdx = typeof ansItem === 'number' ? ansItem : (ansItem.selectedIdx || 0);
+          const isCorrect = (selectedIdx === q.correct);
+          return {
+            questionIdx: qIdx,
+            question: q.question || '',
+            options: q.options || [],
+            selectedIdx: selectedIdx,
+            selectedText: q.options ? q.options[selectedIdx] : '-',
+            correctIdx: q.correct,
+            correctText: q.options ? q.options[q.correct] : '-',
+            isCorrect: isCorrect,
+            explanation: q.explanation || ''
+          };
+        });
+
+        const entry = {
+          id: p.id || 'std_' + Date.now(),
+          name: name,
+          studentClass: sClass,
+          absen: absen,
+          dateStr: new Date().toLocaleDateString('id-ID', {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+          }),
+          score: score,
+          correctCount: ok,
+          incorrectCount: tot - ok,
+          totalQuestions: tot,
+          statusKetuntasan: score >= 75 ? 'TUNTAS SEMPURNA' : 'REMEDIAL',
+          predikat: score >= 85 ? 'SANGAT BAIK (A)' : (score >= 75 ? 'BAIK (B)' : 'CUKUP (C)'),
+          answers: studentAnswers
+        };
+
+        saveQuizResultToTeacherDatabase(entry);
+        renderTeacherDashboard();
+        playSuccessSound();
+        closePasteTokenModal();
+        showTeacherLiveToast(`📋 <strong>Token Berhasil Diimpor:</strong><br>${escapeHtml(entry.name)} (${escapeHtml(entry.studentClass)}) &bull; Skor: <strong>${entry.score}</strong>`);
+      } catch (e) {
+        if (err) err.style.display = 'block';
+      }
+    }
+
+
+    /* ========================================================
        10. INITIALIZATION & RESIZE LISTENERS
        ======================================================== */
     window.addEventListener('resize', () => {
@@ -7905,6 +8670,7 @@
       drawRefPick();
       drawRefWall();
       renderTeacherDashboard();
+      initTeacherMqtt();
 
       // Inisialisasi identitas siswa tersimpan untuk kuis individu
       try {

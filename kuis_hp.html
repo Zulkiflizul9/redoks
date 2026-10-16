@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Kuis Individu Kimia Redoks - HP Siswa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4338ca;
+      --primary-light: #6366f1;
+      --primary-dark: #312e81;
+      --secondary: #0ea5e9;
+      --success: #059669;
+      --success-light: #d1fae5;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --dark: #0f172a;
+      --gray: #64748b;
+      --light-gray: #f1f5f9;
+      --border: #e2e8f0;
+      --card-bg: #ffffff;
+      --font-display: 'Bricolage Grotesque', sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+      --shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.08), 0 4px 8px -4px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 16px 32px -6px rgba(67, 56, 202, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      padding-bottom: 30px;
+    }
+
+    /* TOP APP BAR */
+    .app-header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .app-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #4338ca, #3b82f6);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(67, 56, 202, 0.3);
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #1e1b4b;
+      line-height: 1.15;
+    }
+
+    .brand-text p {
+      font-size: 0.72rem;
+      color: var(--gray);
+      font-weight: 600;
+    }
+
+    .header-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cloud-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      transition: all 0.3s ease;
+    }
+
+    .cloud-pill.connecting {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fde68a;
+    }
+
+    .cloud-pill.disconnected {
+      background: #fee2e2;
+      color: #991b1b;
+      border-color: #fecaca;
+    }
+
+    .cloud-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      display: inline-block;
+    }
+
+    .cloud-pill.connecting .cloud-dot {
+      background: #f59e0b;
+      animation: pulse 1.2s infinite;
+    }
+
+    .cloud-pill.disconnected .cloud-dot {
+      background: #ef4444;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    .sound-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* MAIN CONTAINER */
+    .main-wrap {
+      width: 100%;
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 16px;
+      flex: 1;
+    }
+
+    /* CARD STYLES */
+    .quiz-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    /* STEP 1: FORM IDENTITAS */
+    .id-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .id-icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #4338ca, #3b82f6);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      margin-bottom: 10px;
+      box-shadow: 0 6px 18px rgba(67, 56, 202, 0.28);
+    }
+
+    .id-header h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #1e1b4b;
+      margin-bottom: 4px;
+    }
+
+    .id-header p {
+      font-size: 0.84rem;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .form-label span {
+      color: var(--danger);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: #1e293b;
+      background: #f8fafc;
+      transition: all 0.2s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.12);
+    }
+
+    .room-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .room-badge-preset {
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 0.76rem;
+      font-weight: 800;
+      border: 1px solid #c7d2fe;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .error-alert {
+      display: none;
+      background: var(--danger-light);
+      border-left: 4px solid var(--danger);
+      color: #991b1b;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .btn-submit-main {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #1e1b4b, #4338ca);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 800;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(67, 56, 202, 0.35);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-submit-main:active {
+      transform: scale(0.98);
+    }
+
+    /* STEP 2: PENGERJAAN SOAL */
+    .student-bar {
+      background: #eef2ff;
+      border: 1px solid #c7d2fe;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #312e81;
+    }
+
+    .student-bar-info {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .quiz-progress-track {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .quiz-progress-bar {
+      background: linear-gradient(90deg, #4338ca, #06b6d4);
+      height: 100%;
+      width: 12.5%;
+      border-radius: 10px;
+      transition: width 0.35s ease;
+    }
+
+    .soal-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .soal-tag {
+      background: #f1f5f9;
+      color: #475569;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .soal-count-tag {
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 0.84rem;
+    }
+
+    .question-box {
+      font-size: 0.98rem;
+      font-weight: 600;
+      line-height: 1.55;
+      color: #0f172a;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      white-space: pre-line;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .opt-btn {
+      width: 100%;
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: left;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: all 0.2s ease;
+      line-height: 1.4;
+    }
+
+    .opt-btn:active {
+      transform: scale(0.99);
+    }
+
+    .opt-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: #475569;
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .opt-btn.correct {
+      background: #f0fdf4 !important;
+      border-color: #22c55e !important;
+      color: #15803d !important;
+    }
+
+    .opt-btn.correct .opt-letter {
+      background: #22c55e !important;
+      color: white !important;
+    }
+
+    .opt-btn.incorrect {
+      background: #fef2f2 !important;
+      border-color: #ef4444 !important;
+      color: #b91c1c !important;
+    }
+
+    .opt-btn.incorrect .opt-letter {
+      background: #ef4444 !important;
+      color: white !important;
+    }
+
+    .opt-btn.disabled {
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .feedback-box {
+      display: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin-bottom: 16px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .feedback-box.correct {
+      background: #ecfdf5;
+      border: 1.5px solid #a7f3d0;
+      color: #065f46;
+    }
+
+    .feedback-box.incorrect {
+      background: #fee2e2;
+      border: 1.5px solid #fecaca;
+      color: #991b1b;
+    }
+
+    .feedback-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-next {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #1e1b4b, #4338ca);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.98rem;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(67, 56, 202, 0.35);
+    }
+
+    /* STEP 3: HASIL AKHIR & SINKRONISASI */
+    .result-modal {
+      text-align: center;
+    }
+
+    .result-trophy {
+      font-size: 60px;
+      line-height: 1;
+      margin-bottom: 8px;
+      animation: bounce 0.6s ease;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .result-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #1e1b4b;
+      margin-bottom: 4px;
+    }
+
+    .result-sub {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 14px;
+    }
+
+    .score-circle {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+      border: 4px solid var(--primary-light);
+      margin: 0 auto 12px;
+      box-shadow: 0 8px 20px rgba(67, 56, 202, 0.15);
+    }
+
+    .score-num {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .score-denom {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gray);
+      text-transform: uppercase;
+    }
+
+    .kktp-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    /* KARTU SINKRONISASI KE GURU */
+    .sync-card {
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+      text-align: left;
+      border: 1.5px solid #a7f3d0;
+      background: #f0fdf4;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sync-card.error {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .sync-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sync-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #065f46;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sync-card.error .sync-title {
+      color: #991b1b;
+    }
+
+    .sync-details {
+      font-size: 0.8rem;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    .sync-action-btn {
+      align-self: flex-start;
+      background: #059669;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .sync-card.error .sync-action-btn {
+      background: #dc2626;
+    }
+
+    /* QR CODE REKAP CONTAINER */
+    .qr-recap-box {
+      background: #f8fafc;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .qr-recap-box h4 {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .qr-recap-box p {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    .qr-canvas-holder {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .qr-canvas-holder img,
+    .qr-canvas-holder canvas {
+      border: 4px solid white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      max-width: 180px;
+      max-height: 180px;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .action-btn {
+      padding: 11px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1.5px solid var(--border);
+      background: white;
+      color: #1e293b;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:active {
+      transform: scale(0.98);
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(135deg, #1e1b4b, #4338ca);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 12px rgba(67, 56, 202, 0.25);
+    }
+
+    .action-btn.whatsapp {
+      background: #25d366;
+      color: white;
+      border: none;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+    }
+
+    /* ACCORDION REVIEW SOAL */
+    .review-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .review-header h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #1e1b4b;
+    }
+
+    .review-item {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .review-item.is-correct {
+      border-left: 5px solid #10b981;
+    }
+
+    .review-item.is-incorrect {
+      border-left: 5px solid #ef4444;
+    }
+
+    .rev-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .rev-num {
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #1e1b4b;
+    }
+
+    .rev-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+
+    .rev-badge.correct {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .rev-badge.incorrect {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .rev-q {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .rev-choices {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+    }
+
+    .rev-choice-box {
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+
+    .rev-ans-user {
+      background: #fee2e2;
+      color: #991b1b;
+      font-weight: 600;
+    }
+
+    .rev-ans-user.was-correct {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .rev-ans-correct {
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 700;
+    }
+
+    .rev-exp {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    /* TOAST ALERT */
+    .toast-msg {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1e1b4b;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      z-index: 999;
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* PRINT HIDDEN */
+    @media print {
+      .app-header, .actions-grid, .btn-next, .btn-submit-main, .student-bar button {
+        display: none !important;
+      }
+      body {
+        background: white;
+      }
+      .quiz-card {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+    }
+  </style>
+
+  <!-- VENDOR LIBRARIES (OFFLINE LOCAL WITH CDN FALLBACK) -->
+  <script src="qrcode.min.js"></script>
+  <script>
+    if (typeof QRCode === 'undefined') {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+      document.head.appendChild(s);
+    }
+  </script>
+  <script src="mqtt.min.js"></script>
+  <script>
+    if (typeof mqtt === 'undefined') {
+      const s = document.createElement('script');
+      s.src = 'https://unpkg.com/mqtt/dist/mqtt.min.js';
+      document.head.appendChild(s);
+    }
+  </script>
+</head>
+<body>
+
+  <!-- TOP APP BAR -->
+  <header class="app-header">
+    <div class="app-brand">
+      <div class="brand-icon">🧪</div>
+      <div class="brand-text">
+        <h1>ZULOKS CHEM</h1>
+        <p>Kuis Individu HP &bull; Kelas 12</p>
+      </div>
+    </div>
+    <div class="header-pills">
+      <div class="cloud-pill" id="cloudStatusPill" title="Status koneksi sinkronisasi ke rekapan guru">
+        <span class="cloud-dot"></span>
+        <span id="cloudStatusText">Siap</span>
+      </div>
+      <button class="sound-btn" id="soundToggleBtn" onclick="toggleSound()" title="Aktifkan / Matikan Suara">
+        🔔
+      </button>
+    </div>
+  </header>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toastEl" class="toast-msg">
+    <span id="toastIcon">📋</span>
+    <span id="toastText">Berhasil menyalin!</span>
+  </div>
+
+  <div class="main-wrap">
+
+    <!-- ============================================== -->
+    <!-- 1. TAMPILAN PENGISIAN IDENTITAS                -->
+    <!-- ============================================== -->
+    <div id="screenIdentity" class="quiz-card">
+      <div class="id-header">
+        <div class="id-icon-circle">📱</div>
+        <h2>Kuis Individu Mandiri</h2>
+        <p>Reaksi Redoks &amp; Penyetaraan Reaksi<br>Fase F &bull; Kelas 12 SMA</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="inputName">Nama Lengkap Siswa <span>*</span></label>
+        <input type="text" id="inputName" class="form-input" placeholder="Ketik nama lengkapmu..." autocomplete="name" required>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;" class="form-group">
+        <div>
+          <label class="form-label" for="inputClass">Kelas / Fase <span>*</span></label>
+          <input type="text" id="inputClass" class="form-input" placeholder="Contoh: XII MIPA 1" value="XII MIPA 1" required>
+        </div>
+        <div>
+          <label class="form-label" for="inputAbsen">No. Absen</label>
+          <input type="number" id="inputAbsen" class="form-input" placeholder="No" min="1" max="50">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="inputRoom">Kode Sesi / Ruang Guru <span>*</span></label>
+        <div class="room-input-wrap">
+          <input type="text" id="inputRoom" class="form-input" placeholder="Contoh: REDOKS12" value="REDOKS12" style="font-weight: 800; letter-spacing: 1px; text-transform: uppercase;" required>
+          <button type="button" class="room-badge-preset" onclick="document.getElementById('inputRoom').value='REDOKS12'">
+            Default
+          </button>
+        </div>
+        <small style="color: #64748b; font-size: 0.72rem; margin-top: 4px; display: block;">
+          💡 Samakan kode sesi dengan yang tertera di layar LCD/Laptop Guru agar hasilmu langsung masuk.
+        </small>
+      </div>
+
+      <div id="errorAlert" class="error-alert">
+        ⚠️ Harap lengkapi Nama Lengkap dan Kelas terlebih dahulu!
+      </div>
+
+      <button type="button" class="btn-submit-main" onclick="startQuiz()">
+        <span>🚀</span> Mulai Mengerjakan Kuis
+      </button>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 2. TAMPILAN PENGERJAAN SOAL (8 BUTIR SOAL)    -->
+    <!-- ============================================== -->
+    <div id="screenQuestion" class="quiz-card" style="display: none;">
+      <!-- Active Student Bar -->
+      <div class="student-bar">
+        <div class="student-bar-info">
+          <span>👤</span>
+          <span id="barStudentName">-</span>
+          <span style="opacity: 0.4;">|</span>
+          <span id="barStudentClass">-</span>
+        </div>
+        <span style="background: white; padding: 2px 8px; border-radius: 6px; font-size: 0.72rem; border: 1px solid #c7d2fe;" id="barRoomCode">
+          Sesi: REDOKS12
+        </span>
+      </div>
+
+      <!-- Progress Track -->
+      <div class="quiz-progress-track">
+        <div class="quiz-progress-bar" id="progressBar"></div>
+      </div>
+
+      <div class="soal-meta">
+        <span class="soal-tag">Kimia Redoks</span>
+        <span class="soal-count-tag" id="soalCountLabel">Soal 1 / 8</span>
+      </div>
+
+      <!-- Question Text -->
+      <div class="question-box" id="questionText">
+        Memuat soal...
+      </div>
+
+      <!-- Options List -->
+      <div class="options-list" id="optionsContainer">
+        <!-- Buttons generated via JS -->
+      </div>
+
+      <!-- Feedback Box -->
+      <div class="feedback-box" id="feedbackBox">
+        <div class="feedback-title" id="feedbackTitle">Jawaban Benar!</div>
+        <div id="feedbackText">Pembahasan...</div>
+      </div>
+
+      <!-- Next Button -->
+      <button type="button" class="btn-next" id="btnNext" onclick="nextQuestion()">
+        Soal Selanjutnya &rarr;
+      </button>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 3. TAMPILAN HASIL AKHIR & SINKRONISASI GURU    -->
+    <!-- ============================================== -->
+    <div id="screenResult" class="quiz-card result-modal" style="display: none;">
+      <div class="result-trophy" id="resTrophy">🏆</div>
+      <h2 class="result-title" id="resTitle">Luar Biasa!</h2>
+      <p class="result-sub" id="resSub">Kamu telah menyelesaikan kuis individu reaksi redoks!</p>
+
+      <div class="score-circle">
+        <div class="score-num" id="resScoreVal">100</div>
+        <div class="score-denom">SKOR AKHIR</div>
+      </div>
+
+      <div>
+        <span class="kktp-badge" id="resKktpBadge" style="background: #d1fae5; color: #065f46;">
+          TUNTAS SEMPURNA &bull; SANGAT BAIK (A)
+        </span>
+      </div>
+
+      <!-- KARTU STATUS SINKRONISASI KE GURU -->
+      <div class="sync-card" id="syncStatusCard">
+        <div class="sync-header">
+          <div class="sync-title" id="syncTitle">
+            <span>📡</span> <span>Mengirim ke Rekapan Guru...</span>
+          </div>
+          <button class="sync-action-btn" id="syncRetryBtn" onclick="sendResultToTeacherCloud(true)">
+            Kirim Ulang
+          </button>
+        </div>
+        <div class="sync-details" id="syncDetails">
+          Menghubungkan ke ruang kelas <strong id="syncRoomLabel">REDOKS12</strong>...
+        </div>
+      </div>
+
+      <!-- QR CODE HASIL PENGERJAAN SISWA (UNTUK SCAN KAMERA GURU) -->
+      <div class="qr-recap-box">
+        <h4>📷 QR Code Hasil Pengerjaan Siswa</h4>
+        <p>Tunjukkan QR ini ke Guru jika menggunakan scanner kamera guru di kelas (bebas kuota / offline):</p>
+        <div class="qr-canvas-holder" id="qrResultHolder"></div>
+        <div style="font-size: 0.72rem; color: #64748b; font-weight: 600;" id="qrSubText">
+          Kode ID: <span id="qrStudentId">-</span>
+        </div>
+      </div>
+
+      <!-- TOMBOL-TOMBOL AKSI -->
+      <div class="actions-grid">
+        <button type="button" class="action-btn" onclick="copyResultToken()">
+          <span>📋</span> Salin Token Hasil
+        </button>
+        <button type="button" class="action-btn whatsapp" onclick="shareViaWhatsApp()">
+          <span>💬</span> Kirim via WA Guru
+        </button>
+        <button type="button" class="action-btn" onclick="window.print()">
+          <span>🖨️</span> Cetak / Simpan PDF
+        </button>
+        <button type="button" class="action-btn primary" onclick="restartQuiz()">
+          <span>🔄</span> Kerjakan Ulang
+        </button>
+      </div>
+
+      <!-- REVIEW RINCI SELURUH SOAL & PEMBAHASAN -->
+      <div class="review-header">
+        <h3>📋 Pembahasan Lengkap (8 Butir Soal)</h3>
+        <span style="font-size: 0.78rem; color: var(--gray); font-weight: 700;" id="reviewScoreCount">
+          8 Terjawab
+        </span>
+      </div>
+      <div id="reviewListContainer">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    /* ========================================================
+       1. DATA SOAL KUIS (IDENTIK DENGAN PORTAL UTAMA)
+       ======================================================== */
+    const quizData = [
+      {
+        question: "Perhatikan reaksi redoks berikut:\nCu(s) + 4HNO₃(aq) → Cu(NO₃)₂(aq) + 2NO₂(g) + 2H₂O(l)\nZat yang bertindak sebagai Oksidator dan Hasil Oksidasi berturut-turut adalah...",
+        options: [
+          "Cu dan Cu(NO₃)₂",
+          "HNO₃ dan Cu(NO₃)₂",
+          "HNO₃ dan NO₂",
+          "Cu dan NO₂",
+          "Cu(NO₃)₂ dan H₂O"
+        ],
+        correct: 1,
+        explanation: "Oksidator adalah zat pereaksi yang mengalami reduksi (HNO₃, karena N turun dari +5 ke +4). Hasil oksidasi adalah zat di ruas kanan dari zat yang teroksidasi (Cu(NO₃)₂)."
+      },
+      {
+        question: "Berapa mol elektron yang dibutuhkan untuk mereduksi 1 mol ion dikromat (Cr₂O₇²⁻) menjadi ion Cr³⁺ dalam suasana asam?",
+        options: [
+          "2 mol elektron",
+          "3 mol elektron",
+          "5 mol elektron",
+          "6 mol elektron",
+          "14 mol elektron"
+        ],
+        correct: 3,
+        explanation: "Pada Cr₂O₇²⁻, biloks total 2Cr adalah 2(+6) = +12. Pada 2Cr³⁺, biloks total adalah 2(+3) = +6. Perubahan biloks = 12 - 6 = 6. Persamaan setengah reaksinya: Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O (Dibutuhkan 6 mol elektron)."
+      },
+      {
+        question: "Reaksi berikut yang merupakan reaksi autoredoks (disproporsionasi) adalah...",
+        options: [
+          "Zn + 2HCl → ZnCl₂ + H₂",
+          "2H₂S + SO₂ → 3S + 2H₂O",
+          "Cl₂ + 2NaOH → NaCl + NaClO + H₂O",
+          "AgNO₃ + NaCl → AgCl + NaNO₃",
+          "CuO + H₂ → Cu + H₂O"
+        ],
+        correct: 2,
+        explanation: "Pada reaksi Cl₂ + 2NaOH → NaCl + NaClO + H₂O, atom klorin pada Cl₂ (biloks 0) mengalami reduksi menjadi NaCl (-1) sekaligus oksidasi menjadi NaClO (+1)."
+      },
+      {
+        question: "Bilangan oksidasi atom oksigen bernilai -1 pada senyawa...",
+        options: [
+          "H₂O",
+          "OF₂",
+          "BaO₂",
+          "KO₂",
+          "CO₂"
+        ],
+        correct: 2,
+        explanation: "BaO₂ (Barium peroksida) merupakan senyawa peroksida di mana Ba memiliki biloks +2 sehingga masing-masing atom O memiliki biloks -1."
+      },
+      {
+        question: "Pada persamaan reaksi redoks berikut (suasana asam):\na MnO₄⁻ + b Fe²⁺ + c H⁺ → d Mn²⁺ + e Fe³⁺ + f H₂O\nNilai koefisien a, b, dan c berturut-turut adalah...",
+        options: [
+          "1, 5, dan 8",
+          "2, 5, dan 16",
+          "1, 2, dan 4",
+          "2, 10, dan 8",
+          "1, 6, dan 14"
+        ],
+        correct: 0,
+        explanation: "Persamaan setaranya adalah: 1MnO₄⁻ + 5Fe²⁺ + 8H⁺ → 1Mn²⁺ + 5Fe³⁺ + 4H₂O. Maka a = 1, b = 5, dan c = 8."
+      },
+      {
+        question: "Pada penyetaraan reaksi redoks metode ion-elektron dalam suasana BASA, jika ruas kiri kelebihan 2 atom oksigen, maka yang harus ditambahkan adalah...",
+        options: [
+          "2 ion H⁺ di ruas kiri",
+          "2 molekul H₂O di ruas kiri dan 4 ion OH⁻ di ruas kanan",
+          "2 ion OH⁻ di ruas kiri",
+          "1 molekul H₂O di ruas kanan",
+          "4 ion H⁺ di ruas kanan"
+        ],
+        correct: 1,
+        explanation: "Aturan suasana basa: ruas yang kelebihan atom oksigen ditambah molekul H₂O sebanyak kelebihannya (2H₂O), dan ruas yang berlawanan ditambah ion OH⁻ sebanyak dua kali lipatnya (4OH⁻)."
+      },
+      {
+        question: "Reaksi: 2H₂S + SO₂ → 3S + 2H₂O digolongkan sebagai reaksi...",
+        options: [
+          "Disproporsionasi",
+          "Konproporsionasi",
+          "Pengendapan murni",
+          "Bukan reaksi redoks",
+          "Netralisasi asam-basa"
+        ],
+        correct: 1,
+        explanation: "Reaksi ini adalah konproporsionasi karena dua reaktan yang memiliki biloks berbeda (H₂S: S = -2 dan SO₂: S = +4) bereaksi menghasilkan produk dengan biloks yang sama (S bebas = 0)."
+      },
+      {
+        question: "Sebanyak 0,2 mol ion permanganat (MnO₄⁻) direaksikan dengan ion Fe²⁺ berlebih dalam suasana asam. Jumlah mol ion Fe²⁺ yang teroksidasi adalah...",
+        options: [
+          "0,2 mol",
+          "0,4 mol",
+          "0,5 mol",
+          "1,0 mol",
+          "2,0 mol"
+        ],
+        correct: 3,
+        explanation: "Berdasarkan perbandingan koefisien reaksi setara: 1MnO₄⁻ sebanding dengan 5Fe²⁺. Maka mol Fe²⁺ yang teroksidasi = 5 × 0,2 mol = 1,0 mol."
+      }
+    ];
+
+    /* ========================================================
+       2. STATE & AUDIO SYNTHESIS
+       ======================================================== */
+    let currentIdx = 0;
+    let userAnswers = [];
+    let isAnswered = false;
+    let studentData = {
+      id: '',
+      name: '',
+      studentClass: '',
+      absen: '',
+      room: 'REDOKS12',
+      dateStr: '',
+      score: 0,
+      correctCount: 0,
+      incorrectCount: 0,
+      totalQuestions: 8,
+      statusKetuntasan: '',
+      predikat: '',
+      submittedAt: 0
+    };
+
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('soundToggleBtn');
+      if (btn) btn.innerText = soundEnabled ? '🔔' : '🔕';
+      showToast(soundEnabled ? 'Suara Diaktifkan' : 'Suara Dimatikan', soundEnabled ? '🔔' : '🔕');
+    }
+
+    function playTone(freq, type = 'sine', duration = 0.15, vol = 0.1) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playSuccessSound() {
+      playTone(523.25, 'sine', 0.1, 0.12);
+      setTimeout(() => playTone(659.25, 'sine', 0.15, 0.12), 80);
+      setTimeout(() => playTone(783.99, 'sine', 0.25, 0.14), 160);
+    }
+
+    function playWrongSound() {
+      playTone(260, 'sawtooth', 0.18, 0.09);
+      setTimeout(() => playTone(200, 'sawtooth', 0.22, 0.09), 120);
+    }
+
+    function showToast(text, icon = 'ℹ️') {
+      const toast = document.getElementById('toastEl');
+      const toastText = document.getElementById('toastText');
+      const toastIcon = document.getElementById('toastIcon');
+      if (!toast) return;
+      toastText.innerText = text;
+      toastIcon.innerText = icon;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    /* ========================================================
+       3. MQTT REALTIME CLOUD SYNC
+       ======================================================== */
+    let mqttClient = null;
+    let isMqttConnected = false;
+    const BROKERS = [
+      'wss://broker.hivemq.com:8884/mqtt',
+      'wss://broker.emqx.io:8084/mqtt'
+    ];
+    let currentBrokerIdx = 0;
+
+    function initMqtt() {
+      if (typeof mqtt === 'undefined') {
+        updateCloudStatus('offline', 'Offline');
+        return;
+      }
+
+      updateCloudStatus('connecting', 'Koneksi...');
+
+      try {
+        const brokerUrl = BROKERS[currentBrokerIdx];
+        const clientId = 'zuloks_student_' + Math.random().toString(16).substring(2, 10);
+        
+        mqttClient = mqtt.connect(brokerUrl, {
+          clientId: clientId,
+          clean: true,
+          connectTimeout: 7000,
+          reconnectPeriod: 5000
+        });
+
+        mqttClient.on('connect', () => {
+          isMqttConnected = true;
+          updateCloudStatus('online', 'Terhubung');
+        });
+
+        mqttClient.on('error', (err) => {
+          console.warn('MQTT Error:', err);
+          isMqttConnected = false;
+          tryNextBroker();
+        });
+
+        mqttClient.on('close', () => {
+          isMqttConnected = false;
+          updateCloudStatus('disconnected', 'Terputus');
+        });
+      } catch (e) {
+        updateCloudStatus('offline', 'Offline');
+      }
+    }
+
+    function tryNextBroker() {
+      if (currentBrokerIdx < BROKERS.length - 1) {
+        currentBrokerIdx++;
+        setTimeout(initMqtt, 1500);
+      }
+    }
+
+    function updateCloudStatus(state, text) {
+      const pill = document.getElementById('cloudStatusPill');
+      const txt = document.getElementById('cloudStatusText');
+      if (!pill || !txt) return;
+
+      pill.className = 'cloud-pill';
+      if (state === 'connecting') pill.classList.add('connecting');
+      else if (state === 'disconnected' || state === 'offline') pill.classList.add('disconnected');
+
+      txt.innerText = text;
+    }
+
+    function sendResultToTeacherCloud(isManualRetry = false) {
+      const syncCard = document.getElementById('syncStatusCard');
+      const syncTitle = document.getElementById('syncTitle');
+      const syncDetails = document.getElementById('syncDetails');
+      const syncRetryBtn = document.getElementById('syncRetryBtn');
+
+      if (syncCard) syncCard.className = 'sync-card';
+      if (syncTitle) syncTitle.innerHTML = '<span>📡</span> <span>Mengirim ke Rekapan Guru...</span>';
+      if (syncDetails) syncDetails.innerText = `Menghubungkan ke ruang ${studentData.room}...`;
+      if (syncRetryBtn) syncRetryBtn.style.display = 'none';
+
+      const payload = {
+        type: 'quiz_submit',
+        id: studentData.id,
+        name: studentData.name,
+        studentClass: studentData.studentClass,
+        absen: studentData.absen,
+        room: studentData.room,
+        dateStr: studentData.dateStr,
+        score: studentData.score,
+        correctCount: studentData.correctCount,
+        incorrectCount: studentData.incorrectCount,
+        totalQuestions: studentData.totalQuestions,
+        statusKetuntasan: studentData.statusKetuntasan,
+        predikat: studentData.predikat,
+        answers: studentData.answers,
+        submittedAt: Date.now()
+      };
+
+      const topic = `zuloks/quiz/${studentData.room.toLowerCase()}`;
+
+      if (mqttClient && isMqttConnected) {
+        mqttClient.publish(topic, JSON.stringify(payload), { qos: 1 }, (err) => {
+          if (!err) {
+            handleSyncSuccess();
+          } else {
+            handleSyncError(err.message);
+          }
+        });
+      } else {
+        // Coba koneksikan ulang lalu kirim
+        try {
+          const brokerUrl = BROKERS[0];
+          const tempClient = mqtt.connect(brokerUrl, {
+            clientId: 'zuloks_temp_' + Math.random().toString(16).substring(2, 8),
+            connectTimeout: 5000
+          });
+          tempClient.on('connect', () => {
+            tempClient.publish(topic, JSON.stringify(payload), { qos: 1 }, (err) => {
+              tempClient.end();
+              if (!err) handleSyncSuccess();
+              else handleSyncError(err.message);
+            });
+          });
+          tempClient.on('error', (err) => {
+            tempClient.end();
+            handleSyncError('Koneksi internet bermasalah');
+          });
+          setTimeout(() => {
+            if (!isSyncSuccessful) handleSyncError('Batas waktu pengiriman habis');
+          }, 6000);
+        } catch (e) {
+          handleSyncError('Mode offline');
+        }
+      }
+    }
+
+    let isSyncSuccessful = false;
+
+    function handleSyncSuccess() {
+      isSyncSuccessful = true;
+      const syncCard = document.getElementById('syncStatusCard');
+      const syncTitle = document.getElementById('syncTitle');
+      const syncDetails = document.getElementById('syncDetails');
+      const syncRetryBtn = document.getElementById('syncRetryBtn');
+
+      if (syncCard) syncCard.className = 'sync-card';
+      if (syncTitle) syncTitle.innerHTML = '<span>✅</span> <span>Berhasil Terkirim ke Rekap Guru!</span>';
+      if (syncDetails) {
+        syncDetails.innerHTML = `Hasil atas nama <strong>${escapeHtml(studentData.name)}</strong> telah tersimpan di laptop/layar Guru (Sesi: ${escapeHtml(studentData.room)}).`;
+      }
+      if (syncRetryBtn) {
+        syncRetryBtn.innerText = 'Kirim Ulang';
+        syncRetryBtn.style.display = 'inline-block';
+        syncRetryBtn.style.background = '#059669';
+      }
+      showToast('Hasil berhasil terkirim ke Guru! 🎉', '✅');
+    }
+
+    function handleSyncError(reason) {
+      if (isSyncSuccessful) return;
+      const syncCard = document.getElementById('syncStatusCard');
+      const syncTitle = document.getElementById('syncTitle');
+      const syncDetails = document.getElementById('syncDetails');
+      const syncRetryBtn = document.getElementById('syncRetryBtn');
+
+      if (syncCard) syncCard.className = 'sync-card error';
+      if (syncTitle) syncTitle.innerHTML = '<span>⚠️</span> <span>Pengiriman Otomatis Tertunda</span>';
+      if (syncDetails) {
+        syncDetails.innerHTML = `Belum terhubung ke internet. Tunjukkan <strong>QR Code Hasil</strong> di bawah untuk di-scan oleh Guru, atau klik Kirim Ulang jika sudah ada koneksi.`;
+      }
+      if (syncRetryBtn) {
+        syncRetryBtn.innerText = 'Coba Kirim Ulang';
+        syncRetryBtn.style.display = 'inline-block';
+        syncRetryBtn.style.background = '#dc2626';
+      }
+    }
+
+    /* ========================================================
+       4. INISIALISASI & PARAMETER URL
+       ======================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      // Baca parameter URL jika dibuka via QR Code Guru
+      const params = new URLSearchParams(window.location.search);
+      const roomParam = params.get('room');
+      const classParam = params.get('kelas');
+      const nameParam = params.get('nama');
+
+      if (roomParam && document.getElementById('inputRoom')) {
+        document.getElementById('inputRoom').value = roomParam.trim().toUpperCase();
+      }
+      if (classParam && document.getElementById('inputClass')) {
+        document.getElementById('inputClass').value = classParam.trim();
+      }
+      if (nameParam && document.getElementById('inputName')) {
+        document.getElementById('inputName').value = nameParam.trim();
+      }
+
+      // Ambil riwayat input lokal jika ada
+      try {
+        const savedName = localStorage.getItem('zuloks_hp_name');
+        const savedClass = localStorage.getItem('zuloks_hp_class');
+        const savedAbsen = localStorage.getItem('zuloks_hp_absen');
+        if (savedName && !nameParam) document.getElementById('inputName').value = savedName;
+        if (savedClass && !classParam) document.getElementById('inputClass').value = savedClass;
+        if (savedAbsen) document.getElementById('inputAbsen').value = savedAbsen;
+      } catch (e) {}
+
+      initMqtt();
+    });
+
+    /* ========================================================
+       5. ALUR PENGERJAAN KUIS
+       ======================================================== */
+    function startQuiz() {
+      initAudio();
+      const name = document.getElementById('inputName').value.trim();
+      const sClass = document.getElementById('inputClass').value.trim();
+      const absen = document.getElementById('inputAbsen').value.trim();
+      let room = document.getElementById('inputRoom').value.trim().toUpperCase();
+      const err = document.getElementById('errorAlert');
+
+      if (!name || !sClass) {
+        if (err) err.style.display = 'block';
+        return;
+      }
+      if (err) err.style.display = 'none';
+      if (!room) room = 'REDOKS12';
+
+      studentData.id = 'std_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 6);
+      studentData.name = name;
+      studentData.studentClass = sClass;
+      studentData.absen = absen || '-';
+      studentData.room = room;
+      studentData.dateStr = new Date().toLocaleDateString('id-ID', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      try {
+        localStorage.setItem('zuloks_hp_name', name);
+        localStorage.setItem('zuloks_hp_class', sClass);
+        localStorage.setItem('zuloks_hp_absen', absen);
+        localStorage.setItem('zuloks_hp_room', room);
+      } catch (e) {}
+
+      // Update student bar info
+      document.getElementById('barStudentName').innerText = name;
+      document.getElementById('barStudentClass').innerText = sClass + (absen ? ` (${absen})` : '');
+      document.getElementById('barRoomCode').innerText = `Sesi: ${room}`;
+
+      currentIdx = 0;
+      userAnswers = [];
+
+      document.getElementById('screenIdentity').style.display = 'none';
+      document.getElementById('screenQuestion').style.display = 'block';
+      document.getElementById('screenResult').style.display = 'none';
+
+      playTone(520, 'sine', 0.1, 0.08);
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      isAnswered = false;
+      const q = quizData[currentIdx];
+      const total = quizData.length;
+
+      // Update Progress Track
+      const progressPercent = ((currentIdx + 1) / total) * 100;
+      document.getElementById('progressBar').style.width = `${progressPercent}%`;
+      document.getElementById('soalCountLabel').innerText = `Soal ${currentIdx + 1} / ${total}`;
+
+      // Set Soal Text
+      document.getElementById('questionText').innerText = q.question;
+
+      // Render Options
+      const optionsContainer = document.getElementById('optionsContainer');
+      let optHtml = '';
+      const letters = ['A', 'B', 'C', 'D', 'E'];
+
+      q.options.forEach((optText, oIdx) => {
+        optHtml += `
+          <button type="button" class="opt-btn" onclick="selectOption(${oIdx})">
+            <span class="opt-letter">${letters[oIdx]}</span>
+            <span>${escapeHtml(optText)}</span>
+          </button>
+        `;
+      });
+      optionsContainer.innerHTML = optHtml;
+
+      // Hide Feedback & Next
+      const feedback = document.getElementById('feedbackBox');
+      feedback.style.display = 'none';
+      feedback.className = 'feedback-box';
+
+      const nextBtn = document.getElementById('btnNext');
+      nextBtn.style.display = 'none';
+      nextBtn.innerHTML = (currentIdx === total - 1) ? 'Kirim &amp; Lihat Hasil Akhir &rarr;' : 'Soal Selanjutnya &rarr;';
+    }
+
+    function selectOption(selectedIdx) {
+      if (isAnswered) return;
+      isAnswered = true;
+
+      const q = quizData[currentIdx];
+      const isCorrect = (selectedIdx === q.correct);
+      const buttons = document.querySelectorAll('#optionsContainer .opt-btn');
+
+      buttons.forEach(btn => btn.classList.add('disabled'));
+
+      // Catat jawaban siswa
+      userAnswers[currentIdx] = {
+        questionIdx: currentIdx,
+        question: q.question,
+        options: q.options,
+        selectedIdx: selectedIdx,
+        selectedText: q.options[selectedIdx],
+        correctIdx: q.correct,
+        correctText: q.options[q.correct],
+        isCorrect: isCorrect,
+        explanation: q.explanation
+      };
+
+      const feedback = document.getElementById('feedbackBox');
+      const fbTitle = document.getElementById('feedbackTitle');
+      const fbText = document.getElementById('feedbackText');
+
+      if (isCorrect) {
+        if (buttons[selectedIdx]) buttons[selectedIdx].classList.add('correct');
+        feedback.className = 'feedback-box correct';
+        fbTitle.innerHTML = '<span>🎉</span> <span>Jawaban Benar!</span>';
+        fbText.innerHTML = `<strong>Penjelasan:</strong><br>${escapeHtml(q.explanation)}`;
+        playSuccessSound();
+      } else {
+        if (buttons[selectedIdx]) buttons[selectedIdx].classList.add('incorrect');
+        if (buttons[q.correct]) buttons[q.correct].classList.add('correct');
+        feedback.className = 'feedback-box incorrect';
+        fbTitle.innerHTML = '<span>😊</span> <span>Jawaban Kurang Tepat</span>';
+        fbText.innerHTML = `<strong>Kunci: [${String.fromCharCode(65 + q.correct)}] ${escapeHtml(q.options[q.correct])}</strong><br>${escapeHtml(q.explanation)}`;
+        playWrongSound();
+      }
+
+      feedback.style.display = 'block';
+
+      const nextBtn = document.getElementById('btnNext');
+      nextBtn.style.display = 'inline-flex';
+      nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function nextQuestion() {
+      if (currentIdx < quizData.length - 1) {
+        currentIdx++;
+        playTone(480, 'sine', 0.05, 0.04);
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    /* ========================================================
+       6. TAMPILAN HASIL AKHIR & SINKRONISASI
+       ======================================================== */
+    function showResults() {
+      playSuccessSound();
+      document.getElementById('screenQuestion').style.display = 'none';
+      document.getElementById('screenResult').style.display = 'block';
+
+      const total = quizData.length;
+      const correctCount = userAnswers.filter(a => a && a.isCorrect).length;
+      const incorrectCount = total - correctCount;
+      const score = Math.round((correctCount / total) * 100);
+
+      studentData.score = score;
+      studentData.correctCount = correctCount;
+      studentData.incorrectCount = incorrectCount;
+      studentData.totalQuestions = total;
+      studentData.answers = userAnswers;
+
+      let predikat = 'SANGAT BAIK';
+      let statusKetuntasan = 'TUNTAS SEMPURNA';
+      let badgeBg = '#d1fae5';
+      let badgeCol = '#065f46';
+      let trophy = '🏆';
+      let title = 'Luar Biasa!';
+      let sub = `Hebat, ${escapeHtml(studentData.name)}! Penguasaan materi Reaksi Redoksmualamat mantap.`;
+
+      if (score >= 85) {
+        predikat = 'SANGAT BAIK (A)';
+        statusKetuntasan = 'TUNTAS SEMPURNA';
+        trophy = '🏆';
+        title = 'Prestasi Cemerlang!';
+      } else if (score >= 75) {
+        predikat = 'BAIK (B)';
+        statusKetuntasan = 'TUNTAS (KKTP TERCAPAI)';
+        badgeBg = '#dbeafe';
+        badgeCol = '#1e40af';
+        trophy = '🥈';
+        title = 'Hasil Sangat Bagus!';
+        sub = `Bagus sekali, ${escapeHtml(studentData.name)}! Nilaimu telah melampaui standar ketuntasan (KKTP).`;
+      } else if (score >= 60) {
+        predikat = 'CUKUP (C)';
+        statusKetuntasan = 'CUKUP (PERLU PENGAYAAN)';
+        badgeBg = '#fef3c7';
+        badgeCol = '#92400e';
+        trophy = '🥉';
+        title = 'Cukup Baik!';
+        sub = `Terus berlatih, ${escapeHtml(studentData.name)}! Pelajari kembali pembahasan soal di bawah ini.`;
+      } else {
+        predikat = 'PERLU PENDAMPINGAN (D)';
+        statusKetuntasan = 'BELUM TUNTAS (REMEDIAL)';
+        badgeBg = '#fee2e2';
+        badgeCol = '#991b1b';
+        trophy = '💡';
+        title = 'Tetap Semangat!';
+        sub = `Jangan menyerah, ${escapeHtml(studentData.name)}! Pelajari kembali metode PBO dan ion-elektron, lalu coba lagi.`;
+      }
+
+      studentData.predikat = predikat;
+      studentData.statusKetuntasan = statusKetuntasan;
+
+      document.getElementById('resTrophy').innerText = trophy;
+      document.getElementById('resTitle').innerText = title;
+      document.getElementById('resSub').innerText = sub;
+      document.getElementById('resScoreVal').innerText = score;
+
+      const badge = document.getElementById('resKktpBadge');
+      badge.style.background = badgeBg;
+      badge.style.color = badgeCol;
+      badge.innerText = `${statusKetuntasan} • ${predikat}`;
+
+      document.getElementById('syncRoomLabel').innerText = studentData.room;
+      document.getElementById('qrStudentId').innerText = studentData.id;
+
+      // 1. Generate QR Code Hasil Pengerjaan Siswa
+      generateResultQr();
+
+      // 2. Render Rincian Pembahasan Soal
+      renderReviewList();
+
+      // 3. Kirim Otomatis via Cloud MQTT Relay ke Layar Guru
+      sendResultToTeacherCloud(false);
+    }
+
+    function generateResultQr() {
+      const holder = document.getElementById('qrResultHolder');
+      if (!holder) return;
+      holder.innerHTML = '';
+
+      // Kompres data untuk QR Code agar cepat discan kamera guru
+      const compactPayload = {
+        app: 'ZULOKS',
+        id: studentData.id,
+        n: studentData.name,
+        c: studentData.studentClass,
+        a: studentData.absen,
+        r: studentData.room,
+        s: studentData.score,
+        ok: studentData.correctCount,
+        tot: studentData.totalQuestions,
+        ans: userAnswers.map(ans => ans.selectedIdx)
+      };
+
+      const qrString = 'ZULOKS:' + JSON.stringify(compactPayload);
+
+      try {
+        if (typeof QRCode !== 'undefined') {
+          new QRCode(holder, {
+            text: qrString,
+            width: 170,
+            height: 170,
+            colorDark: '#1e1b4b',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+        } else {
+          // Fallback ke QR Server API jika library belum terpasang
+          const img = document.createElement('img');
+          img.src = `https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=${encodeURIComponent(qrString)}`;
+          img.alt = 'QR Code Hasil';
+          holder.appendChild(img);
+        }
+      } catch (e) {
+        holder.innerHTML = `<small style="color:#ef4444;">Gagal memuat QR Code. Gunakan tombol 'Salin Token'.</small>`;
+      }
+    }
+
+    function renderReviewList() {
+      const container = document.getElementById('reviewListContainer');
+      if (!container) return;
+
+      let html = '';
+      quizData.forEach((q, idx) => {
+        const ans = userAnswers[idx];
+        const isCorrect = ans && ans.isCorrect;
+        const chosenLetter = ans ? String.fromCharCode(65 + ans.selectedIdx) : '-';
+        const chosenText = ans ? ans.selectedText : 'Tidak Dijawab';
+        const correctLetter = String.fromCharCode(65 + q.correct);
+        const correctText = q.options[q.correct];
+
+        html += `
+          <div class="review-item ${isCorrect ? 'is-correct' : 'is-incorrect'}">
+            <div class="rev-top">
+              <span class="rev-num">Soal Nomor ${idx + 1}</span>
+              <span class="rev-badge ${isCorrect ? 'correct' : 'incorrect'}">
+                ${isCorrect ? '✓ Benar (+12.5)' : '✗ Salah (0)'}
+              </span>
+            </div>
+            <div class="rev-q">${escapeHtml(q.question).replace(/\n/g, '<br>')}</div>
+            <div class="rev-choices">
+              <div class="rev-choice-box ${isCorrect ? 'rev-ans-user was-correct' : 'rev-ans-user'}">
+                Jawabanmu: <strong>[${chosenLetter}]</strong> ${escapeHtml(chosenText)}
+              </div>
+              <div class="rev-choice-box rev-ans-correct">
+                Kunci Benar: <strong>[${correctLetter}]</strong> ${escapeHtml(correctText)}
+              </div>
+            </div>
+            <div class="rev-exp">
+              <strong>💡 Pembahasan:</strong> ${escapeHtml(q.explanation)}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      document.getElementById('reviewScoreCount').innerText = `${studentData.correctCount} Benar dari ${quizData.length} Soal`;
+    }
+
+    function copyResultToken() {
+      const payload = {
+        app: 'ZULOKS',
+        id: studentData.id,
+        n: studentData.name,
+        c: studentData.studentClass,
+        a: studentData.absen,
+        r: studentData.room,
+        s: studentData.score,
+        ok: studentData.correctCount,
+        tot: studentData.totalQuestions,
+        ans: userAnswers.map(ans => ans.selectedIdx)
+      };
+      const str = 'ZULOKS:' + JSON.stringify(payload);
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(str).then(() => {
+          showToast('Token hasil kuis berhasil disalin! 📋', '📋');
+        }).catch(() => {
+          prompt('Salin kode token di bawah ini:', str);
+        });
+      } else {
+        prompt('Salin kode token di bawah ini:', str);
+      }
+    }
+
+    function shareViaWhatsApp() {
+      const text = `*LEMBAR HASIL KUIS INDIVIDU KIMIA REDOKS*%0A` +
+        `👤 Nama: *${encodeURIComponent(studentData.name)}*%0A` +
+        `🏫 Kelas: *${encodeURIComponent(studentData.studentClass)}* (Absen: ${encodeURIComponent(studentData.absen)})%0A` +
+        `📅 Tanggal: ${encodeURIComponent(studentData.dateStr)}%0A` +
+        `🎯 Nilai Akhir: *${studentData.score} / 100*%0A` +
+        `📊 Statistik: ${studentData.correctCount} Benar, ${studentData.incorrectCount} Salah%0A` +
+        `🏆 Status: *${encodeURIComponent(studentData.statusKetuntasan)}*%0A` +
+        `🔑 Kode Token:%0AZULOKS:${encodeURIComponent(JSON.stringify({
+          id: studentData.id,
+          n: studentData.name,
+          c: studentData.studentClass,
+          a: studentData.absen,
+          s: studentData.score,
+          ok: studentData.correctCount
+        }))}`;
+
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    }
+
+    function restartQuiz() {
+      currentIdx = 0;
+      userAnswers = [];
+      document.getElementById('screenIdentity').style.display = 'block';
+      document.getElementById('screenQuestion').style.display = 'none';
+      document.getElementById('screenResult').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
