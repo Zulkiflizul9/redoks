@@ -986,6 +986,192 @@
       to { transform: translateY(-10px); }
     }
 
+    /* IDENTITAS SISWA & REKAPAN KUIS INDIVIDU */
+    .quiz-identity-card {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+    }
+
+    .quiz-id-input {
+      width: 100%;
+      padding: 11px 15px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: #1e293b;
+      background: #f8fafc;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .quiz-id-input:focus {
+      outline: none;
+      border-color: #4338ca;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.15);
+    }
+
+    .quiz-student-active-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+      border: 1.5px solid #c7d2fe;
+      border-radius: 10px;
+      padding: 10px 16px;
+      margin-bottom: 16px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #312e81;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .quiz-report-card {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      margin: 18px 0;
+      text-align: left;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+
+    .quiz-review-item {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .quiz-review-item.is-correct {
+      border-left: 5px solid #16a34a;
+      background: #f0fdf4;
+    }
+
+    .quiz-review-item.is-incorrect {
+      border-left: 5px solid #dc2626;
+      background: #fef2f2;
+    }
+
+    .quiz-badge-correct {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #16a34a;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .quiz-badge-incorrect {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #dc2626;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    /* MENU GURU & TABEL REKAPITULASI */
+    .nav-btn-guru {
+      border: 1.5px solid #f59e0b !important;
+      color: #b45309 !important;
+      background: rgba(245, 158, 11, 0.12) !important;
+      font-weight: 700 !important;
+    }
+    .nav-btn-guru.active {
+      background: #b45309 !important;
+      color: #ffffff !important;
+    }
+    .teacher-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+    .teacher-table th {
+      padding: 12px 14px;
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 700;
+      border-bottom: 2px solid #cbd5e1;
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .teacher-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: middle;
+      color: #334155;
+    }
+    .teacher-table tr:hover {
+      background-color: #f8fafc;
+    }
+    .teacher-score-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+    .teacher-score-high {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    .teacher-score-med {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .teacher-score-low {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* CETAK REKAPAN PDF */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #quizPrintSection, #quizPrintSection * {
+        visibility: visible !important;
+      }
+      #quizPrintSection {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 20px !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        display: block !important;
+        font-family: 'Times New Roman', Times, serif !important;
+        box-sizing: border-box !important;
+      }
+      header, footer, nav, .sound-toggle-btn, .btn-lkpd-header, #soundBtn, .header-actions, .ref-fab {
+        display: none !important;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 1.5cm;
+      }
+    }
+
     /* FOOTER */
     footer {
       background: white;
@@ -2438,7 +2624,10 @@
           <span>🛠️</span> Penyetaraan Reaksi
         </button>
         <button class="nav-btn" onclick="switchTab('kuis')">
-          <span>📝</span> Bank Soal UTBK/HOTS
+          <span>📝</span> Soal Kuis Individu
+        </button>
+        <button class="nav-btn nav-btn-guru" onclick="switchTab('guru')">
+          <span>👨‍🏫</span> Rekap Guru
         </button>
         <button class="nav-btn nav-btn-refleksi" onclick="switchTab('refleksi')">
           <span>💭</span> Refleksi
@@ -2783,7 +2972,7 @@
             <div style="font-size: 32px; margin-bottom: 8px;">🚀</div>
             <h4 style="font-size: 0.95rem; margin-bottom: 6px; color: var(--dark);">Mandiri</h4>
             <p style="font-size: 0.82rem; color: var(--gray); margin: 0;">
-              Mengambil inisiatif bereksplorasi di laboratorium transfer elektron dan menguji pemahaman pribadi melalui Bank Soal HOTS.
+              Mengambil inisiatif bereksplorasi di laboratorium transfer elektron dan menguji pemahaman pribadi melalui Soal Kuis Individu.
             </p>
           </div>
 
@@ -2823,13 +3012,16 @@
             <span>🛠️</span> 5. Penyetaraan Reaksi (PBO & Ion)
           </button>
           <button class="btn" onclick="switchTab('kuis')" style="background: #d97706; color: white;">
-            <span>📝</span> 6. Bank Soal UTBK/HOTS
+            <span>📝</span> 6. Soal Kuis Individu
+          </button>
+          <button class="btn" onclick="switchTab('guru')" style="background: #b45309; color: white; font-weight: 700;">
+            <span>👨‍🏫</span> 7. Rekapitulasi Guru
           </button>
           <button class="btn" onclick="switchTab('refleksi')" style="background: #4f46e5; color: white;">
-            <span>💭</span> 7. Papan Refleksi
+            <span>💭</span> 8. Papan Refleksi
           </button>
           <button class="btn" onclick="openLkpdModal()" style="background: #e11d48; color: white; font-weight: 800;">
-            <span>📜</span> 8. Kerjakan LKPD Interaktif 5 Layar &rarr;
+            <span>📜</span> 9. Kerjakan LKPD Interaktif 5 Layar &rarr;
           </button>
         </div>
       </div>
@@ -3936,26 +4128,91 @@
 
 
     <!-- ============================================== -->
-    <!-- TAB 5: BANK SOAL UTBK & HOTS KELAS 12          -->
+    <!-- TAB 5: SOAL KUIS INDIVIDU                      -->
     <!-- ============================================== -->
     <div id="tab-kuis" class="tab-content">
       <div class="card quiz-container">
         <div class="quiz-header">
           <div>
-            <h2 style="font-size: 1.25rem; color: var(--dark);">Bank Soal HOTS & Persiapan UTBK/SNBT</h2>
-            <p style="font-size: 0.85rem; color: var(--gray);">Materi Reaksi Redoks & Penyetaraan &bull; Kelas 12 SMA</p>
+            <h2 style="font-size: 1.25rem; color: var(--dark); margin: 0 0 4px;">Soal Kuis Individu</h2>
+            <p style="font-size: 0.85rem; color: var(--gray); margin: 0;">Uji Pemahaman Mandiri &bull; Materi Reaksi Redoks & Penyetaraan &bull; Kelas 12 SMA</p>
           </div>
-          <div style="text-align: right;">
-            <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary);" id="quizQuestionCount">Soal 1 / 8</span>
-            <div style="font-size: 0.8rem; color: var(--gray);" id="quizScoreText">Skor: 0</div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <button class="btn btn-outline-dark" onclick="switchTab('guru')" style="padding: 6px 12px; font-size: 0.8rem; font-weight: 700; border-radius: 8px;" title="Buka Rekapitulasi Nilai Siswa (Menu Guru)">
+              <span>👨‍🏫</span> Rekap Guru
+            </button>
+            <div style="text-align: right; display: none;" id="quizStatsHeader">
+              <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary);" id="quizQuestionCount">Soal 1 / 8</span>
+              <div style="font-size: 0.8rem; color: var(--gray);" id="quizScoreText">Skor: 0</div>
+            </div>
           </div>
         </div>
 
-        <div class="quiz-progress-bar">
-          <div class="quiz-progress-fill" id="quizProgressBar"></div>
+        <!-- 1. FORM IDENTITAS SISWA (SEBELUM MEMULAI KUIS) -->
+        <div id="quizIdentityArea" class="quiz-identity-card">
+          <div style="text-align: center; margin-bottom: 22px;">
+            <div style="width: 58px; height: 58px; border-radius: 18px; background: linear-gradient(135deg, #4338ca, #3b82f6); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(67, 56, 202, 0.3);">
+              📝
+            </div>
+            <h3 style="font-size: 1.35rem; font-weight: 800; color: #1e1b4b; margin: 0 0 6px;">Identitas Peserta Kuis Individu</h3>
+            <p style="font-size: 0.88rem; color: #64748b; margin: 0;">Silakan isi Nama dan Kelas terlebih dahulu untuk mencatat rekapan pengerjaan kuis:</p>
+          </div>
+
+          <div style="max-width: 460px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px;">
+            <div>
+              <label for="quizStudentName" style="display: block; font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 6px;">
+                Nama Lengkap Siswa <span style="color: #ef4444;">*</span>:
+              </label>
+              <input type="text" id="quizStudentName" placeholder="Contoh: Muhammad Zulkifli" class="quiz-id-input" autocomplete="name" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
+              <div>
+                <label for="quizStudentClass" style="display: block; font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 6px;">
+                  Kelas / Fase <span style="color: #ef4444;">*</span>:
+                </label>
+                <input type="text" id="quizStudentClass" placeholder="Contoh: XII MIPA 1 / Fase F" class="quiz-id-input" required>
+              </div>
+              <div>
+                <label for="quizStudentAbsen" style="display: block; font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 6px;">
+                  No. Absen:
+                </label>
+                <input type="text" id="quizStudentAbsen" placeholder="Contoh: 07" class="quiz-id-input">
+              </div>
+            </div>
+
+            <div id="quizIdentError" style="display: none; padding: 10px 14px; background: #fee2e2; border-left: 4px solid #ef4444; border-radius: 8px; color: #991b1b; font-size: 0.86rem; font-weight: 600;">
+              ⚠️ Harap isi Nama Lengkap dan Kelas terlebih dahulu!
+            </div>
+
+            <button class="btn btn-primary" onclick="startQuizWithIdentity()" style="padding: 13px 22px; font-size: 1rem; font-weight: 800; border-radius: 12px; justify-content: center; margin-top: 6px; box-shadow: 0 4px 14px rgba(67, 56, 202, 0.35);">
+              <span>🚀</span> Mulai Kerjakan Soal Kuis
+            </button>
+          </div>
         </div>
 
-        <div id="quizPlayArea">
+        <!-- 2. AREA PENGERJAAN KUIS (MUNCUL SETELAH ISI IDENTITAS) -->
+        <div id="quizPlayArea" style="display: none;">
+          <!-- Bar Informasi Identitas Siswa Aktif -->
+          <div class="quiz-student-active-bar" id="quizStudentActiveBar">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <span>👤 Siswa: <strong id="quizBadgeName" style="color:#312e81;">-</strong></span>
+              <span style="opacity: 0.5;">|</span>
+              <span>🏫 Kelas: <strong id="quizBadgeClass" style="color:#312e81;">-</strong></span>
+              <span id="quizBadgeAbsenWrapper" style="display: none;">
+                <span style="opacity: 0.5;">|</span>
+                <span>No. Absen: <strong id="quizBadgeAbsen" style="color:#312e81;">-</strong></span>
+              </span>
+            </div>
+            <button onclick="editQuizStudentIdentity()" class="btn-outline-dark" style="padding: 4px 10px; font-size: 0.76rem; border-radius: 6px; cursor: pointer; font-weight: 700;">
+              ✏️ Ubah
+            </button>
+          </div>
+
+          <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="quizProgressBar"></div>
+          </div>
+
           <div class="question-box" id="quizQuestion">
             Memuat pertanyaan...
           </div>
@@ -3975,28 +4232,228 @@
           </div>
         </div>
 
-        <!-- Result Screen -->
+        <!-- 3. HASIL AKHIR & REKAPAN PENGERJAAN SISWA -->
         <div id="quizResultArea" style="display: none;" class="score-modal">
           <div class="score-trophy" id="resultTrophy">🏆</div>
           <h2 style="font-size: 1.6rem; margin-bottom: 8px;" id="resultTitle">Luar Biasa!</h2>
-          <p style="font-size: 1.05rem; color: var(--gray); margin-bottom: 20px;" id="resultMessage">
-            Kamu telah menyelesaikan simulasi soal redoks tingkat SMA Kelas 12!
+          <p style="font-size: 1.02rem; color: var(--gray); margin-bottom: 16px;" id="resultMessage">
+            Kamu telah menyelesaikan soal kuis individu redoks tingkat SMA Kelas 12!
           </p>
           
-          <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 20px;" id="finalScoreVal">
+          <div style="font-size: 3.4rem; font-weight: 800; color: var(--primary); margin-bottom: 6px;" id="finalScoreVal">
             100
           </div>
+          <div id="finalScoreGradeBadge" style="display: inline-block; padding: 5px 16px; border-radius: 20px; font-weight: 800; font-size: 0.9rem; margin-bottom: 18px; background: #d1fae5; color: #065f46;">
+            TUNTAS (SANGAT BAIK)
+          </div>
 
-          <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-            <button class="btn btn-primary" onclick="restartQuiz()">
+          <!-- KARTU RINGKASAN REKAPAN IDENTITAS & SKOR -->
+          <div class="quiz-report-card" id="quizReportSummaryCard">
+            <!-- Diisi secara dinamis oleh JS -->
+          </div>
+
+          <!-- TOMBOL AKSI: CETAK PDF, UNDUH, DAN LAINNYA -->
+          <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 20px 0;">
+            <button class="btn btn-primary" onclick="printQuizReport()" style="background: linear-gradient(135deg, #1e1b4b, #4338ca); box-shadow: 0 4px 14px rgba(67, 56, 202, 0.35); font-weight: 800; padding: 10px 18px;">
+              <span>🖨️</span> Cetak / Simpan PDF
+            </button>
+            <button class="btn btn-success" onclick="downloadQuizReport()" style="background: #059669; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35); font-weight: 800; padding: 10px 18px;">
+              <span>📥</span> Unduh Lembar Rekapan PDF
+            </button>
+            <button class="btn btn-outline-dark" onclick="restartQuiz()" style="padding: 10px 16px; font-weight: 700;">
               <span>🔄</span> Coba Lagi
             </button>
-            <button class="btn btn-outline-dark" onclick="switchTab('konsep')">
+            <button class="btn btn-outline-dark" onclick="editQuizStudentIdentity()" style="padding: 10px 16px; font-weight: 700;">
+              <span>👤</span> Ganti Siswa
+            </button>
+            <button class="btn btn-outline-dark" onclick="switchTab('konsep')" style="padding: 10px 16px; font-weight: 700;">
               <span>📖</span> Tinjau Teori
             </button>
+            <button class="btn" onclick="switchTab('guru')" style="background: #f59e0b; color: white; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35); font-weight: 800; padding: 10px 18px;">
+              <span>👨‍🏫</span> Lihat Rekap Nilai Siswa (Menu Guru)
+            </button>
+          </div>
+
+          <!-- DAFTAR RINCI REKAPAN SOAL & PEMBAHASAN -->
+          <div style="margin-top: 30px; text-align: left;">
+            <div style="border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+              <h3 style="font-size: 1.18rem; font-weight: 800; color: #1e1b4b; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <span>📋</span> Rekapan Rinci Pengerjaan &amp; Pembahasan Soal
+              </h3>
+              <span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">8 Butir Soal Terjawab</span>
+            </div>
+            <div id="quizDetailedReviewList">
+              <!-- Diisi secara otomatis oleh JS -->
+            </div>
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- ELEMEN KHUSUS CETAK PDF STANDAR LAPORAN SEKOLAH (HANYA DITAMPILKAN SAAT CETAK / PRINT) -->
+    <div id="quizPrintSection" style="display: none;"></div>
+
+    <!-- ============================================== -->
+    <!-- TAB: MENU GURU - REKAPITULASI HASIL SISWA      -->
+    <!-- ============================================== -->
+    <div id="tab-guru" class="tab-content">
+      <!-- HERO BANNER GURU -->
+      <div class="hero-banner" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #b45309 85%, #d97706 100%);">
+        <div class="hero-text">
+          <span class="hero-badge" style="background: rgba(255, 255, 255, 0.22); color: white;">👨‍🏫 Portal Pengelolaan &amp; Evaluasi Guru &bull; Fase F Kelas 12 SMA</span>
+          <h2>Rekapitulasi Hasil Pengerjaan Kuis Siswa</h2>
+          <p>
+            Pantau dan simpan data hasil pengerjaan kuis individu seluruh peserta didik secara real-time. Guru dapat melihat rincian butir jawaban setiap siswa, mencetak lembar rekap nilai kolektif (PDF), serta mengunduh format spreadsheet (Excel / CSV).
+          </p>
+          <div class="hero-stats">
+            <div class="hero-stat-item">👥 Penyimpanan Otomatis Hasil Kuis</div>
+            <div class="hero-stat-item">📊 Analisis Ketuntasan Belajar &amp; KKTP</div>
+            <div class="hero-stat-item">📥 Ekspor Data Excel (CSV) &amp; Backup</div>
+            <div class="hero-stat-item">🖨️ Cetak Lembar Rekap Nilai Kolektif</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KARTU STATISTIK KELAS -->
+      <div class="grid-4" style="margin-bottom: 20px;">
+        <div class="card" style="margin: 0; background: #ffffff; border-left: 5px solid #4338ca; padding: 18px 20px; box-shadow: 0 4px 12px rgba(67, 56, 202, 0.08);">
+          <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Total Peserta Kuis</span>
+          <div style="font-size: 2.2rem; font-weight: 800; color: #1e1b4b; margin: 4px 0;" id="teacherStatTotalStudents">0 Siswa</div>
+          <small style="color: #64748b; font-weight: 600;">Siswa telah dinilai</small>
+        </div>
+
+        <div class="card" style="margin: 0; background: #ffffff; border-left: 5px solid #059669; padding: 18px 20px; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.08);">
+          <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Rata-Rata Nilai</span>
+          <div style="font-size: 2.2rem; font-weight: 800; color: #065f46; margin: 4px 0;" id="teacherStatAvgScore">0</div>
+          <small style="color: #64748b; font-weight: 600;">Skala nilai 0 - 100</small>
+        </div>
+
+        <div class="card" style="margin: 0; background: #ffffff; border-left: 5px solid #d97706; padding: 18px 20px; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.08);">
+          <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Ketuntasan KKTP (≥75)</span>
+          <div style="font-size: 2.2rem; font-weight: 800; color: #b45309; margin: 4px 0;" id="teacherStatPassRate">0%</div>
+          <small style="color: #64748b; font-weight: 600;" id="teacherStatPassCount">0 siswa tuntas</small>
+        </div>
+
+        <div class="card" style="margin: 0; background: #ffffff; border-left: 5px solid #db2777; padding: 18px 20px; box-shadow: 0 4px 12px rgba(219, 39, 119, 0.08);">
+          <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Nilai Tertinggi / Terendah</span>
+          <div style="font-size: 1.8rem; font-weight: 800; color: #9d174d; margin: 6px 0;" id="teacherStatHighLow">- / -</div>
+          <small style="color: #64748b; font-weight: 600;">Skor pencapaian siswa</small>
+        </div>
+      </div>
+
+      <!-- KARTU PENGATURAN, FILTER & AKSI GURU -->
+      <div class="card" style="padding: 20px 24px; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; flex: 1;">
+            <!-- Filter Kelas -->
+            <div style="min-width: 170px;">
+              <label for="teacherClassFilter" style="display: block; font-size: 0.78rem; font-weight: 700; color: #475569; margin-bottom: 4px;">PILIH KELAS:</label>
+              <select id="teacherClassFilter" onchange="renderTeacherTable()" class="quiz-id-input" style="padding: 8px 12px; font-size: 0.88rem;">
+                <option value="ALL">Semua Kelas</option>
+              </select>
+            </div>
+
+            <!-- Cari Siswa -->
+            <div style="min-width: 220px; flex: 1;">
+              <label for="teacherSearchInput" style="display: block; font-size: 0.78rem; font-weight: 700; color: #475569; margin-bottom: 4px;">CARI NAMA SISWA:</label>
+              <input type="text" id="teacherSearchInput" oninput="renderTeacherTable()" placeholder="Ketik nama atau kelas..." class="quiz-id-input" style="padding: 8px 12px; font-size: 0.88rem;">
+            </div>
+
+            <!-- Urutkan -->
+            <div style="min-width: 170px;">
+              <label for="teacherSortFilter" style="display: block; font-size: 0.78rem; font-weight: 700; color: #475569; margin-bottom: 4px;">URUTKAN BERDASARKAN:</label>
+              <select id="teacherSortFilter" onchange="renderTeacherTable()" class="quiz-id-input" style="padding: 8px 12px; font-size: 0.88rem;">
+                <option value="score_desc">Nilai Tertinggi &darr;</option>
+                <option value="score_asc">Nilai Terendah &uarr;</option>
+                <option value="name_asc">Nama Siswa (A - Z)</option>
+                <option value="date_desc">Terbaru</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOMBOL-TOMBOL AKSI PENYIMPANAN DAN EKSPOR -->
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid #e2e8f0;">
+          <button class="btn btn-success" onclick="exportTeacherCsv()" style="background: #059669; font-weight: 700; padding: 8px 16px; font-size: 0.88rem; box-shadow: 0 2px 8px rgba(5,150,105,0.25);">
+            <span>📥</span> Ekspor ke Excel (CSV)
+          </button>
+          <button class="btn btn-primary" onclick="printTeacherCollectiveReport()" style="background: linear-gradient(135deg, #1e1b4b, #4338ca); font-weight: 700; padding: 8px 16px; font-size: 0.88rem; box-shadow: 0 2px 8px rgba(67,56,202,0.25);">
+            <span>🖨️</span> Cetak Rekap Kelas (PDF)
+          </button>
+          <button class="btn btn-outline-dark" onclick="backupTeacherData()" style="padding: 8px 14px; font-size: 0.85rem; font-weight: 700;">
+            <span>💾</span> Simpan Cadangan (JSON)
+          </button>
+          <label class="btn btn-outline-dark" style="padding: 8px 14px; font-size: 0.85rem; font-weight: 700; cursor: pointer; margin: 0; display: inline-flex; align-items: center; gap: 6px;">
+            <span>📂</span> Pulihkan Data
+            <input type="file" id="teacherRestoreFileInput" accept=".json" onchange="restoreTeacherData(event)" style="display: none;">
+          </label>
+          <button class="btn btn-outline-dark" onclick="loadTeacherSampleData()" style="padding: 8px 14px; font-size: 0.85rem; font-weight: 700; color: #4338ca; border-color: #c7d2fe;">
+            <span>➕</span> Muat Contoh Data (Demo)
+          </button>
+          <button class="btn btn-outline-dark" onclick="clearTeacherData()" style="padding: 8px 14px; font-size: 0.85rem; font-weight: 700; color: #dc2626; border-color: #fca5a5; margin-left: auto;">
+            <span>🗑️</span> Hapus Semua Data
+          </button>
+        </div>
+      </div>
+
+      <!-- TABEL DAFTAR SISWA -->
+      <div class="card" style="padding: 20px 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+          <h3 style="font-size: 1.15rem; font-weight: 800; color: #1e1b4b; margin: 0; display: flex; align-items: center; gap: 8px;">
+            <span>📋</span> Tabel Rekapitulasi Nilai &amp; Pengerjaan Siswa
+          </h3>
+          <span style="font-size: 0.85rem; color: #64748b; font-weight: 600;" id="teacherTableCountLabel">
+            Menampilkan 0 Siswa
+          </span>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="teacher-table">
+            <thead>
+              <tr>
+                <th style="width: 45px; text-align: center;">No</th>
+                <th>Nama Lengkap Siswa</th>
+                <th>Kelas / Fase</th>
+                <th style="text-align: center;">No. Absen</th>
+                <th>Tanggal</th>
+                <th style="text-align: center;">Benar / Soal</th>
+                <th style="text-align: center;">Nilai Akhir</th>
+                <th>Status Ketuntasan</th>
+                <th style="text-align: center;">Aksi Guru</th>
+              </tr>
+            </thead>
+            <tbody id="teacherTableBody">
+              <!-- Diisi otomatis oleh JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="teacherTableEmptyState" style="display: none; text-align: center; padding: 40px 20px;">
+          <div style="font-size: 40px; margin-bottom: 10px;">📭</div>
+          <h4 style="font-size: 1.1rem; color: #334155; margin: 0 0 6px;">Belum Ada Data Hasil Pengerjaan Siswa</h4>
+          <p style="font-size: 0.88rem; color: #64748b; margin: 0 0 16px;">Hasil pengerjaan kuis individu siswa akan otomatis tersimpan di sini setelah kuis diselesaikan.</p>
+          <button class="btn btn-outline-dark" onclick="loadTeacherSampleData()" style="padding: 8px 16px; font-weight: 700; color: #4338ca;">
+            <span>➕</span> Muat 5 Data Contoh Siswa (Demo)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL POP-UP DETAIL JAWABAN SISWA UNTUK GURU -->
+    <div id="teacherDetailModalOverlay" class="lkpd-modal-overlay" style="display: none;" onclick="handleTeacherModalOverlayClick(event)">
+      <div class="lkpd-modal-dialog" style="max-width: 900px; height: 90vh; max-height: 90vh; display: flex; flex-direction: column;">
+        <div class="lkpd-modal-header" style="background: linear-gradient(135deg, #1e1b4b, #312e81);">
+          <div class="lkpd-modal-title">
+            <span>📝</span> Rincian Jawaban Siswa &bull; Analisis Butir Soal Kuis
+          </div>
+          <div class="lkpd-modal-controls">
+            <button class="lkpd-close-btn" onclick="closeTeacherDetailModal()" title="Tutup Modal">&times;</button>
+          </div>
+        </div>
+        <div style="flex: 1; overflow-y: auto; padding: 24px;" id="teacherDetailModalContent">
+          <!-- Diisi otomatis oleh JS -->
+        </div>
       </div>
     </div>
 
@@ -4461,6 +4918,8 @@
       } else if (tabId === 'refleksi') {
         drawRefWall();
         drawRefPick();
+      } else if (tabId === 'guru') {
+        renderTeacherDashboard();
       }
 
       if (tabId !== 'pemantik' && typeof pausePmkMusic === 'function') {
@@ -5801,7 +6260,7 @@
 
 
     /* ========================================================
-       9. BANK SOAL HOTS & UTBK KELAS 12 (8 SOAL)
+       9. SOAL KUIS INDIVIDU KELAS 12 (8 SOAL)
        ======================================================== */
     const quizData = [
       {
@@ -5905,13 +6364,119 @@
     let currentQuestionIdx = 0;
     let userScore = 0;
     let questionAnswered = false;
+    let studentIdentity = {
+      name: '',
+      class: '',
+      absen: '',
+      dateStr: ''
+    };
+    let userAnswers = [];
+
+    function escapeHtml(text) {
+      if (text === null || text === undefined) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function startQuizWithIdentity() {
+      const nameInput = document.getElementById('quizStudentName');
+      const classInput = document.getElementById('quizStudentClass');
+      const absenInput = document.getElementById('quizStudentAbsen');
+      const errorMsg = document.getElementById('quizIdentError');
+
+      const nameVal = nameInput ? nameInput.value.trim() : '';
+      const classVal = classInput ? classInput.value.trim() : '';
+      const absenVal = absenInput ? absenInput.value.trim() : '';
+
+      if (!nameVal || !classVal) {
+        if (errorMsg) {
+          errorMsg.style.display = 'block';
+          errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+      if (errorMsg) errorMsg.style.display = 'none';
+
+      const now = new Date();
+      studentIdentity.name = nameVal;
+      studentIdentity.class = classVal;
+      studentIdentity.absen = absenVal;
+      studentIdentity.dateStr = now.toLocaleDateString('id-ID', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      try {
+        localStorage.setItem('zuloks_quiz_student_name', nameVal);
+        localStorage.setItem('zuloks_quiz_student_class', classVal);
+        localStorage.setItem('zuloks_quiz_student_absen', absenVal);
+      } catch (e) {}
+
+      // Update badge identitas di bar atas kuis
+      const badgeName = document.getElementById('quizBadgeName');
+      const badgeClass = document.getElementById('quizBadgeClass');
+      const badgeAbsen = document.getElementById('quizBadgeAbsen');
+      const badgeAbsenWrapper = document.getElementById('quizBadgeAbsenWrapper');
+      if (badgeName) badgeName.innerText = nameVal;
+      if (badgeClass) badgeClass.innerText = classVal;
+      if (badgeAbsenWrapper) {
+        if (absenVal) {
+          if (badgeAbsen) badgeAbsen.innerText = absenVal;
+          badgeAbsenWrapper.style.display = 'inline';
+        } else {
+          badgeAbsenWrapper.style.display = 'none';
+        }
+      }
+
+      // Tampilkan header statistik soal & skor
+      const statsHeader = document.getElementById('quizStatsHeader');
+      if (statsHeader) statsHeader.style.display = 'block';
+
+      // Pindah dari halaman identitas ke halaman pengerjaan soal
+      document.getElementById('quizIdentityArea').style.display = 'none';
+      document.getElementById('quizPlayArea').style.display = 'block';
+      document.getElementById('quizResultArea').style.display = 'none';
+
+      // Reset state untuk pengerjaan baru
+      currentQuestionIdx = 0;
+      userScore = 0;
+      userAnswers = [];
+      const scoreTxt = document.getElementById('quizScoreText');
+      if (scoreTxt) scoreTxt.innerText = 'Skor: 0';
+
+      playTone(520, 'sine', 0.1, 0.05);
+      renderQuestion();
+    }
+
+    function editQuizStudentIdentity() {
+      document.getElementById('quizIdentityArea').style.display = 'block';
+      document.getElementById('quizPlayArea').style.display = 'none';
+      document.getElementById('quizResultArea').style.display = 'none';
+      const statsHeader = document.getElementById('quizStatsHeader');
+      if (statsHeader) statsHeader.style.display = 'none';
+    }
 
     function renderQuestion() {
       questionAnswered = false;
       const q = quizData[currentQuestionIdx];
-      document.getElementById('quizQuestionCount').innerText = `Soal ${currentQuestionIdx + 1} / ${quizData.length}`;
-      document.getElementById('quizProgressBar').style.width = `${((currentQuestionIdx + 1) / quizData.length) * 100}%`;
-      document.getElementById('quizQuestion').innerText = q.question;
+      const countEl = document.getElementById('quizQuestionCount');
+      if (countEl) countEl.innerText = `Soal ${currentQuestionIdx + 1} / ${quizData.length}`;
+
+      const progressEl = document.getElementById('quizProgressBar');
+      if (progressEl) {
+        progressEl.style.width = `${((currentQuestionIdx + 1) / quizData.length) * 100}%`;
+      }
+
+      const qBox = document.getElementById('quizQuestion');
+      if (qBox) {
+        qBox.innerHTML = escapeHtml(q.question).replace(/\n/g, '<br>');
+      }
       
       const optContainer = document.getElementById('quizOptions');
       optContainer.innerHTML = '';
@@ -5919,7 +6484,7 @@
       q.options.forEach((optText, idx) => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
-        btn.innerHTML = `<span style="font-weight:700; width: 26px; height:26px; border-radius:50%; background:#f1f5f9; display:inline-flex; align-items:center; justify-content:center; font-size:0.85rem;">${String.fromCharCode(65 + idx)}</span> <span>${optText}</span>`;
+        btn.innerHTML = `<span style="font-weight:700; min-width: 28px; height:28px; border-radius:50%; background:#f1f5f9; display:inline-flex; align-items:center; justify-content:center; font-size:0.85rem; color:#1e293b;">${String.fromCharCode(65 + idx)}</span> <span style="line-height: 1.4;">${escapeHtml(optText)}</span>`;
         btn.onclick = () => selectOption(idx);
         optContainer.appendChild(btn);
       });
@@ -5927,7 +6492,11 @@
       const feedback = document.getElementById('quizFeedback');
       feedback.className = 'quiz-feedback';
       feedback.innerHTML = '';
-      document.getElementById('quizNextBtn').style.display = 'none';
+      const nextBtn = document.getElementById('quizNextBtn');
+      if (nextBtn) {
+        nextBtn.style.display = 'none';
+        nextBtn.innerHTML = (currentQuestionIdx === quizData.length - 1) ? 'Lihat Rekapan &amp; Hasil Akhir &rarr;' : 'Soal Selanjutnya &rarr;';
+      }
     }
 
     function selectOption(selectedIdx) {
@@ -5935,27 +6504,44 @@
       questionAnswered = true;
 
       const q = quizData[currentQuestionIdx];
-      const buttons = document.querySelectorAll('.option-btn');
+      const buttons = document.querySelectorAll('#quizOptions .option-btn');
       const feedback = document.getElementById('quizFeedback');
+      const isCorrect = (selectedIdx === q.correct);
 
-      const pointPerQuestion = Math.round(100 / quizData.length);
+      // Simpan jawaban siswa untuk rekapan dan evaluasi
+      userAnswers[currentQuestionIdx] = {
+        questionIdx: currentQuestionIdx,
+        question: q.question,
+        options: q.options,
+        selectedIdx: selectedIdx,
+        selectedText: q.options[selectedIdx],
+        correctIdx: q.correct,
+        correctText: q.options[q.correct],
+        isCorrect: isCorrect,
+        explanation: q.explanation
+      };
 
-      if (selectedIdx === q.correct) {
-        buttons[selectedIdx].classList.add('correct');
+      if (isCorrect) {
+        if (buttons[selectedIdx]) buttons[selectedIdx].classList.add('correct');
         feedback.className = 'quiz-feedback show correct-feedback';
-        feedback.innerHTML = `<strong>Jawaban Benar! 🎉</strong><br>${q.explanation}`;
-        userScore += pointPerQuestion;
-        document.getElementById('quizScoreText').innerText = `Skor: ${userScore}`;
+        feedback.innerHTML = `<strong>Jawaban Benar! 🎉</strong><br>${escapeHtml(q.explanation)}`;
         playSuccessSound();
       } else {
-        buttons[selectedIdx].classList.add('incorrect');
-        buttons[q.correct].classList.add('correct');
+        if (buttons[selectedIdx]) buttons[selectedIdx].classList.add('incorrect');
+        if (buttons[q.correct]) buttons[q.correct].classList.add('correct');
         feedback.className = 'quiz-feedback show incorrect-feedback';
-        feedback.innerHTML = `<strong>Jawaban Kurang Tepat 😊</strong><br>${q.explanation}`;
+        feedback.innerHTML = `<strong>Jawaban Kurang Tepat 😊</strong><br>${escapeHtml(q.explanation)}`;
         playWrongSound();
       }
 
-      document.getElementById('quizNextBtn').style.display = 'inline-flex';
+      // Hitung skor berjalan
+      const correctCount = userAnswers.filter(a => a && a.isCorrect).length;
+      userScore = Math.round((correctCount / quizData.length) * 100);
+      const scoreTxt = document.getElementById('quizScoreText');
+      if (scoreTxt) scoreTxt.innerText = `Skor: ${userScore}`;
+
+      const nextBtn = document.getElementById('quizNextBtn');
+      if (nextBtn) nextBtn.style.display = 'inline-flex';
     }
 
     function nextQuestion() {
@@ -5972,34 +6558,1329 @@
       playSuccessSound();
       document.getElementById('quizPlayArea').style.display = 'none';
       document.getElementById('quizResultArea').style.display = 'block';
-      document.getElementById('finalScoreVal').innerText = userScore > 100 ? 100 : userScore;
+
+      const now = new Date();
+      if (!studentIdentity.dateStr) {
+        studentIdentity.dateStr = now.toLocaleDateString('id-ID', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }
+
+      const totalQuestions = quizData.length;
+      const correctCount = userAnswers.filter(a => a && a.isCorrect).length;
+      const incorrectCount = totalQuestions - correctCount;
+      const finalScore = Math.round((correctCount / totalQuestions) * 100);
+      userScore = finalScore;
+
+      const scoreEl = document.getElementById('finalScoreVal');
+      if (scoreEl) scoreEl.innerText = finalScore;
 
       const trophy = document.getElementById('resultTrophy');
       const title = document.getElementById('resultTitle');
       const msg = document.getElementById('resultMessage');
+      const gradeBadge = document.getElementById('finalScoreGradeBadge');
 
-      if (userScore >= 80) {
+      let predikat = 'SANGAT BAIK';
+      let predikatBadgeColor = '#d1fae5';
+      let predikatTextColor = '#065f46';
+      let statusKetuntasan = 'TUNTAS SEMPURNA';
+
+      if (finalScore >= 85) {
         trophy.innerText = '🏆';
-        title.innerText = 'PETUALANGAN ZULOKS!';
-        msg.innerText = 'Luar biasa! Penguasaan materi redoks dan penyetaraan reaksimu sangat siap untuk UTBK dan Ujian Sekolah!';
-      } else if (userScore >= 60) {
+        title.innerText = 'LUAR BIASA! PRESTASI CEMERLANG';
+        msg.innerText = `Hebat sekali, ${escapeHtml(studentIdentity.name || 'Siswa')}! Penguasaan materi Reaksi Redoks dan Penyetaraan Reaksimu sangat matang dan siap menghadapi UTBK/Ujian Sekolah!`;
+        predikat = 'SANGAT BAIK (A)';
+        statusKetuntasan = 'TUNTAS SEMPURNA';
+        predikatBadgeColor = '#d1fae5';
+        predikatTextColor = '#065f46';
+      } else if (finalScore >= 75) {
         trophy.innerText = '🥈';
-        title.innerText = 'Hasil yang Bagus!';
-        msg.innerText = 'Dasar konsepmu sudah kuat. Perdalam kembali penyetaraan suasana basa dan perhitungan mol elektron untuk meraih nilai sempurna!';
+        title.innerText = 'HASIL YANG SANGAT BAGUS!';
+        msg.innerText = `Bagus sekali, ${escapeHtml(studentIdentity.name || 'Siswa')}! Kamu telah mencapai Kriteria Ketercapaian Tujuan Pembelajaran (KKTP). Perdalam kembali beberapa butir soal untuk hasil maksimal!`;
+        predikat = 'BAIK (B)';
+        statusKetuntasan = 'TUNTAS (KKTP TERCAPAI)';
+        predikatBadgeColor = '#dbeafe';
+        predikatTextColor = '#1e40af';
+      } else if (finalScore >= 60) {
+        trophy.innerText = '🥉';
+        title.innerText = 'CUKUP BAIK, TETAP SEMANGAT!';
+        msg.innerText = `Kerja yang baik, ${escapeHtml(studentIdentity.name || 'Siswa')}! Konsep dasarmu sudah terbentuk. Pelajari kembali pembahasan butir soal yang kurang tepat di bawah ini.`;
+        predikat = 'CUKUP (C)';
+        statusKetuntasan = 'CUKUP (PERLU PENGAYAAN)';
+        predikatBadgeColor = '#fef3c7';
+        predikatTextColor = '#92400e';
       } else {
         trophy.innerText = '💡';
-        title.innerText = 'Tetap Bersemangat!';
-        msg.innerText = 'Pelajari kembali alur stepper metode PBO & setengah reaksi serta tinjau bank soal di atas.';
+        title.innerText = 'TETAP SEMANGAT & JANGAN MENYERAH!';
+        msg.innerText = `Jangan berkecil hati, ${escapeHtml(studentIdentity.name || 'Siswa')}! Pelajari kembali materi modul reaksi redoks dan stepper penyetaraan metode PBO & setengah reaksi, lalu ulangi kuis.`;
+        predikat = 'PERLU PENDAMPINGAN (D)';
+        statusKetuntasan = 'BELUM TUNTAS (REMEDIAL)';
+        predikatBadgeColor = '#fee2e2';
+        predikatTextColor = '#991b1b';
       }
+
+      if (gradeBadge) {
+        gradeBadge.style.background = predikatBadgeColor;
+        gradeBadge.style.color = predikatTextColor;
+        gradeBadge.innerText = `${statusKetuntasan} • ${predikat}`;
+      }
+
+      // Simpan otomatis ke sistem rekapitulasi nilai guru
+      if (typeof saveQuizResultToTeacherDatabase === 'function') {
+        saveQuizResultToTeacherDatabase({
+          id: Date.now().toString(),
+          name: studentIdentity.name || 'Siswa',
+          studentClass: studentIdentity.class || 'XII',
+          absen: studentIdentity.absen || '-',
+          dateStr: studentIdentity.dateStr,
+          score: finalScore,
+          correctCount: correctCount,
+          incorrectCount: incorrectCount,
+          totalQuestions: totalQuestions,
+          statusKetuntasan: statusKetuntasan,
+          predikat: predikat,
+          answers: JSON.parse(JSON.stringify(userAnswers))
+        });
+      }
+
+      // 1. RENDER KARTU RINGKASAN REKAPAN IDENTITAS & SKOR
+      const summaryCard = document.getElementById('quizReportSummaryCard');
+      if (summaryCard) {
+        summaryCard.innerHTML = `
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 10px; border: 1px solid #e2e8f0;">
+              <span style="font-size: 0.76rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Nama Lengkap Siswa</span>
+              <div style="font-size: 1.05rem; font-weight: 800; color: #1e1b4b; margin-top: 2px;">
+                ${escapeHtml(studentIdentity.name || '-')}
+              </div>
+            </div>
+            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 10px; border: 1px solid #e2e8f0;">
+              <span style="font-size: 0.76rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Kelas / Fase &amp; No. Absen</span>
+              <div style="font-size: 1.05rem; font-weight: 800; color: #1e1b4b; margin-top: 2px;">
+                ${escapeHtml(studentIdentity.class || '-')} ${studentIdentity.absen ? `(Absen: ${escapeHtml(studentIdentity.absen)})` : ''}
+              </div>
+            </div>
+            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 10px; border: 1px solid #e2e8f0;">
+              <span style="font-size: 0.76rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Tanggal Pelaksanaan</span>
+              <div style="font-size: 0.95rem; font-weight: 800; color: #1e1b4b; margin-top: 2px;">
+                ${studentIdentity.dateStr || '-'}
+              </div>
+            </div>
+            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 10px; border: 1px solid #e2e8f0;">
+              <span style="font-size: 0.76rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Statistik Ketuntasan</span>
+              <div style="font-size: 0.95rem; font-weight: 800; margin-top: 2px;">
+                <span style="color: #16a34a;">✓ ${correctCount} Benar</span> &bull; 
+                <span style="color: #dc2626;">✗ ${incorrectCount} Salah</span>
+                <span style="color: #64748b; font-weight: 600;">(dari ${totalQuestions} soal)</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 12px; padding: 10px 14px; background: #ecfdf5; border-radius: 8px; border: 1px solid #a7f3d0; font-size: 0.86rem; color: #065f46; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+            <span>✅ <strong>Hasil pengerjaan kuis ini telah otomatis tersimpan ke Menu Rekap Guru.</strong></span>
+            <button onclick="switchTab('guru')" class="btn" style="background:#059669; color:white; padding:5px 12px; font-size:0.8rem; font-weight:700; border-radius:6px; cursor:pointer;">
+              Buka Menu Guru &rarr;
+            </button>
+          </div>
+        `;
+      }
+
+      // 2. RENDER DAFTAR RINCI REKAPAN SOAL & PEMBAHASAN
+      const reviewList = document.getElementById('quizDetailedReviewList');
+      if (reviewList) {
+        let reviewHtml = '';
+        quizData.forEach((q, idx) => {
+          const ans = userAnswers[idx];
+          const isCorrect = ans && ans.isCorrect;
+          const chosenLetter = ans ? String.fromCharCode(65 + ans.selectedIdx) : '-';
+          const chosenText = ans ? ans.selectedText : 'Tidak Dijawab';
+          const correctLetter = String.fromCharCode(65 + q.correct);
+          const correctText = q.options[q.correct];
+
+          reviewHtml += `
+            <div class="quiz-review-item ${isCorrect ? 'is-correct' : 'is-incorrect'}">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                <span style="font-weight: 800; font-size: 0.95rem; color: #1e1b4b;">
+                  Soal Nomor ${idx + 1}
+                </span>
+                ${isCorrect ? 
+                  '<span class="quiz-badge-correct">✓ Jawaban Benar (+12.5 Poin)</span>' : 
+                  '<span class="quiz-badge-incorrect">✗ Jawaban Kurang Tepat (0 Poin)</span>'
+                }
+              </div>
+
+              <div style="font-size: 0.95rem; font-weight: 600; color: #1e293b; margin-bottom: 12px; line-height: 1.5;">
+                ${escapeHtml(q.question).replace(/\n/g, '<br>')}
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; margin-bottom: 12px; font-size: 0.88rem;">
+                <div style="padding: 9px 12px; border-radius: 8px; background: ${isCorrect ? '#dcfce7' : '#fee2e2'}; border: 1px solid ${isCorrect ? '#86efac' : '#fca5a5'};">
+                  <span style="font-weight: 700; color: ${isCorrect ? '#166534' : '#991b1b'}; display: block; margin-bottom: 2px;">
+                    Jawaban Anda:
+                  </span>
+                  <strong>[${chosenLetter}]</strong> ${escapeHtml(chosenText)}
+                </div>
+
+                <div style="padding: 9px 12px; border-radius: 8px; background: #e0f2fe; border: 1px solid #7dd3fc;">
+                  <span style="font-weight: 700; color: #0369a1; display: block; margin-bottom: 2px;">
+                    Kunci Jawaban Benar:
+                  </span>
+                  <strong>[${correctLetter}]</strong> ${escapeHtml(correctText)}
+                </div>
+              </div>
+
+              <div style="padding: 10px 14px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.86rem; color: #334155; line-height: 1.5;">
+                <strong style="color: #4338ca;">💡 Pembahasan Lengkap:</strong><br>
+                ${escapeHtml(q.explanation)}
+              </div>
+            </div>
+          `;
+        });
+        reviewList.innerHTML = reviewHtml;
+      }
+    }
+
+    function generatePrintStyles() {
+      return `
+        .print-kop {
+          text-align: center;
+          border-bottom: 3px double #000000;
+          padding-bottom: 10px;
+          margin-bottom: 16px;
+        }
+        .print-kop h2 {
+          font-size: 15pt;
+          margin: 0 0 4px 0;
+          text-transform: uppercase;
+          font-weight: bold;
+          color: #000;
+        }
+        .print-kop h3 {
+          font-size: 12pt;
+          margin: 0 0 4px 0;
+          font-weight: normal;
+          color: #111;
+        }
+        .print-kop p {
+          font-size: 9pt;
+          margin: 0;
+          font-style: italic;
+          color: #333;
+        }
+        .print-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 16px;
+          font-size: 9.5pt;
+        }
+        .print-table th, .print-table td {
+          border: 1px solid #000000;
+          padding: 6px 8px;
+          vertical-align: top;
+        }
+        .print-table th {
+          background-color: #f1f5f9;
+          font-weight: bold;
+          text-align: center;
+        }
+        .print-meta-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 16px;
+          font-size: 10pt;
+        }
+        .print-meta-table td {
+          padding: 4px 6px;
+          border: none;
+        }
+        .print-score-box {
+          border: 1.5px solid #000000;
+          padding: 10px;
+          text-align: center;
+          margin-bottom: 16px;
+          background: #f8fafc;
+        }
+        .print-signatures {
+          margin-top: 30px;
+          width: 100%;
+          font-size: 10pt;
+        }
+      `;
+    }
+
+    function generatePrintReportBody() {
+      const correctCount = userAnswers.filter(a => a && a.isCorrect).length;
+      const totalQuestions = quizData.length;
+      const finalScore = Math.round((correctCount / totalQuestions) * 100);
+      
+      let predikat = 'SANGAT BAIK';
+      let ketuntasan = 'TUNTAS SEMPURNA';
+      if (finalScore >= 85) {
+        predikat = 'SANGAT BAIK (A)';
+        ketuntasan = 'TUNTAS SEMPURNA';
+      } else if (finalScore >= 75) {
+        predikat = 'BAIK (B)';
+        ketuntasan = 'TUNTAS (KKTP TERCAPAI)';
+      } else if (finalScore >= 60) {
+        predikat = 'CUKUP (C)';
+        ketuntasan = 'CUKUP (PENGAYAAN)';
+      } else {
+        predikat = 'PERLU PENDAMPINGAN (D)';
+        ketuntasan = 'BELUM TUNTAS (REMEDIAL)';
+      }
+
+      let rowsHtml = '';
+      quizData.forEach((q, idx) => {
+        const ans = userAnswers[idx];
+        const isCorrect = ans && ans.isCorrect;
+        const chosenLetter = ans ? String.fromCharCode(65 + ans.selectedIdx) : '-';
+        const correctLetter = String.fromCharCode(65 + q.correct);
+
+        rowsHtml += `
+          <tr>
+            <td style="text-align: center; font-weight: bold;">${idx + 1}</td>
+            <td>${escapeHtml(q.question).replace(/\n/g, '<br>')}</td>
+            <td style="text-align: center; font-weight: ${isCorrect ? 'normal' : 'bold'};">
+              [${chosenLetter}]
+            </td>
+            <td style="text-align: center; font-weight: bold;">[${correctLetter}]</td>
+            <td style="text-align: center; font-weight: bold;">
+              ${isCorrect ? '✓ Benar' : '✗ Salah'}
+            </td>
+            <td style="text-align: center;">${isCorrect ? '12.5' : '0'}</td>
+            <td style="font-size: 8.5pt;">${escapeHtml(q.explanation)}</td>
+          </tr>
+        `;
+      });
+
+      return `
+        <div class="print-kop">
+          <h2>LEMBAR HASIL EVALUASI KUIS INDIVIDU KIMIA</h2>
+          <h3>MATERI: REAKSI REDOKS &amp; PENYETARAAN REAKSI (FASE F / KELAS XII)</h3>
+          <p>Aplikasi Media Pembelajaran Interaktif Mandiri: ZULOKS CHEM-LEARN</p>
+        </div>
+
+        <table class="print-meta-table">
+          <tr>
+            <td style="width: 18%; font-weight: bold;">Nama Lengkap</td>
+            <td style="width: 2%;">:</td>
+            <td style="width: 40%; font-weight: bold;">${escapeHtml(studentIdentity.name || '-')}</td>
+            <td style="width: 18%; font-weight: bold;">Hari / Tanggal</td>
+            <td style="width: 2%;">:</td>
+            <td style="width: 20%;">${studentIdentity.dateStr || '-'}</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Kelas / Fase</td>
+            <td>:</td>
+            <td>${escapeHtml(studentIdentity.class || '-')}</td>
+            <td style="font-weight: bold;">Mata Pelajaran</td>
+            <td>:</td>
+            <td>Kimia (Fase F)</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold;">Nomor Absen</td>
+            <td>:</td>
+            <td>${escapeHtml(studentIdentity.absen || '-')}</td>
+            <td style="font-weight: bold;">Jumlah Soal</td>
+            <td>:</td>
+            <td>${totalQuestions} Butir Soal</td>
+          </tr>
+        </table>
+
+        <div class="print-score-box">
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="width: 33%; text-align: center; border-right: 1px solid #cbd5e1;">
+                <span style="font-size: 9pt; text-transform: uppercase; font-weight: bold; color: #475569;">Jawaban Benar / Salah</span><br>
+                <span style="font-size: 13pt; font-weight: bold; color: #000;">
+                  ${correctCount} Benar / ${totalQuestions - correctCount} Salah
+                </span>
+              </td>
+              <td style="width: 34%; text-align: center; border-right: 1px solid #cbd5e1;">
+                <span style="font-size: 9pt; text-transform: uppercase; font-weight: bold; color: #475569;">Nilai Akhir Kuis</span><br>
+                <span style="font-size: 22pt; font-weight: 800; color: #000;">
+                  ${finalScore} <span style="font-size: 11pt; font-weight: normal;">/ 100</span>
+                </span>
+              </td>
+              <td style="width: 33%; text-align: center;">
+                <span style="font-size: 9pt; text-transform: uppercase; font-weight: bold; color: #475569;">Predikat &amp; Ketuntasan</span><br>
+                <span style="font-size: 10.5pt; font-weight: bold; color: #000;">
+                  ${ketuntasan}<br><small>(${predikat})</small>
+                </span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <h4 style="margin: 0 0 8px 0; font-size: 11pt; text-transform: uppercase;">A. Rincian Pengerjaan dan Pembahasan Butir Soal</h4>
+        <table class="print-table">
+          <thead>
+            <tr>
+              <th style="width: 4%;">No</th>
+              <th style="width: 36%;">Teks Soal Kuis</th>
+              <th style="width: 8%;">Pilihan Siswa</th>
+              <th style="width: 8%;">Kunci Jawaban</th>
+              <th style="width: 9%;">Hasil</th>
+              <th style="width: 7%;">Skor</th>
+              <th style="width: 28%;">Penjelasan &amp; Pembahasan</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+          </tbody>
+        </table>
+
+        <table class="print-signatures" style="page-break-inside: avoid;">
+          <tr>
+            <td style="width: 50%; text-align: center; vertical-align: top;">
+              Mengetahui,<br>
+              <strong>Guru Mata Pelajaran Kimia</strong>
+              <div style="height: 55px;"></div>
+              ( ............................................................ )<br>
+              NIP.
+            </td>
+            <td style="width: 50%; text-align: center; vertical-align: top;">
+              ${studentIdentity.dateStr ? studentIdentity.dateStr.split(',')[1] || '' : '...................................'}, ${new Date().getFullYear()}<br>
+              <strong>Peserta Didik yang Dinilai</strong>
+              <div style="height: 55px;"></div>
+              ( <strong>${escapeHtml(studentIdentity.name || '............................................................')}</strong> )<br>
+              NISN / Kelas: ${escapeHtml(studentIdentity.class || '-')}
+            </td>
+          </tr>
+        </table>
+      `;
+    }
+
+    function generatePrintReportHtml() {
+      return `
+        <style>
+          ${generatePrintStyles()}
+        </style>
+        <div style="padding: 10px 0;">
+          ${generatePrintReportBody()}
+        </div>
+      `;
+    }
+
+    function printQuizReport() {
+      const printSec = document.getElementById('quizPrintSection');
+      if (!printSec) return;
+
+      printSec.innerHTML = generatePrintReportHtml();
+      printSec.style.display = 'block';
+
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+          printSec.style.display = 'none';
+        }, 1000);
+      }, 250);
+    }
+
+    function downloadQuizReport() {
+      const studentName = (studentIdentity.name || 'Siswa').replace(/[^a-zA-Z0-9_\-]/g, '_');
+      const studentClass = (studentIdentity.class || 'Kelas12').replace(/[^a-zA-Z0-9_\-]/g, '_');
+      const filename = `Rekapan_Kuis_Redoks_${studentName}_${studentClass}.html`;
+
+      const standaloneHtml = `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rekapan Kuis Redoks - ${escapeHtml(studentIdentity.name || 'Siswa')} (${escapeHtml(studentIdentity.class || '')})</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      background: #f8fafc;
+      color: #000;
+      margin: 0;
+      padding: 20px;
+    }
+    .no-print-bar {
+      max-width: 850px;
+      margin: 0 auto 20px auto;
+      padding: 14px 20px;
+      background: #1e1b4b;
+      color: white;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .print-btn {
+      background: #059669;
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .print-btn:hover {
+      background: #047857;
+    }
+    .report-sheet {
+      max-width: 850px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 40px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .no-print-bar {
+        display: none !important;
+      }
+      .report-sheet {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 1.5cm;
+      }
+    }
+    ${generatePrintStyles()}
+  </style>
+</head>
+<body>
+  <div class="no-print-bar">
+    <div>
+      <strong>📄 Lembar Rekapan Asesmen Siswa (ZULOKS CHEM-LEARN)</strong>
+      <div style="font-size:0.85rem; opacity:0.85;">Siap dicetak atau disimpan ke format PDF melalui tombol di samping</div>
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+  </div>
+  <div class="report-sheet">
+    ${generatePrintReportBody()}
+  </div>
+</body>
+</html>`;
+
+      const blob = new Blob([standaloneHtml], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
 
     function restartQuiz() {
       currentQuestionIdx = 0;
       userScore = 0;
-      document.getElementById('quizScoreText').innerText = 'Skor: 0';
+      userAnswers = [];
+      const scoreTxt = document.getElementById('quizScoreText');
+      if (scoreTxt) scoreTxt.innerText = 'Skor: 0';
       document.getElementById('quizPlayArea').style.display = 'block';
       document.getElementById('quizResultArea').style.display = 'none';
       renderQuestion();
+    }
+
+
+    /* ========================================================
+       13. MANAJEMEN HASIL PENGERJAAN SISWA (MENU REKAP GURU)
+       ======================================================== */
+    const TEACHER_STORAGE_KEY = 'zuloks_teacher_records_v1';
+
+    function getTeacherRecords() {
+      try {
+        const raw = localStorage.getItem(TEACHER_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveTeacherRecords(records) {
+      try {
+        localStorage.setItem(TEACHER_STORAGE_KEY, JSON.stringify(records));
+      } catch (e) {}
+    }
+
+    function saveQuizResultToTeacherDatabase(entry) {
+      const records = getTeacherRecords();
+      const existingIdx = records.findIndex(r => 
+        (r.name || '').trim().toLowerCase() === (entry.name || '').trim().toLowerCase() && 
+        (r.studentClass || '').trim().toLowerCase() === (entry.studentClass || '').trim().toLowerCase()
+      );
+      if (existingIdx !== -1) {
+        records[existingIdx] = entry;
+      } else {
+        records.unshift(entry);
+      }
+      saveTeacherRecords(records);
+    }
+
+    function getFilteredTeacherRecords() {
+      let records = getTeacherRecords();
+      const classSelect = document.getElementById('teacherClassFilter');
+      const searchInput = document.getElementById('teacherSearchInput');
+      const sortSelect = document.getElementById('teacherSortFilter');
+
+      const selectedClass = classSelect ? classSelect.value : 'ALL';
+      const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+      const sortType = sortSelect ? sortSelect.value : 'score_desc';
+
+      if (selectedClass !== 'ALL') {
+        records = records.filter(r => (r.studentClass || '').toLowerCase() === selectedClass.toLowerCase());
+      }
+
+      if (searchTerm) {
+        records = records.filter(r => 
+          (r.name || '').toLowerCase().includes(searchTerm) || 
+          (r.studentClass || '').toLowerCase().includes(searchTerm) ||
+          (r.absen || '').toLowerCase().includes(searchTerm)
+        );
+      }
+
+      if (sortType === 'score_desc') {
+        records.sort((a, b) => b.score - a.score);
+      } else if (sortType === 'score_asc') {
+        records.sort((a, b) => a.score - b.score);
+      } else if (sortType === 'name_asc') {
+        records.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+      } else if (sortType === 'date_desc') {
+        records.sort((a, b) => (b.id || '').localeCompare(a.id || ''));
+      }
+
+      return records;
+    }
+
+    function renderTeacherDashboard() {
+      const records = getTeacherRecords();
+      const classFilter = document.getElementById('teacherClassFilter');
+      if (classFilter) {
+        const currentVal = classFilter.value;
+        const classes = Array.from(new Set(records.map(r => r.studentClass).filter(Boolean)));
+        let opts = '<option value="ALL">Semua Kelas</option>';
+        classes.forEach(c => {
+          opts += `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`;
+        });
+        classFilter.innerHTML = opts;
+        if (classes.includes(currentVal)) {
+          classFilter.value = currentVal;
+        } else {
+          classFilter.value = 'ALL';
+        }
+      }
+
+      renderTeacherTable();
+    }
+
+    function renderTeacherTable() {
+      const records = getFilteredTeacherRecords();
+      const allRecords = getTeacherRecords();
+
+      const totalStudents = records.length;
+      let totalScore = 0;
+      let highestScore = 0;
+      let lowestScore = 100;
+      let passCount = 0;
+
+      records.forEach(r => {
+        totalScore += r.score;
+        if (r.score > highestScore) highestScore = r.score;
+        if (r.score < lowestScore) lowestScore = r.score;
+        if (r.score >= 75) passCount++;
+      });
+
+      const avgScore = totalStudents > 0 ? (totalScore / totalStudents).toFixed(1) : '0';
+      const passRate = totalStudents > 0 ? Math.round((passCount / totalStudents) * 100) : 0;
+      if (totalStudents === 0) {
+        highestScore = 0;
+        lowestScore = 0;
+      }
+
+      const totalEl = document.getElementById('teacherStatTotalStudents');
+      const avgEl = document.getElementById('teacherStatAvgScore');
+      const passRateEl = document.getElementById('teacherStatPassRate');
+      const passCountEl = document.getElementById('teacherStatPassCount');
+      const highLowEl = document.getElementById('teacherStatHighLow');
+      const countLabel = document.getElementById('teacherTableCountLabel');
+
+      if (totalEl) totalEl.innerText = `${totalStudents} Siswa`;
+      if (avgEl) avgEl.innerText = avgScore;
+      if (passRateEl) passRateEl.innerText = `${passRate}%`;
+      if (passCountEl) passCountEl.innerText = `${passCount} dari ${totalStudents} siswa tuntas`;
+      if (highLowEl) highLowEl.innerText = `${highestScore} / ${lowestScore}`;
+      if (countLabel) countLabel.innerText = `Menampilkan ${totalStudents} dari ${allRecords.length} Siswa`;
+
+      const tbody = document.getElementById('teacherTableBody');
+      const emptyState = document.getElementById('teacherTableEmptyState');
+
+      if (!tbody) return;
+
+      if (records.length === 0) {
+        tbody.innerHTML = '';
+        if (emptyState) emptyState.style.display = 'block';
+        return;
+      }
+
+      if (emptyState) emptyState.style.display = 'none';
+
+      let rowsHtml = '';
+      records.forEach((r, idx) => {
+        let badgeClass = 'teacher-score-high';
+        if (r.score < 60) badgeClass = 'teacher-score-low';
+        else if (r.score < 75) badgeClass = 'teacher-score-med';
+
+        rowsHtml += `
+          <tr>
+            <td style="text-align: center; font-weight: 700; color: #64748b;">${idx + 1}</td>
+            <td>
+              <strong style="color: #1e1b4b; font-size: 0.95rem;">${escapeHtml(r.name)}</strong>
+            </td>
+            <td>
+              <span style="background: #eef2ff; color: #3730a3; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.82rem;">
+                ${escapeHtml(r.studentClass)}
+              </span>
+            </td>
+            <td style="text-align: center; font-weight: 700; color: #475569;">${escapeHtml(r.absen || '-')}</td>
+            <td style="font-size: 0.85rem; color: #475569;">${escapeHtml(r.dateStr)}</td>
+            <td style="text-align: center; font-weight: 700;">
+              <span style="color: #16a34a;">${r.correctCount}</span> / <span style="color: #64748b;">${r.totalQuestions}</span>
+            </td>
+            <td style="text-align: center;">
+              <span class="teacher-score-badge ${badgeClass}">${r.score}</span>
+            </td>
+            <td>
+              <div style="font-size: 0.82rem; font-weight: 700; color: ${r.score >= 75 ? '#065f46' : '#991b1b'};">
+                ${r.score >= 75 ? '✓ TUNTAS' : '✗ REMEDIAL'}
+              </div>
+              <small style="color: #64748b; font-size: 0.76rem;">${escapeHtml(r.predikat || '')}</small>
+            </td>
+            <td style="text-align: center;">
+              <div style="display: inline-flex; gap: 6px;">
+                <button class="btn btn-outline-dark" onclick="viewStudentDetail('${r.id}')" title="Lihat Detail Jawaban" style="padding: 5px 10px; font-size: 0.78rem; font-weight: 700;">
+                  👁️ Detail
+                </button>
+                <button class="btn btn-outline-dark" onclick="printSingleStudentFromTeacher('${r.id}')" title="Cetak Lembar PDF Siswa Ini" style="padding: 5px 9px; font-size: 0.78rem; font-weight: 700;">
+                  🖨️
+                </button>
+                <button class="btn btn-outline-dark" onclick="deleteStudentTeacherRecord('${r.id}')" title="Hapus Siswa Ini" style="padding: 5px 8px; font-size: 0.78rem; font-weight: 700; color: #dc2626; border-color: #fca5a5;">
+                  🗑️
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = rowsHtml;
+    }
+
+    function viewStudentDetail(studentId) {
+      const records = getTeacherRecords();
+      const r = records.find(item => item.id === studentId);
+      if (!r) return;
+
+      const modalContent = document.getElementById('teacherDetailModalContent');
+      if (!modalContent) return;
+
+      let itemsHtml = '';
+      quizData.forEach((q, idx) => {
+        const ans = r.answers && r.answers[idx];
+        const isCorrect = ans && ans.isCorrect;
+        const chosenLetter = ans ? String.fromCharCode(65 + ans.selectedIdx) : '-';
+        const chosenText = ans ? ans.selectedText : 'Tidak Dijawab';
+        const correctLetter = String.fromCharCode(65 + q.correct);
+        const correctText = q.options[q.correct];
+
+        itemsHtml += `
+          <div class="quiz-review-item ${isCorrect ? 'is-correct' : 'is-incorrect'}" style="margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: #1e1b4b;">Soal Nomor ${idx + 1}</span>
+              ${isCorrect ? 
+                '<span class="quiz-badge-correct">✓ Benar (+12.5 Poin)</span>' : 
+                '<span class="quiz-badge-incorrect">✗ Kurang Tepat (0 Poin)</span>'
+              }
+            </div>
+            <div style="font-size: 0.92rem; font-weight: 600; color: #1e293b; margin-bottom: 10px; line-height: 1.5;">
+              ${escapeHtml(q.question).replace(/\n/g, '<br>')}
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px; margin-bottom: 10px; font-size: 0.86rem;">
+              <div style="padding: 8px 12px; border-radius: 8px; background: ${isCorrect ? '#dcfce7' : '#fee2e2'}; border: 1px solid ${isCorrect ? '#86efac' : '#fca5a5'};">
+                <span style="font-weight: 700; color: ${isCorrect ? '#166534' : '#991b1b'}; display: block;">Jawaban Siswa:</span>
+                <strong>[${chosenLetter}]</strong> ${escapeHtml(chosenText)}
+              </div>
+              <div style="padding: 8px 12px; border-radius: 8px; background: #e0f2fe; border: 1px solid #7dd3fc;">
+                <span style="font-weight: 700; color: #0369a1; display: block;">Kunci Jawaban:</span>
+                <strong>[${correctLetter}]</strong> ${escapeHtml(correctText)}
+              </div>
+            </div>
+            <div style="padding: 10px 14px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.84rem; color: #334155; line-height: 1.45;">
+              <strong style="color: #4338ca;">💡 Pembahasan Soal:</strong><br>
+              ${escapeHtml(q.explanation)}
+            </div>
+          </div>
+        `;
+      });
+
+      modalContent.innerHTML = `
+        <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 18px; margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h3 style="margin: 0 0 4px 0; font-size: 1.3rem; color: #1e1b4b; font-weight: 800;">${escapeHtml(r.name)}</h3>
+              <div style="font-size: 0.9rem; color: #475569; display: flex; gap: 12px; flex-wrap: wrap;">
+                <span>🏫 Kelas: <strong>${escapeHtml(r.studentClass)}</strong></span>
+                <span>🔢 No. Absen: <strong>${escapeHtml(r.absen || '-')}</strong></span>
+                <span>📅 Tanggal: <strong>${escapeHtml(r.dateStr)}</strong></span>
+              </div>
+            </div>
+            <div style="text-align: right; display: flex; align-items: center; gap: 12px;">
+              <div style="background: white; border: 1.5px solid #c7d2fe; padding: 8px 16px; border-radius: 10px; text-align: center;">
+                <div style="font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Nilai Akhir</div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: #4338ca; line-height: 1;">${r.score}</div>
+              </div>
+              <button class="btn btn-primary" onclick="printSingleStudentFromTeacher('${r.id}')" style="padding: 8px 14px; font-size: 0.85rem; font-weight: 700;">
+                <span>🖨️</span> Cetak Lembar Siswa Ini (PDF)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+          <h4 style="margin: 0; font-size: 1.05rem; color: #1e293b; font-weight: 800;">
+            Analisis Lembar Jawaban (${r.correctCount} Benar / ${r.incorrectCount} Salah):
+          </h4>
+        </div>
+        ${itemsHtml}
+      `;
+
+      const modalOverlay = document.getElementById('teacherDetailModalOverlay');
+      if (modalOverlay) {
+        modalOverlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeTeacherDetailModal() {
+      const modalOverlay = document.getElementById('teacherDetailModalOverlay');
+      if (modalOverlay) {
+        modalOverlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleTeacherModalOverlayClick(e) {
+      if (e.target && e.target.id === 'teacherDetailModalOverlay') {
+        closeTeacherDetailModal();
+      }
+    }
+
+    function printSingleStudentFromTeacher(studentId) {
+      const records = getTeacherRecords();
+      const r = records.find(item => item.id === studentId);
+      if (!r) return;
+
+      let rowsHtml = '';
+      quizData.forEach((q, idx) => {
+        const ans = r.answers && r.answers[idx];
+        const isCorrect = ans && ans.isCorrect;
+        const chosenLetter = ans ? String.fromCharCode(65 + ans.selectedIdx) : '-';
+        const correctLetter = String.fromCharCode(65 + q.correct);
+
+        rowsHtml += `
+          <tr>
+            <td style="text-align: center; font-weight: bold;">${idx + 1}</td>
+            <td>${escapeHtml(q.question).replace(/\n/g, '<br>')}</td>
+            <td style="text-align: center; font-weight: ${isCorrect ? 'normal' : 'bold'};">
+              [${chosenLetter}]
+            </td>
+            <td style="text-align: center; font-weight: bold;">[${correctLetter}]</td>
+            <td style="text-align: center; font-weight: bold;">
+              ${isCorrect ? '✓ Benar' : '✗ Salah'}
+            </td>
+            <td style="text-align: center;">${isCorrect ? '12.5' : '0'}</td>
+            <td style="font-size: 8.5pt;">${escapeHtml(q.explanation)}</td>
+          </tr>
+        `;
+      });
+
+      const printHtml = `
+        <style>
+          ${generatePrintStyles()}
+        </style>
+        <div style="padding: 10px 0;">
+          <div class="print-kop">
+            <h2>LEMBAR HASIL EVALUASI KUIS INDIVIDU KIMIA</h2>
+            <h3>MATERI: REAKSI REDOKS &amp; PENYETARAAN REAKSI (FASE F / KELAS XII)</h3>
+            <p>Aplikasi Media Pembelajaran Interaktif Mandiri: ZULOKS CHEM-LEARN</p>
+          </div>
+
+          <table class="print-meta-table">
+            <tr>
+              <td style="width: 18%; font-weight: bold;">Nama Lengkap</td>
+              <td style="width: 2%;">:</td>
+              <td style="width: 40%; font-weight: bold;">${escapeHtml(r.name || '-')}</td>
+              <td style="width: 18%; font-weight: bold;">Hari / Tanggal</td>
+              <td style="width: 2%;">:</td>
+              <td style="width: 20%;">${escapeHtml(r.dateStr || '-')}</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold;">Kelas / Fase</td>
+              <td>:</td>
+              <td>${escapeHtml(r.studentClass || '-')}</td>
+              <td style="font-weight: bold;">Mata Pelajaran</td>
+              <td>:</td>
+              <td>Kimia (Fase F)</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold;">Nomor Absen</td>
+              <td>:</td>
+              <td>${escapeHtml(r.absen || '-')}</td>
+              <td style="font-weight: bold;">Jumlah Soal</td>
+              <td>:</td>
+              <td>${r.totalQuestions} Butir Soal</td>
+            </tr>
+          </table>
+
+          <div class="print-score-box">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="width: 33%; text-align: center; border-right: 1px solid #cbd5e1;">
+                  <span style="font-size: 9pt; text-transform: uppercase; font-weight: bold; color: #475569;">Jawaban Benar / Salah</span><br>
+                  <span style="font-size: 13pt; font-weight: bold; color: #000;">
+                    ${r.correctCount} Benar / ${r.incorrectCount} Salah
+                  </span>
+                </td>
+                <td style="width: 34%; text-align: center; border-right: 1px solid #cbd5e1;">
+                  <span style="font-size: 9pt; text-transform: uppercase; font-weight: bold; color: #475569;">Nilai Akhir Kuis</span><br>
+                  <span style="font-size: 22pt; font-weight: 800; color: #000;">
+                    ${r.score} <span style="font-size: 11pt; font-weight: normal;">/ 100</span>
+                  </span>
+                </td>
+                <td style="width: 33%; text-align: center;">
+                  <span style="font-size: 9pt; text-transform: uppercase; font-weight: bold; color: #475569;">Predikat &amp; Ketuntasan</span><br>
+                  <span style="font-size: 10.5pt; font-weight: bold; color: #000;">
+                    ${escapeHtml(r.statusKetuntasan)}<br><small>(${escapeHtml(r.predikat)})</small>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <h4 style="margin: 0 0 8px 0; font-size: 11pt; text-transform: uppercase;">A. Rincian Pengerjaan dan Pembahasan Butir Soal</h4>
+          <table class="print-table">
+            <thead>
+              <tr>
+                <th style="width: 4%;">No</th>
+                <th style="width: 36%;">Teks Soal Kuis</th>
+                <th style="width: 8%;">Pilihan Siswa</th>
+                <th style="width: 8%;">Kunci Jawaban</th>
+                <th style="width: 9%;">Hasil</th>
+                <th style="width: 7%;">Skor</th>
+                <th style="width: 28%;">Penjelasan &amp; Pembahasan</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml}
+            </tbody>
+          </table>
+
+          <table class="print-signatures" style="page-break-inside: avoid;">
+            <tr>
+              <td style="width: 50%; text-align: center; vertical-align: top;">
+                Mengetahui,<br>
+                <strong>Guru Mata Pelajaran Kimia</strong>
+                <div style="height: 55px;"></div>
+                ( ............................................................ )<br>
+                NIP.
+              </td>
+              <td style="width: 50%; text-align: center; vertical-align: top;">
+                ${r.dateStr ? r.dateStr.split(',')[1] || '' : '...................................'}, ${new Date().getFullYear()}<br>
+                <strong>Peserta Didik yang Dinilai</strong>
+                <div style="height: 55px;"></div>
+                ( <strong>${escapeHtml(r.name || '............................................................')}</strong> )<br>
+                NISN / Kelas: ${escapeHtml(r.studentClass || '-')}
+              </td>
+            </tr>
+          </table>
+        </div>
+      `;
+
+      const printSec = document.getElementById('quizPrintSection');
+      if (!printSec) return;
+      printSec.innerHTML = printHtml;
+      printSec.style.display = 'block';
+
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+          printSec.style.display = 'none';
+        }, 1000);
+      }, 250);
+    }
+
+    function printTeacherCollectiveReport() {
+      const records = getFilteredTeacherRecords();
+      const currentClass = document.getElementById('teacherClassFilter') ? document.getElementById('teacherClassFilter').value : 'ALL';
+      const classTitle = currentClass === 'ALL' ? 'SELURUH KELAS XII (FASE F)' : `KELAS ${currentClass.toUpperCase()}`;
+      
+      const totalStudents = records.length;
+      let totalScore = 0;
+      let highestScore = 0;
+      let lowestScore = 100;
+      let passCount = 0;
+
+      records.forEach(r => {
+        totalScore += r.score;
+        if (r.score > highestScore) highestScore = r.score;
+        if (r.score < lowestScore) lowestScore = r.score;
+        if (r.score >= 75) passCount++;
+      });
+
+      const avgScore = totalStudents > 0 ? (totalScore / totalStudents).toFixed(1) : '0';
+      const passRate = totalStudents > 0 ? Math.round((passCount / totalStudents) * 100) : 0;
+      if (totalStudents === 0) lowestScore = 0;
+
+      let rowsHtml = '';
+      records.forEach((r, idx) => {
+        rowsHtml += `
+          <tr>
+            <td style="text-align: center;">${idx + 1}</td>
+            <td style="font-weight: bold;">${escapeHtml(r.name)}</td>
+            <td style="text-align: center;">${escapeHtml(r.studentClass)}</td>
+            <td style="text-align: center;">${escapeHtml(r.absen || '-')}</td>
+            <td style="text-align: center;">${escapeHtml(r.dateStr)}</td>
+            <td style="text-align: center;">${r.correctCount} / ${r.totalQuestions}</td>
+            <td style="text-align: center; font-weight: bold; font-size: 11pt;">${r.score}</td>
+            <td style="text-align: center; font-size: 9pt;">${escapeHtml(r.statusKetuntasan)}</td>
+          </tr>
+        `;
+      });
+
+      const printHtml = `
+        <style>
+          ${generatePrintStyles()}
+        </style>
+        <div style="padding: 10px 0;">
+          <div class="print-kop">
+            <h2>DAFTAR REKAPITULASI NILAI ASESMEN KUIS INDIVIDU KIMIA</h2>
+            <h3>MATERI: REAKSI REDOKS &amp; PENYETARAAN REAKSI &bull; ${classTitle}</h3>
+            <p>Aplikasi Media Pembelajaran Interaktif Mandiri: ZULOKS CHEM-LEARN</p>
+          </div>
+
+          <table class="print-meta-table">
+            <tr>
+              <td style="width: 20%; font-weight: bold;">Satuan Pendidikan</td>
+              <td style="width: 2%;">:</td>
+              <td style="width: 38%;">SMA / MA (Tingkat Menengah Atas)</td>
+              <td style="width: 20%; font-weight: bold;">Tahun Ajaran / Semester</td>
+              <td style="width: 2%;">:</td>
+              <td style="width: 18%;">${new Date().getFullYear()} / Ganjil</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold;">Mata Pelajaran</td>
+              <td>:</td>
+              <td>Kimia (Fase F - Kelas XII)</td>
+              <td style="font-weight: bold;">Tanggal Cetak</td>
+              <td>:</td>
+              <td>${new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'})}</td>
+            </tr>
+          </table>
+
+          <div class="print-score-box" style="margin-bottom: 14px;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="width: 25%; text-align: center; border-right: 1px solid #cbd5e1;">
+                  <span style="font-size: 9pt; font-weight: bold; color: #475569;">TOTAL PESERTA</span><br>
+                  <span style="font-size: 16pt; font-weight: 800;">${totalStudents} Siswa</span>
+                </td>
+                <td style="width: 25%; text-align: center; border-right: 1px solid #cbd5e1;">
+                  <span style="font-size: 9pt; font-weight: bold; color: #475569;">RATA-RATA NILAI</span><br>
+                  <span style="font-size: 16pt; font-weight: 800;">${avgScore} <small style="font-size:10pt;">/ 100</small></span>
+                </td>
+                <td style="width: 25%; text-align: center; border-right: 1px solid #cbd5e1;">
+                  <span style="font-size: 9pt; font-weight: bold; color: #475569;">NILAI TERTINGGI / TERENDAH</span><br>
+                  <span style="font-size: 14pt; font-weight: 800;">${highestScore} / ${lowestScore}</span>
+                </td>
+                <td style="width: 25%; text-align: center;">
+                  <span style="font-size: 9pt; font-weight: bold; color: #475569;">PERSENTASE TUNTAS (≥75)</span><br>
+                  <span style="font-size: 16pt; font-weight: 800; color: #065f46;">${passRate}% <small style="font-size:9.5pt;">(${passCount} Siswa)</small></span>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <h4 style="margin: 0 0 8px 0; font-size: 11pt; text-transform: uppercase;">Daftar Perolehan Nilai Peserta Didik:</h4>
+          <table class="print-table">
+            <thead>
+              <tr>
+                <th style="width: 4%;">No</th>
+                <th style="width: 32%;">Nama Lengkap Siswa</th>
+                <th style="width: 15%;">Kelas / Fase</th>
+                <th style="width: 7%;">Absen</th>
+                <th style="width: 14%;">Tanggal</th>
+                <th style="width: 9%;">Benar</th>
+                <th style="width: 8%;">Nilai</th>
+                <th style="width: 11%;">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml || '<tr><td colspan="8" style="text-align: center; padding: 20px;">Belum ada data siswa.</td></tr>'}
+            </tbody>
+          </table>
+
+          <table class="print-signatures" style="page-break-inside: avoid; margin-top: 35px;">
+            <tr>
+              <td style="width: 50%; text-align: center; vertical-align: top;">
+                Mengetahui,<br>
+                <strong>Kepala Sekolah</strong>
+                <div style="height: 60px;"></div>
+                ( ............................................................ )<br>
+                NIP.
+              </td>
+              <td style="width: 50%; text-align: center; vertical-align: top;">
+                ........................, ${new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'})}<br>
+                <strong>Guru Mata Pelajaran Kimia</strong>
+                <div style="height: 60px;"></div>
+                ( ............................................................ )<br>
+                NIP.
+              </td>
+            </tr>
+          </table>
+        </div>
+      `;
+
+      const printSec = document.getElementById('quizPrintSection');
+      if (!printSec) return;
+      printSec.innerHTML = printHtml;
+      printSec.style.display = 'block';
+
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+          printSec.style.display = 'none';
+        }, 1000);
+      }, 250);
+    }
+
+    function exportTeacherCsv() {
+      const records = getFilteredTeacherRecords();
+      if (!records || records.length === 0) {
+        alert('Tidak ada data siswa untuk diekspor!');
+        return;
+      }
+
+      let csv = '\uFEFF';
+      csv += 'No,Nama Lengkap Siswa,Kelas / Fase,Nomor Absen,Tanggal Pengerjaan,Jawaban Benar,Jawaban Salah,Total Soal,Nilai Akhir,Status Ketuntasan,Predikat\n';
+
+      records.forEach((r, idx) => {
+        const cleanName = `"${(r.name || '').replace(/"/g, '""')}"`;
+        const cleanClass = `"${(r.studentClass || '').replace(/"/g, '""')}"`;
+        const cleanAbsen = `"${(r.absen || '').replace(/"/g, '""')}"`;
+        const cleanDate = `"${(r.dateStr || '').replace(/"/g, '""')}"`;
+        const cleanStatus = `"${(r.statusKetuntasan || '').replace(/"/g, '""')}"`;
+        const cleanPredikat = `"${(r.predikat || '').replace(/"/g, '""')}"`;
+        csv += `${idx + 1},${cleanName},${cleanClass},${cleanAbsen},${cleanDate},${r.correctCount},${r.incorrectCount},${r.totalQuestions},${r.score},${cleanStatus},${cleanPredikat}\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Rekap_Nilai_Kuis_Redoks_Kelas12_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function backupTeacherData() {
+      const records = getTeacherRecords();
+      const jsonStr = JSON.stringify(records, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Backup_Rekap_Nilai_Zuloks_${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function restoreTeacherData(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (Array.isArray(parsed)) {
+            saveTeacherRecords(parsed);
+            renderTeacherDashboard();
+            alert(`Berhasil memulihkan ${parsed.length} data rekapan siswa!`);
+          } else {
+            alert('Format berkas cadangan JSON tidak valid!');
+          }
+        } catch (err) {
+          alert('Gagal membaca berkas cadangan: format JSON rusak.');
+        }
+        event.target.value = '';
+      };
+      reader.readAsText(file);
+    }
+
+    function loadTeacherSampleData() {
+      const samples = [
+        {
+          id: 'sample-1',
+          name: 'Muhammad Zulkifli',
+          studentClass: 'XII MIPA 1',
+          absen: '01',
+          dateStr: 'Jumat, 16 Oktober 2026',
+          score: 100,
+          correctCount: 8,
+          incorrectCount: 0,
+          totalQuestions: 8,
+          statusKetuntasan: 'TUNTAS SEMPURNA',
+          predikat: 'SANGAT BAIK (A)',
+          answers: quizData.map((q, idx) => ({
+            questionIdx: idx,
+            question: q.question,
+            options: q.options,
+            selectedIdx: q.correct,
+            selectedText: q.options[q.correct],
+            correctIdx: q.correct,
+            correctText: q.options[q.correct],
+            isCorrect: true,
+            explanation: q.explanation
+          }))
+        },
+        {
+          id: 'sample-2',
+          name: 'Aisyah Putri Azzahra',
+          studentClass: 'XII MIPA 1',
+          absen: '04',
+          dateStr: 'Jumat, 16 Oktober 2026',
+          score: 88,
+          correctCount: 7,
+          incorrectCount: 1,
+          totalQuestions: 8,
+          statusKetuntasan: 'TUNTAS SEMPURNA',
+          predikat: 'SANGAT BAIK (A)',
+          answers: quizData.map((q, idx) => ({
+            questionIdx: idx,
+            question: q.question,
+            options: q.options,
+            selectedIdx: idx === 1 ? (q.correct === 0 ? 1 : 0) : q.correct,
+            selectedText: idx === 1 ? q.options[q.correct === 0 ? 1 : 0] : q.options[q.correct],
+            correctIdx: q.correct,
+            correctText: q.options[q.correct],
+            isCorrect: idx !== 1,
+            explanation: q.explanation
+          }))
+        },
+        {
+          id: 'sample-3',
+          name: 'Budi Santoso',
+          studentClass: 'XII MIPA 1',
+          absen: '08',
+          dateStr: 'Jumat, 16 Oktober 2026',
+          score: 75,
+          correctCount: 6,
+          incorrectCount: 2,
+          totalQuestions: 8,
+          statusKetuntasan: 'TUNTAS (KKTP TERCAPAI)',
+          predikat: 'BAIK (B)',
+          answers: quizData.map((q, idx) => ({
+            questionIdx: idx,
+            question: q.question,
+            options: q.options,
+            selectedIdx: (idx === 3 || idx === 5) ? (q.correct === 0 ? 1 : 0) : q.correct,
+            selectedText: (idx === 3 || idx === 5) ? q.options[q.correct === 0 ? 1 : 0] : q.options[q.correct],
+            correctIdx: q.correct,
+            correctText: q.options[q.correct],
+            isCorrect: !(idx === 3 || idx === 5),
+            explanation: q.explanation
+          }))
+        },
+        {
+          id: 'sample-4',
+          name: 'Dewi Lestari',
+          studentClass: 'XII MIPA 2',
+          absen: '12',
+          dateStr: 'Jumat, 16 Oktober 2026',
+          score: 88,
+          correctCount: 7,
+          incorrectCount: 1,
+          totalQuestions: 8,
+          statusKetuntasan: 'TUNTAS SEMPURNA',
+          predikat: 'SANGAT BAIK (A)',
+          answers: quizData.map((q, idx) => ({
+            questionIdx: idx,
+            question: q.question,
+            options: q.options,
+            selectedIdx: idx === 6 ? (q.correct === 0 ? 1 : 0) : q.correct,
+            selectedText: idx === 6 ? q.options[q.correct === 0 ? 1 : 0] : q.options[q.correct],
+            correctIdx: q.correct,
+            correctText: q.options[q.correct],
+            isCorrect: idx !== 6,
+            explanation: q.explanation
+          }))
+        },
+        {
+          id: 'sample-5',
+          name: 'Rian Pratama',
+          studentClass: 'XII MIPA 2',
+          absen: '22',
+          dateStr: 'Jumat, 16 Oktober 2026',
+          score: 63,
+          correctCount: 5,
+          incorrectCount: 3,
+          totalQuestions: 8,
+          statusKetuntasan: 'CUKUP (PERLU PENGAYAAN)',
+          predikat: 'CUKUP (C)',
+          answers: quizData.map((q, idx) => ({
+            questionIdx: idx,
+            question: q.question,
+            options: q.options,
+            selectedIdx: (idx === 0 || idx === 2 || idx === 7) ? (q.correct === 0 ? 1 : 0) : q.correct,
+            selectedText: (idx === 0 || idx === 2 || idx === 7) ? q.options[q.correct === 0 ? 1 : 0] : q.options[q.correct],
+            correctIdx: q.correct,
+            correctText: q.options[q.correct],
+            isCorrect: !(idx === 0 || idx === 2 || idx === 7),
+            explanation: q.explanation
+          }))
+        }
+      ];
+
+      saveTeacherRecords(samples);
+      renderTeacherDashboard();
+      alert('5 Data Contoh Siswa berhasil dimuat ke Menu Guru!');
+    }
+
+    function clearTeacherData() {
+      if (confirm('Apakah Anda yakin ingin menghapus seluruh data rekapan kuis siswa di Menu Guru?')) {
+        saveTeacherRecords([]);
+        renderTeacherDashboard();
+      }
+    }
+
+    function deleteStudentTeacherRecord(studentId) {
+      if (confirm('Hapus data pengerjaan siswa ini dari rekapitulasi?')) {
+        let records = getTeacherRecords();
+        records = records.filter(r => r.id !== studentId);
+        saveTeacherRecords(records);
+        renderTeacherDashboard();
+      }
     }
 
 
@@ -6023,6 +7904,35 @@
       renderQuestion();
       drawRefPick();
       drawRefWall();
+      renderTeacherDashboard();
+
+      // Inisialisasi identitas siswa tersimpan untuk kuis individu
+      try {
+        const savedName = localStorage.getItem('zuloks_quiz_student_name');
+        const savedClass = localStorage.getItem('zuloks_quiz_student_class');
+        const savedAbsen = localStorage.getItem('zuloks_quiz_student_absen');
+        if (savedName && document.getElementById('quizStudentName')) {
+          document.getElementById('quizStudentName').value = savedName;
+        }
+        if (savedClass && document.getElementById('quizStudentClass')) {
+          document.getElementById('quizStudentClass').value = savedClass;
+        }
+        if (savedAbsen && document.getElementById('quizStudentAbsen')) {
+          document.getElementById('quizStudentAbsen').value = savedAbsen;
+        }
+      } catch(e) {}
+
+      // Enter key trigger untuk form identitas kuis
+      ['quizStudentName', 'quizStudentClass', 'quizStudentAbsen'].forEach(id => {
+        const inputEl = document.getElementById(id);
+        if (inputEl) {
+          inputEl.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+              startQuizWithIdentity();
+            }
+          });
+        }
+      });
 
       function ambientLoop() {
         if (pboCanvas && document.getElementById('tab-penyetaraan').classList.contains('active')) {
@@ -6084,6 +7994,10 @@
         const refModal = document.getElementById('refModalOverlay');
         if (refModal && refModal.style.display !== 'none') {
           closeRefModal();
+        }
+        const teacherModal = document.getElementById('teacherDetailModalOverlay');
+        if (teacherModal && teacherModal.style.display !== 'none') {
+          closeTeacherDetailModal();
         }
         closeRefKeyboard();
       }
